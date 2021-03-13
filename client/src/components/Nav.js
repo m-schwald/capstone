@@ -22,7 +22,7 @@ export default function Nav() {
 }
 
 const Header = styled.div`
-  background: darkslategray;
+  background: var(--orange);
   position: absolute;
   top: 0;
   left: 0;

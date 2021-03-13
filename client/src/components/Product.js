@@ -1,17 +1,44 @@
 import styled from "styled-components";
+
 import snowboard from "../assets/images/snowboard.jpg";
 import toggle_on from "../assets/images/toggle-on.svg";
-import toggle_off from "../assets/images/toggle-off.svg";
+//import toggle_off from "../assets/images/toggle-off.svg";
+import user from "../assets/images/user.svg";
 
 export default function Product() {
   return (
     <>
       <Container>
-        <Flexbox>
+        <FlexboxRow>
           <Name>product name</Name>
           <Toggle src={toggle_on} />
-        </Flexbox>
+        </FlexboxRow>
         <Image src={snowboard} />
+        <FlexboxRow>
+          <FlexboxColumn>
+            <Logo src={user} />
+            <p>username</p>
+            <p>
+              Size: <br /> 168cm
+            </p>
+            <p>
+              category:
+              <br /> Snow
+            </p>
+          </FlexboxColumn>
+          <Description>
+            Bulls, Ducks in cabbage on, cauliflower irrigation Seeder onion.
+            Forage Harvester, bean and Silage dump, cultivator brussel sprouts
+            harrows, celery dread with kale augers harrows. Quack hammers
+            eggplant is utters nails garden. Apples ducks straw, quail a
+            ostriches donkey, hay hook cucumbers. Lamb pig rooster sheep. Onion
+            organic orange.
+            <br /> <br />
+            John Deere radish barn, a hay loft house at pony. Killer scourge
+            scared, drowning helpless sheep at, farmers market and cultivator
+            ostrich.
+          </Description>
+        </FlexboxRow>
       </Container>
     </>
   );
@@ -22,7 +49,7 @@ const Container = styled.section`
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
   width: 90%;
   padding: 0 1rem 1rem 1rem;
-  margin: 3rem 0 0 0;
+  margin: 3rem auto 0 auto;
 `;
 
 const Name = styled.h2`
@@ -30,22 +57,48 @@ const Name = styled.h2`
 `;
 
 const Image = styled.img`
-  border: outset darkgrey 2px;
-  width: 100%;
+  /* border: outset darkgrey 2px; */
+  width: 80%;
   height: auto;
   margin: 0 auto;
   padding: 0;
 `;
 
-const Flexbox = styled.div`
-  padding: 0 1rem;
+const FlexboxRow = styled.div`
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 0;
+  align-items: flex-start;
+  margin: 0.5rem 0;
+`;
+
+const FlexboxColumn = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin: 0 auto;
+
+  & p {
+    padding: 0.5rem;
+    margin: 0;
+    font-size: 0.8rem;
+  }
 `;
 
 const Toggle = styled.img`
   width: 5vw;
   height: auto;
+`;
+
+const Logo = styled.img`
+  height: 3vh;
+  width: auto;
+  margin: 1rem 0 0 1rem;
+`;
+
+const Description = styled.p`
+  font-size: 0.8rem;
+  padding: 0 0 0 0.5rem;
+  border-left: solid var(--orange) 1px;
 `;
