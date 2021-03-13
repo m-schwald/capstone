@@ -1,7 +1,11 @@
+import Nav from "./components/Nav";
+import Product from "./components/Product";
+
 function App() {
   return (
     <div className="App">
-      <h1>Testomat</h1>
+      <Nav />
+      <Product />
     </div>
   );
 }
