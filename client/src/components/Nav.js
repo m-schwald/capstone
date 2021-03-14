@@ -1,23 +1,22 @@
 import styled from "styled-components";
-import logo from "../assets/images/logo.svg";
-import team from "../assets/images/team.svg";
-import user from "../assets/images/user.svg";
+
+import Logo from "./Logo";
+import IconUser from "./IconUser";
+import IconGroup from "./IconGroup";
 
 export default function Nav() {
   return (
-    <>
-      <Header>
-        <Logo src={logo} />
-        <Div>
-          <Logo src={team} />
-          <NavLink>groupname</NavLink>
-        </Div>
-        <Div>
-          <Logo src={user} />
-          <NavLink>username</NavLink>
-        </Div>
-      </Header>
-    </>
+    <Header>
+      <Logo />
+      <Div>
+        <IconGroup />
+        <NavLink>groupname</NavLink>
+      </Div>
+      <Div>
+        <IconUser />
+        <NavLink>username</NavLink>
+      </Div>
+    </Header>
   );
 }
 
@@ -31,11 +30,6 @@ const Header = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-`;
-
-const Logo = styled.img`
-  height: 3vh;
-  width: auto;
 `;
 
 const NavLink = styled.p`
