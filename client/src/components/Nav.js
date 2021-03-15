@@ -6,7 +6,7 @@ import IconGroup from "./IconGroup";
 
 export default function Nav() {
   return (
-    <Header>
+    <Navi>
       <Logo />
       <GroupBox>
         <IconGroup />
@@ -16,11 +16,11 @@ export default function Nav() {
         <IconUser />
         <NavLink>username</NavLink>
       </GroupBox>
-    </Header>
+    </Navi>
   );
 }
 
-const Header = styled.div`
+const Navi = styled.div`
   background: var(--orange);
   position: absolute;
   top: 0;

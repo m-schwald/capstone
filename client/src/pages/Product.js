@@ -1,12 +1,10 @@
-//dependencies
 import styled from "styled-components";
 
-//components
 import Container from "../components/Container";
 import Toggle from "../components/IconToggle";
 import IconUser from "../components/IconUser";
 import FlexboxRow from "../components/FlexboxRow";
-//assets
+
 import snowboard from "../assets/images/snowboard.jpg";
 
 export default function Product() {

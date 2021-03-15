@@ -4,11 +4,11 @@ import FormNewProduct from "./pages/FormNewProduct";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Nav />
       <Product />
       <FormNewProduct />
-    </div>
+    </>
   );
 }
 

@@ -4,24 +4,25 @@ const Button = styled.button`
   margin: 0.5rem;
   padding: 0.5rem;
   border-radius: 5px;
-  background: #e0e0e0;
-  color: black;
+  background: var(--orange);
+  color: var(--dark);
+  border: none;
 
   &:hover {
-    background: var(--dark);
+    background: var(--blue);
     color: var(--light);
   }
 
   &:active {
-    background: var(--dark);
+    background: var(--blue);
     color: var(--light);
   }
-  &:target {
-    border: hotpink;
+  &:focus {
+    outline: none;
   }
 
   ${(props) =>
-    props.primary &&
+    props.submit &&
     css`
       width: 30vw;
       margin: 0 auto;

@@ -1,12 +1,10 @@
 import styled from "styled-components";
 
-//components
 import Container from "../components/Container";
 import FlexboxRow from "../components/FlexboxRow";
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
 
-//assets
 import add_image from "../assets/images/add_image.svg";
 
 export default function FormNewProduct() {
@@ -14,11 +12,15 @@ export default function FormNewProduct() {
     <Container>
       <H2> add a new product </H2>
       <FlexboxRow>
-        <InputName type="text" placeholder="gadg-name" />
+        <InputName placeholder="gadg-name" maxlength="30" />
         <Toggle />
       </FlexboxRow>
       <AddImg src={add_image} />
-      <InputText type="text" placeholder="please describe your gadg" rows="5" />
+      <InputText
+        placeholder="please describe your gadg"
+        rows="5"
+        maxlength="300"
+      />
       <Flexbox>
         <Label for="choose_category">
           gadg-category
@@ -39,15 +41,14 @@ export default function FormNewProduct() {
           </Choice>
         </Label>
       </Flexbox>
-      <InputText type="text" placeholder="facts about your gadg" rows="2" />
+      <InputText placeholder="facts about your gadg" rows="2" maxlength="100" />
+
       <InputText
-        type="text"
         placeholder="personal preferences for usage"
         rows="2"
+        maxlength="100"
       />
-      <Button type="button" name="submit" primary>
-        offer gadg
-      </Button>
+      <Button submit>offer gadg</Button>
     </Container>
   );
 }
@@ -59,6 +60,11 @@ const H2 = styled.h2`
 const InputName = styled.input`
   margin: 0;
   font-size: 1.2rem;
+
+  &:focus {
+    outline: var(--orange) 1px solid;
+    background: var(--orange2);
+  }
 `;
 
 const AddImg = styled.img`
@@ -72,6 +78,11 @@ const InputText = styled.textarea`
   width: 80%;
   margin: 0.5rem auto;
   padding: 0.5rem;
+
+  &:focus {
+    outline: var(--orange) 1px solid;
+    background: var(--orange2);
+  }
 `;
 
 const Choice = styled.select`
