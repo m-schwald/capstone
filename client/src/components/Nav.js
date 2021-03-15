@@ -8,14 +8,14 @@ export default function Nav() {
   return (
     <Header>
       <Logo />
-      <Div>
+      <GroupBox>
         <IconGroup />
         <NavLink>groupname</NavLink>
-      </Div>
-      <Div>
+      </GroupBox>
+      <GroupBox>
         <IconUser />
         <NavLink>username</NavLink>
-      </Div>
+      </GroupBox>
     </Header>
   );
 }
@@ -28,7 +28,7 @@ const Header = styled.div`
   right: 0;
   height: 5vh;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
 `;
 
@@ -37,9 +37,10 @@ const NavLink = styled.p`
   color: white;
 `;
 
-const Div = styled.div`
+const GroupBox = styled.div`
   display: flex;
   gap: 1vw;
   justify-content: center;
   align-items: center;
+  margin: 0 3vw;
 `;
