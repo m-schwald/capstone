@@ -8,5 +8,5 @@ export default function Logo() {
 const Img = styled.img`
   height: 3vh;
   width: auto;
-  margin: 1rem 0 0 1rem;
+  margin: 0 auto 0 3vw;
 `;
