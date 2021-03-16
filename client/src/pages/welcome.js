@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import ContainerFlat from "../components/ContainerFlat";
-import Logo from "../components/Logo";
 import Button from "../components/Button";
 import { NavLink } from "react-router-dom";
+
+import logo from "../assets/images/logo.svg";
 
 export default function Welcome() {
   return (
     <WelcomePage>
-      <H1> welcome to gadg-supply</H1>
-      <LogoWelcome />
+      <H2>welcome to</H2>
+      <H1>gadg-supply</H1>
+      <LogoWelcome src={logo} />
       <Button>
         <Link className="link" exact to="./searching">
           i need a gadg
@@ -36,11 +38,17 @@ const WelcomePage = styled(ContainerFlat)`
 
 const H1 = styled.h1`
   color: var(--dark);
+  margin: 0;
+  font-size: 1.8rem;
+`;
+const H2 = styled.h2`
+  color: var(--dark);
+  margin: 0;
 `;
 
-const LogoWelcome = styled(Logo)`
+const LogoWelcome = styled.img`
   height: 10vh;
-  margin: 0 0 0 0;
+  margin: 2rem;
 `;
 
 const Link = styled(NavLink)`
