@@ -2,26 +2,31 @@ import styled from "styled-components";
 
 import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
-import Container from "../components/Container";
+import ContainerFlat from "../components/ContainerFlat";
 
 import search from "../assets/images/search.svg";
 
 export default function Offering() {
   return (
     <>
-      <Container>
+      <ContainerFlat>
         <Button_centered> add new gadg</Button_centered>
+
+        <H3>my offered gadges</H3>
+        <Search src={search} />
+
         <Flexbox>
-          <H3>my offered gadges</H3>
-          <Search src={search} />
+          <CardOffering>map...</CardOffering>
+          <CardOffering>map...</CardOffering>
+          <CardOffering>map...</CardOffering>
+          <CardOffering>map...</CardOffering>
+          <CardOffering>map...</CardOffering>
+          <CardOffering>map...</CardOffering>
+          <CardOffering>map...</CardOffering>
+          <CardOffering>map...</CardOffering>
+          <CardOffering>map...</CardOffering>
         </Flexbox>
-        <Flexbox>
-          <CardOffering>map...</CardOffering>
-          <CardOffering>map...</CardOffering>
-          <CardOffering>map...</CardOffering>
-          <CardOffering>map...</CardOffering>
-        </Flexbox>
-      </Container>
+      </ContainerFlat>
     </>
   );
 }
@@ -42,6 +47,6 @@ const Flexbox = styled.div`
 `;
 
 const Search = styled.img`
-  width: 3vw;
-  margin-right: 3vw;
+  width: 4vw;
+  margin: 0 3vw 0 auto;
 `;

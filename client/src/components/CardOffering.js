@@ -1,33 +1,37 @@
 import styled from "styled-components";
+import Image from "../components/Image";
 
 import Container from "./Container";
 import Toggle from "./IconToggle";
 import snowboard from "../assets/images/snowboard.jpg";
-import FlexboxRow from "./FlexboxRow";
 
 export default function CardOffering() {
   return (
     <CardContainer>
-      <FlexboxRow>
-        <H4>snowboard</H4>
-        <Toggle />
-      </FlexboxRow>
+      <ToggleRight />
+      <H4>snowboard</H4>
+
       <Img src={snowboard} />
     </CardContainer>
   );
 }
 
-const Img = styled.img`
+const ToggleRight = styled(Toggle)`
+  margin: 0;
+`;
+
+const Img = styled(Image)`
   width: 100%;
   margin: 0 auto;
-  border-radius: 5%;
+  border-radius: 20%;
 `;
 
 const H4 = styled.h4`
   color: var(--two);
   margin: 0;
+  font-size: 0.8rem;
 `;
 
 const CardContainer = styled(Container)`
-  width: 40vw;
+  width: 20vw;
 `;
