@@ -3,6 +3,7 @@ import Product from "./pages/Product";
 import FormNewProduct from "./pages/FormNewProduct";
 import Offering from "./pages/Offering";
 import Dashboard from "./pages/Dashboard";
+import Searching from "./pages/Searching";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <FormNewProduct />
       <Offering />
       <Dashboard />
+      <Searching />
     </>
   );
 }

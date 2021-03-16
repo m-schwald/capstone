@@ -42,8 +42,10 @@ const Button_centered = styled(Button)`
 `;
 
 const Flexbox = styled.div`
+  padding: 1rem 0;
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-around;
 `;
 
 const Search = styled.img`

@@ -34,4 +34,5 @@ const H4 = styled.h4`
 
 const CardContainer = styled(Container)`
   width: 20vw;
+  margin: 0 3vw;
 `;
