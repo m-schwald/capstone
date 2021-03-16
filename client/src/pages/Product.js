@@ -65,6 +65,7 @@ const Image = styled.img`
   height: auto;
   margin: 0 auto;
   padding: 0;
+  border-radius: 5%;
 `;
 
 const FlexboxColumn = styled.div`

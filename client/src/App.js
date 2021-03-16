@@ -1,6 +1,7 @@
 import Nav from "./components/Nav";
 import Product from "./pages/Product";
 import FormNewProduct from "./pages/FormNewProduct";
+import Offering from "./pages/offering";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Nav />
       <Product />
       <FormNewProduct />
+      <Offering />
     </>
   );
 }

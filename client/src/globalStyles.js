@@ -3,13 +3,24 @@ import { createGlobalStyle } from "styled-components";
 export default createGlobalStyle`
 
 :root {
-  --orange: #F08E38;
-  --orange2: #FFD8B5;
-  --orange3: #A35715;
-  --blue: #0F89A3;
-  --blue2: #7FDCF0; 
+
+    //Farben Versuch 1:
+/*   --one: #F08E38;
+  --three: #FFD8B5;
+  --four: #A35715;
+  --two: #0F89A3;
+  --five: #7FDCF0; 
   --dark: #0e0e0e;
-  --light: #f3f3f3;
+  --light: #f3f3f3; */
+
+    //Farben Versuch 2: 
+    --dark: #202426;
+  --light: #F2F2F2;
+  --one: #6C733D;
+  --two: #9DA65D;
+  --three: #8C8C88;
+
+
 }
     * {
         box-sizing: border-box;

@@ -10,7 +10,7 @@ import add_image from "../assets/images/add_image.svg";
 export default function FormNewProduct() {
   return (
     <Container>
-      <H2> add a new product </H2>
+      <H3> add a new gadg </H3>
       <FlexboxRow>
         <InputName placeholder="gadg-name" maxlength="30" />
         <Toggle />
@@ -48,12 +48,12 @@ export default function FormNewProduct() {
         rows="2"
         maxlength="100"
       />
-      <Button submit>offer gadg</Button>
+      <Button_centered>offer gadg</Button_centered>
     </Container>
   );
 }
 
-const H2 = styled.h2`
+const H3 = styled.h3`
   text-align: center;
 `;
 
@@ -96,4 +96,9 @@ const Flexbox = styled.div`
 
 const Label = styled.label`
   font-size: 0.8rem;
+`;
+
+const Button_centered = styled(Button)`
+  width: 30%;
+  margin: 0 auto;
 `;

@@ -9,6 +9,7 @@ const Container = styled.section`
   height: auto;
   display: flex;
   flex-flow: column nowrap;
+  border-radius: 0.7rem;
 `;
 
 export default Container;
