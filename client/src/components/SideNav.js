@@ -1,12 +1,24 @@
 import styled from "styled-components";
 import { bool } from "prop-types";
+import { NavLink } from "react-router-dom";
 
-export default function SideNav({ openNav }) {
+export default function SideNav({ openNav, setOpenNav }) {
   return (
     <NavContainer openNav={openNav}>
-      <Link> Link 1 </Link>
-      <Link> Link 2 </Link>
-      <Link> Link 3 </Link>
+      <Link exact to="./dashboard" onClick={() => setOpenNav(!openNav)}>
+        dashboard
+      </Link>
+      <Link
+        className="link"
+        exact
+        to="./searching"
+        onClick={() => setOpenNav(!openNav)}
+      >
+        i need a gadg
+      </Link>
+      <Link exact to="./offering" onClick={() => setOpenNav(!openNav)}>
+        i got a gadg
+      </Link>
     </NavContainer>
   );
 }
@@ -29,15 +41,19 @@ const NavContainer = styled.div`
     openNav ? "translateX(0)" : "translateX(-100%)"};
 
   transition: ease-in-out 0.5s all;
+  overflow: hidden;
 `;
 
-const Link = styled.h3`
+const Link = styled(NavLink)`
   color: var(--light);
   background: var(--dark);
   margin: 1rem;
-  padding: 0.2rem 5rem;
+  padding: 0.2rem;
   z-index: 10;
   border-radius: 10px;
+  min-width: 80%;
+  text-align: center;
+  text-decoration: none;
 `;
 
 SideNav.propTypes = {
