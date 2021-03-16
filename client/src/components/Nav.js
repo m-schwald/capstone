@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+
+//import SideNav from "../components/SideNav";
 
 import Logo from "./Logo";
 import IconUser from "./IconUser";
@@ -6,17 +9,23 @@ import IconGroup from "./IconGroup";
 
 export default function Nav() {
   return (
-    <Navi>
-      <Logo />
-      <GroupBox>
-        <IconGroup />
-        <NavLink>groupname</NavLink>
-      </GroupBox>
-      <GroupBox>
-        <IconUser />
-        <NavLink>username</NavLink>
-      </GroupBox>
-    </Navi>
+    <>
+      <Navi>
+        <Logo />
+        <GroupBox>
+          <IconGroup />
+          <Link exact to="../pages/welcome">
+            groupname
+          </Link>
+        </GroupBox>
+        <GroupBox>
+          <IconUser />
+          <Link exact to="../pages/product">
+            username
+          </Link>
+        </GroupBox>
+      </Navi>
+    </>
   );
 }
 
@@ -32,9 +41,14 @@ const Navi = styled.div`
   align-items: center;
 `;
 
-const NavLink = styled.p`
+const Link = styled(NavLink)`
   font-size: 0.8rem;
   color: white;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--dark);
+  }
 `;
 
 const GroupBox = styled.div`
