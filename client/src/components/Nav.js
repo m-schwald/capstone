@@ -21,7 +21,7 @@ export default function Nav() {
 }
 
 const Navi = styled.div`
-  background: var(--orange);
+  background: var(--one);
   position: absolute;
   top: 0;
   left: 0;
