@@ -31,8 +31,9 @@ const Icon = styled.img`
 `;
 
 const Img = styled(Image)`
-  width: 90%;
+  max-width: 90%;
   margin: 0.5rem auto;
+  max-height: 20vh;
 `;
 
 const Flexbox = styled.div`

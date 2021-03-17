@@ -2,19 +2,20 @@ import styled from "styled-components";
 
 import Container from "../components/Container";
 import CardOffering from "../components/CardOffering";
+import H3 from "../components/H3";
 
 import search from "../assets/images/search.svg";
 
 export default function Searching() {
   return (
     <Container>
-      <H3> search for a gadg</H3>
+      <H3 text="search for a gadg" />
       <Flexbox>
         <InputName placeholder="looking for...?" />
         <Search src={search} />
       </Flexbox>
       <Flexbox>
-        <Label for="choose_category">
+        <Label htmlFor="choose_category">
           gadg-category
           <Choice id="choose_category">
             <option value="snow">snow</option>
@@ -23,7 +24,7 @@ export default function Searching() {
             <option value="car">car</option>
           </Choice>
         </Label>
-        <Label for="choose_size">
+        <Label htmlFor="choose_size">
           gadg-size
           <Choice id="choose_size">
             <option value="S">S</option>
@@ -42,11 +43,6 @@ export default function Searching() {
     </Container>
   );
 }
-
-const H3 = styled.h3`
-  text-align: center;
-  margin: 01rem auto;
-`;
 
 const InputName = styled.input`
   margin: 0;

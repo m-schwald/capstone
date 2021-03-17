@@ -1,4 +1,5 @@
 import { Route, Switch } from "react-router-dom";
+import styled from "styled-components";
 
 import Nav from "./components/Nav";
 
@@ -8,12 +9,14 @@ import Offering from "./pages/offering";
 import Dashboard from "./pages/dashboard";
 import Searching from "./pages/searching";
 import Welcome from "./pages/welcome";
+import EditGroup from "./pages/editGroup";
+import EditProfile from "./pages/editProfile";
 
 function App() {
   return (
     <>
-      <Nav />
-      <main>
+      <Main>
+        <Nav />
         <Switch>
           <Route exact path="/">
             <Welcome />
@@ -33,10 +36,22 @@ function App() {
           <Route path="/searching">
             <Searching />
           </Route>
+          <Route path="/editGroup">
+            <EditGroup />
+          </Route>
+          <Route path="/editProfile">
+            <EditProfile />
+          </Route>
         </Switch>
-      </main>
+      </Main>
     </>
   );
 }
 
 export default App;
+
+const Main = styled.main`
+  overflow-x: hidden;
+  height: auto;
+  max-width: 100vw;
+`;

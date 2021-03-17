@@ -17,6 +17,7 @@ export default createGlobalStyle`
     --dark: #202426;
   --light: #F2F2F2;
   --one: #6C733D;
+  --onetransparent: rgba(108,115,61,.9);
   --two: #9DA65D;
   --three: #8C8C88;
 

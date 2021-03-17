@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
 import ContainerFlat from "../components/ContainerFlat";
+import H3 from "../components/H3";
 
 import search from "../assets/images/search.svg";
 
@@ -10,9 +12,11 @@ export default function Offering() {
   return (
     <>
       <ContainerFlat>
-        <Button_centered> add new gadg</Button_centered>
+        <ButtonCentered>
+          <StyledLink to="./formNewProduct">add a new gadg</StyledLink>
+        </ButtonCentered>
 
-        <H3>my offered gadges</H3>
+        <H3 text="my offered gadges" />
         <Search src={search} />
 
         <Flexbox>
@@ -31,13 +35,7 @@ export default function Offering() {
   );
 }
 
-const H3 = styled.h3`
-  text-align: center;
-  margin: 0 auto;
-`;
-
-const Button_centered = styled(Button)`
-  width: 30%;
+const ButtonCentered = styled(Button)`
   margin: 1rem auto;
 `;
 
@@ -51,4 +49,9 @@ const Flexbox = styled.div`
 const Search = styled.img`
   width: 4vw;
   margin: 0 3vw 0 auto;
+`;
+
+const StyledLink = styled(NavLink)`
+  text-decoration: none;
+  color: var(--dark);
 `;

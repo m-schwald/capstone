@@ -5,18 +5,16 @@ import { NavLink } from "react-router-dom";
 export default function SideNav({ openNav, setOpenNav }) {
   return (
     <NavContainer openNav={openNav}>
-      <Link exact to="./dashboard" onClick={() => setOpenNav(!openNav)}>
-        dashboard
+      <Link exact to="./" onClick={() => setOpenNav(!openNav)}>
+        home
       </Link>
-      <Link
-        className="link"
-        exact
-        to="./searching"
-        onClick={() => setOpenNav(!openNav)}
-      >
+      <Link to="./dashboard" onClick={() => setOpenNav(!openNav)}>
+        gadgboard
+      </Link>
+      <Link to="./searching" onClick={() => setOpenNav(!openNav)}>
         i need a gadg
       </Link>
-      <Link exact to="./offering" onClick={() => setOpenNav(!openNav)}>
+      <Link to="./offering" onClick={() => setOpenNav(!openNav)}>
         i got a gadg
       </Link>
     </NavContainer>
@@ -26,7 +24,7 @@ export default function SideNav({ openNav, setOpenNav }) {
 const NavContainer = styled.div`
   padding: 3rem 0 0 0;
   position: absolute;
-  background: var(--one);
+  background: var(--onetransparent);
   top: 0;
   bottom: 0;
   left: 0;
@@ -41,7 +39,6 @@ const NavContainer = styled.div`
     openNav ? "translateX(0)" : "translateX(-100%)"};
 
   transition: ease-in-out 0.5s all;
-  overflow: hidden;
 `;
 
 const Link = styled(NavLink)`

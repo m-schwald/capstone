@@ -1,14 +1,16 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+
 import ContainerFlat from "../components/ContainerFlat";
 import Button from "../components/Button";
-import { NavLink } from "react-router-dom";
+import H3 from "../components/H3";
 
 import logo from "../assets/images/logo.svg";
 
 export default function Welcome() {
   return (
     <WelcomePage>
-      <H2>welcome to</H2>
+      <H3 text="welcome to" />
       <H1>gadg-supply</H1>
       <LogoWelcome src={logo} />
       <Button>
@@ -40,10 +42,6 @@ const H1 = styled.h1`
   color: var(--dark);
   margin: 0;
   font-size: 1.8rem;
-`;
-const H2 = styled.h2`
-  color: var(--dark);
-  margin: 0;
 `;
 
 const LogoWelcome = styled.img`
