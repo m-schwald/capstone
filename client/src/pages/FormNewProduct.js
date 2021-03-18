@@ -4,13 +4,14 @@ import Container from "../components/Container";
 import FlexboxRow from "../components/FlexboxRow";
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
+import H3 from "../components/H3";
 
 import add_image from "../assets/images/add_image.svg";
 
 export default function FormNewProduct() {
   return (
     <Container>
-      <H3> add a new gadg </H3>
+      <H3 text="add a new gadg" />
       <FlexboxRow>
         <InputName placeholder="gadg-name" maxlength="30" />
         <Toggle />
@@ -22,7 +23,7 @@ export default function FormNewProduct() {
         maxlength="300"
       />
       <Flexbox>
-        <Label for="choose_category">
+        <Label htmlFor="choose_category">
           gadg-category
           <Choice id="choose_category">
             <option value="snow">snow</option>
@@ -31,7 +32,7 @@ export default function FormNewProduct() {
             <option value="car">car</option>
           </Choice>
         </Label>
-        <Label for="choose_size">
+        <Label htmlFor="choose_size">
           gadg-size
           <Choice id="choose_size">
             <option value="S">S</option>
@@ -48,14 +49,10 @@ export default function FormNewProduct() {
         rows="2"
         maxlength="100"
       />
-      <Button_centered>offer gadg</Button_centered>
+      <ButtonCentered>offer gadg</ButtonCentered>
     </Container>
   );
 }
-
-const H3 = styled.h3`
-  text-align: center;
-`;
 
 const InputName = styled.input`
   margin: 0;
@@ -98,7 +95,7 @@ const Label = styled.label`
   font-size: 0.8rem;
 `;
 
-const Button_centered = styled(Button)`
+const ButtonCentered = styled(Button)`
   width: 30%;
   margin: 0 auto;
 `;

@@ -1,20 +1,14 @@
-import styled from "styled-components";
-import Container from "../components/Container";
-
+import ContainerFlat from "../components/ContainerFlat";
 import UserActivities from "../components/UserActivities";
 import GroupActivities from "../components/GroupActivities";
+import H3 from "../components/H3";
 
 export default function Dashboard() {
   return (
-    <Container>
-      <H3> gadg-board</H3>
+    <ContainerFlat>
+      <H3 text="gadgboard" />
       <UserActivities />
       <GroupActivities />
-    </Container>
+    </ContainerFlat>
   );
 }
-
-const H3 = styled.h3`
-  text-align: center;
-  margin: 0 auto;
-`;

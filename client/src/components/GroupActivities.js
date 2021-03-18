@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Container from "../components/Container";
 import Image from "../components/Image";
+import Button from "../components/Button";
 
 import user from "../assets/images/user.svg";
 import snowboard from "../assets/images/snowboard.jpg";
@@ -14,6 +15,7 @@ export default function GroupActivities() {
         <p> just added a new gadg: </p>
       </Flexbox>
       <Img src={snowboard} />
+      <Button>show more activites</Button>
     </Container>
   );
 }
@@ -29,8 +31,9 @@ const Icon = styled.img`
 `;
 
 const Img = styled(Image)`
-  width: 90%;
-  margin: 0 auto;
+  max-width: 90%;
+  margin: 0.5rem auto;
+  max-height: 20vh;
 `;
 
 const Flexbox = styled.div`

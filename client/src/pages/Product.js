@@ -5,6 +5,7 @@ import Toggle from "../components/IconToggle";
 import IconUser from "../components/IconUser";
 import FlexboxRow from "../components/FlexboxRow";
 import Image from "../components/Image";
+import H3 from "../components/H3";
 
 import snowboard from "../assets/images/snowboard.jpg";
 
@@ -13,7 +14,7 @@ export default function Product() {
     <>
       <Container>
         <FlexboxRow>
-          <Name>product name</Name>
+          <H3 text="product name" />
           <Toggle />
         </FlexboxRow>
         <Img src={snowboard} />
@@ -46,19 +47,6 @@ export default function Product() {
     </>
   );
 }
-/* 
-const Container = styled.section`
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-  width: 90%;
-  padding: 0 1rem 1rem 1rem;
-  margin: 3rem auto 0 auto;
-  height: auto;
-`; */
-
-const Name = styled.h2`
-  color: black;
-`;
 
 const Img = styled(Image)`
   /* border: outset darkgrey 2px; */
