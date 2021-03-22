@@ -11,40 +11,37 @@ import snowboard from "../assets/images/snowboard.jpg";
 
 export default function Product() {
   return (
-    <>
-      <Container>
-        <FlexboxRow>
-          <H3 text="product name" />
-          <Toggle />
-        </FlexboxRow>
-        <Img src={snowboard} />
-        <FlexboxRow>
-          <FlexboxColumn>
-            <IconUser />
-            <p>username</p>
-            <p>
-              Size: <br /> 168cm
-            </p>
-            <p>
-              category:
-              <br /> Snow
-            </p>
-          </FlexboxColumn>
-          <Description>
-            Bulls, Ducks in cabbage on, cauliflower irrigation Seeder onion.
-            Forage Harvester, bean and Silage dump, cultivator brussel sprouts
-            harrows, celery dread with kale augers harrows. Quack hammers
-            eggplant is utters nails garden. Apples ducks straw, quail a
-            ostriches donkey, hay hook cucumbers. Lamb pig rooster sheep. Onion
-            organic orange.
-            <br /> <br />
-            John Deere radish barn, a hay loft house at pony. Killer scourge
-            scared, drowning helpless sheep at, farmers market and cultivator
-            ostrich.
-          </Description>
-        </FlexboxRow>
-      </Container>
-    </>
+    <Container>
+      <FlexboxRow>
+        <H3 text="product name" />
+        <Toggle />
+      </FlexboxRow>
+      <Img src={snowboard} />
+      <FlexboxRow>
+        <FlexboxColumn>
+          <IconUser />
+          <p>username</p>
+          <p>
+            Size: <br /> 168cm
+          </p>
+          <p>
+            category:
+            <br /> Snow
+          </p>
+        </FlexboxColumn>
+        <Description>
+          Bulls, Ducks in cabbage on, cauliflower irrigation Seeder onion.
+          Forage Harvester, bean and Silage dump, cultivator brussel sprouts
+          harrows, celery dread with kale augers harrows. Quack hammers eggplant
+          is utters nails garden. Apples ducks straw, quail a ostriches donkey,
+          hay hook cucumbers. Lamb pig rooster sheep. Onion organic orange.
+          <br /> <br />
+          John Deere radish barn, a hay loft house at pony. Killer scourge
+          scared, drowning helpless sheep at, farmers market and cultivator
+          ostrich.
+        </Description>
+      </FlexboxRow>
+    </Container>
   );
 }
 

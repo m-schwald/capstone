@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { bool } from "prop-types";
+import { bool, func } from "prop-types";
 import { NavLink } from "react-router-dom";
 
 import IconGroup from "./IconGroup";
@@ -26,7 +26,7 @@ export default function Group({ openGroup, setOpenGroup }) {
       </Flexbox>
 
       <Button>
-        <Link to="./editGroup" onClick={() => setOpenGroup(!openGroup)}>
+        <Link to="/editGroup" onClick={() => setOpenGroup(!openGroup)}>
           edit Group
         </Link>
       </Button>
@@ -49,7 +49,6 @@ const NavContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  width: 100vw;
   height: auto;
   display: flex;
   flex-flow: column nowrap;
@@ -70,4 +69,5 @@ const Link = styled(NavLink)`
 
 Group.propTypes = {
   openGroup: bool.isRequired,
+  setOpenGroup: func.isRequired,
 };

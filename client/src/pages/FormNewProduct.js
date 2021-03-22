@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Container from "../components/Container";
+import ContainerFlat from "../components/ContainerFlat";
 import FlexboxRow from "../components/FlexboxRow";
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
@@ -9,11 +9,20 @@ import H3 from "../components/H3";
 import add_image from "../assets/images/add_image.svg";
 
 export default function FormNewProduct() {
+  function onCreateItem(event) {
+    event.preventDefault();
+    const form = event.target;
+    const inputGadgName = form.gadgName;
+    onCreateItem(inputGadgName.value);
+    form.reset();
+    inputGadgName.focus();
+  }
+
   return (
-    <Container>
+    <ContainerForm>
       <H3 text="add a new gadg" />
       <FlexboxRow>
-        <InputName placeholder="gadg-name" maxlength="30" />
+        <InputName name="gadgName" placeholder="gadg-name" maxlength="30" />
         <Toggle />
       </FlexboxRow>
       <AddImg src={add_image} />
@@ -50,9 +59,17 @@ export default function FormNewProduct() {
         maxlength="100"
       />
       <ButtonCentered>offer gadg</ButtonCentered>
-    </Container>
+    </ContainerForm>
   );
 }
+
+const ContainerForm = styled.form`
+  width: 90%;
+  padding: 1.5rem;
+  margin: 2rem auto 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+`;
 
 const InputName = styled.input`
   margin: 0;

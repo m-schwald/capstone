@@ -1,5 +1,10 @@
+import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
+import GlobalFonts from "./assets/fonts/fonts";
+
+import loadFromLocal from "./lib/loadFromLocal";
+import saveToLocal from "./lib/saveToLocal";
 
 import Nav from "./components/Nav";
 
@@ -13,8 +18,36 @@ import EditGroup from "./pages/editGroup";
 import EditProfile from "./pages/editProfile";
 
 function App() {
+  const ITEM_KEY = "itemList";
+  /* const USER_KEY = "userList";
+  const GROUP_KEY = "groupList"; */
+
+  const [items, setItems] = useState(loadFromLocal(ITEM_KEY) ?? []);
+  /*   const [users, setUsers] = useState(loadFromLocal(USER_KEY) ?? []);
+  const [groups, setGroups] = useState(loadFromLocal(GROUP_KEY) ?? []); */
+
+  useEffect(() => {
+    saveToLocal(ITEM_KEY, items);
+  }, [items]);
+
+  /*   useEffect(() => {
+    saveToLocal(USER_KEY, users);
+  }, [users]);
+
+  useEffect(() => {
+    saveToLocal(GROUP_KEY, groups);
+  }, [groups]); */
+
+  useEffect(() => {
+    fetch("http://localhost:4000/items")
+      .then((result) => result.json())
+      .then((mentors) => setItems(items))
+      .catch((error) => console.error(error.message));
+  }, []);
+
   return (
     <>
+      <GlobalFonts />
       <Main>
         <Nav />
         <Switch>

@@ -14,12 +14,23 @@ export default createGlobalStyle`
   --light: #f3f3f3; */
 
     //Farben Versuch 2: 
-    --dark: #202426;
+/*     --dark: #202426;
   --light: #F2F2F2;
   --one: #6C733D;
   --onetransparent: rgba(108,115,61,.9);
   --two: #9DA65D;
-  --three: #8C8C88;
+  --three: #8C8C88; */
+
+// Farben Versuch 3:
+  --dark: #262626;
+  --light: #A8B6BF;
+  --one: #8D9CA6;
+  --onetransparent: rgba(3,152,158,.9);
+  --two: #b5ff00;
+  --three: #03989e;
+  --four: #5D6973;
+
+
 
 
 }
@@ -28,9 +39,11 @@ export default createGlobalStyle`
     }
 
 body {
-    background:var(--light); 
+    background:linear-gradient(var(--light) 70%, var(--four)); 
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0;
+    min-height: 100vh; 
+    height: 100%; 
 }
 
 ul, ol, li{

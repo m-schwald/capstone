@@ -8,7 +8,7 @@ const Button = styled.button`
   color: var(--dark);
   border: none;
   transition: ease-in-out all 0.4s;
-  width: fit-content;
+  min-width: 40%;
 
   &:hover {
     background: var(--one);

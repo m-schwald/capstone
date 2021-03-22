@@ -1,22 +1,31 @@
 import styled from "styled-components";
-import { bool } from "prop-types";
+import { bool, func } from "prop-types";
 import { NavLink } from "react-router-dom";
+import Button from "./Button";
 
 export default function SideNav({ openNav, setOpenNav }) {
   return (
     <NavContainer openNav={openNav}>
-      <Link exact to="./" onClick={() => setOpenNav(!openNav)}>
-        home
-      </Link>
-      <Link to="./dashboard" onClick={() => setOpenNav(!openNav)}>
-        gadgboard
-      </Link>
-      <Link to="./searching" onClick={() => setOpenNav(!openNav)}>
-        i need a gadg
-      </Link>
-      <Link to="./offering" onClick={() => setOpenNav(!openNav)}>
-        i got a gadg
-      </Link>
+      <Button>
+        <Link exact to="/" onClick={() => setOpenNav(!openNav)}>
+          home
+        </Link>
+      </Button>
+      <Button>
+        <Link to="/dashboard" onClick={() => setOpenNav(!openNav)}>
+          gadgboard
+        </Link>
+      </Button>
+      <Button>
+        <Link to="/searching" onClick={() => setOpenNav(!openNav)}>
+          i need a gadg
+        </Link>
+      </Button>
+      <Button>
+        <Link to="/offering" onClick={() => setOpenNav(!openNav)}>
+          i got a gadg
+        </Link>
+      </Button>
     </NavContainer>
   );
 }
@@ -42,17 +51,12 @@ const NavContainer = styled.div`
 `;
 
 const Link = styled(NavLink)`
-  color: var(--light);
-  background: var(--dark);
-  margin: 1rem;
-  padding: 0.2rem;
-  z-index: 10;
-  border-radius: 10px;
-  min-width: 80%;
+  color: var(--dark);
   text-align: center;
   text-decoration: none;
 `;
 
 SideNav.propTypes = {
   openNav: bool.isRequired,
+  setOpenNav: func.isRequired,
 };
