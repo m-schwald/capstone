@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+// import { useEffect } from "react";
 
 import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
@@ -8,7 +9,7 @@ import H3 from "../components/H3";
 
 import search from "../assets/images/search.svg";
 
-export default function Offering() {
+export default function Offering({ items }) {
   return (
     <ContainerFlat>
       <ButtonCentered>
@@ -19,15 +20,9 @@ export default function Offering() {
       <Search src={search} />
 
       <Flexbox>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
+        {items.map((item, index) => (
+          <CardOffering key={index} item={item} />
+        ))}
       </Flexbox>
     </ContainerFlat>
   );

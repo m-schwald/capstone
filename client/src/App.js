@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-import GlobalFonts from "./assets/fonts/fonts";
 
 import loadFromLocal from "./lib/loadFromLocal";
 import saveToLocal from "./lib/saveToLocal";
@@ -30,7 +29,7 @@ function App() {
     saveToLocal(ITEM_KEY, items);
   }, [items]);
 
-  /*   useEffect(() => {
+  /*  useEffect(() => {
     saveToLocal(USER_KEY, users);
   }, [users]);
 
@@ -39,15 +38,14 @@ function App() {
   }, [groups]); */
 
   useEffect(() => {
-    fetch("http://localhost:4000/items")
+    fetch("http://localhost:4000/get-gadg")
       .then((result) => result.json())
-      .then((mentors) => setItems(items))
+      .then((item) => setItems(item))
       .catch((error) => console.error(error.message));
   }, []);
 
   return (
     <>
-      <GlobalFonts />
       <Main>
         <Nav />
         <Switch>
@@ -61,13 +59,13 @@ function App() {
             <FormNewProduct />
           </Route>
           <Route path="/offering">
-            <Offering />
+            <Offering items={items} />
           </Route>
           <Route path="/dashboard">
             <Dashboard />
           </Route>
           <Route path="/searching">
-            <Searching />
+            <Searching items={items} />
           </Route>
           <Route path="/editGroup">
             <EditGroup />

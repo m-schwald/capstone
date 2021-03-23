@@ -23,7 +23,7 @@ server.get("/", (request, response) => {
   response.json({ status: "gadg-server is running" });
 });
 
-server.get("/gadgets", (request, response) => {
+server.get("/get-gadg", (request, response) => {
   Gadg.find().then((item) => response.json(item));
 });
 

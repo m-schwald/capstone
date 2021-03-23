@@ -9,8 +9,6 @@ import Logo from "./Logo";
 import IconUser from "./IconUser";
 import IconGroup from "./IconGroup";
 
-import navBg from "../assets/images/navBg.png";
-
 export default function Nav() {
   const [openNav, setOpenNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
@@ -57,13 +55,13 @@ export default function Nav() {
         </GroupBox>
         <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} />
       </LinkContainer>
-      <BG src={navBg} />
     </Navi>
   );
 }
 
 const Navi = styled.div`
   position: absolute;
+  width: 100vw;
   top: 0;
   left: 0;
   right: 0;
@@ -88,14 +86,6 @@ const LogoContainer = styled.div`
 `;
 const LinkContainer = styled.div`
   margin: 0 3vw 0 auto;
-`;
-
-const BG = styled.img`
-  width: 100vw;
-  height: auto;
-  position: absolute;
-  z-index: -1;
-  margin-top: 0.5rem;
 `;
 
 const NavText = styled.p``;

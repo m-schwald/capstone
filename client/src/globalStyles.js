@@ -30,10 +30,10 @@ export default createGlobalStyle`
   --three: #03989e;
   --four: #5D6973;
 
-
-
-
 }
+
+
+
     * {
         box-sizing: border-box;
     }
