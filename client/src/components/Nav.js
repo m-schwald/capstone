@@ -24,46 +24,44 @@ export default function Nav() {
   useOnClickOutside(nodeGroup, () => setOpenGroup(false));
 
   return (
-    <>
-      <Navi>
-        <LogoContainer ref={nodeNav}>
-          <Logo
-            onClick={() => setOpenNav(!openNav)}
-            openNav={openNav}
-            setOpenNav={setOpenNav}
-          />
-          <SideNav openNav={openNav} setOpenNav={setOpenNav} />
-        </LogoContainer>
+    <Navi>
+      <LogoContainer ref={nodeNav}>
+        <Logo
+          onClick={() => setOpenNav(!openNav)}
+          openNav={openNav}
+          setOpenNav={setOpenNav}
+        />
+        <SideNav openNav={openNav} setOpenNav={setOpenNav} />
+      </LogoContainer>
 
-        <LinkContainer ref={nodeGroup}>
-          <GroupBox
-            onClick={() => setOpenGroup(!openGroup)}
-            openGroup={openGroup}
-          >
-            <IconGroup />
-            <p>groupname</p>
-          </GroupBox>
-          <Group openGroup={openGroup} setOpenGroup={setOpenGroup} />
-        </LinkContainer>
+      <LinkContainer ref={nodeGroup}>
+        <GroupBox
+          onClick={() => setOpenGroup(!openGroup)}
+          openGroup={openGroup}
+        >
+          <IconGroup />
+          <NavText>groupname</NavText>
+        </GroupBox>
+        <Group openGroup={openGroup} setOpenGroup={setOpenGroup} />
+      </LinkContainer>
 
-        <LinkContainer ref={nodeProfile}>
-          <GroupBox
-            onClick={() => setOpenProfile(!openProfile)}
-            openProfile={openProfile}
-          >
-            <IconUser />
-            <p>username</p>
-          </GroupBox>
-          <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} />
-        </LinkContainer>
-      </Navi>
-    </>
+      <LinkContainer ref={nodeProfile}>
+        <GroupBox
+          onClick={() => setOpenProfile(!openProfile)}
+          openProfile={openProfile}
+        >
+          <IconUser />
+          <NavText>username</NavText>
+        </GroupBox>
+        <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} />
+      </LinkContainer>
+    </Navi>
   );
 }
 
 const Navi = styled.div`
-  background: var(--one);
   position: absolute;
+  width: 100vw;
   top: 0;
   left: 0;
   right: 0;
@@ -79,11 +77,15 @@ const GroupBox = styled.div`
   gap: 1vw;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const LogoContainer = styled.div`
   margin: 0 auto 0 3vw;
+  cursor: pointer;
 `;
 const LinkContainer = styled.div`
   margin: 0 3vw 0 auto;
 `;
+
+const NavText = styled.p``;

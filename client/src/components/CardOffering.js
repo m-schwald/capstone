@@ -5,12 +5,11 @@ import Container from "./Container";
 import Toggle from "./IconToggle";
 import snowboard from "../assets/images/snowboard.jpg";
 
-export default function CardOffering() {
+export default function CardOffering({ item }) {
   return (
     <CardContainer>
-      <ToggleRight />
-      <H4>snowboard</H4>
-
+      <ToggleRight isAvailable={item.isAvailable} />
+      <H4>{item.gadgName}</H4>
       <Img src={snowboard} />
     </CardContainer>
   );

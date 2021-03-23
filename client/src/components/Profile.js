@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { bool } from "prop-types";
+import { bool, func } from "prop-types";
 import { NavLink } from "react-router-dom";
 
 import IconUser from "./IconUser";
@@ -16,7 +16,7 @@ export default function Profile({ openProfile, setOpenProfile }) {
       <p> Berlin</p>
 
       <Button>
-        <Link to="./editProfile" onClick={() => setOpenProfile(!openProfile)}>
+        <Link to="/editProfile" onClick={() => setOpenProfile(!openProfile)}>
           edit profile
         </Link>
       </Button>
@@ -53,4 +53,5 @@ const Link = styled(NavLink)`
 
 Profile.propTypes = {
   openProfile: bool.isRequired,
+  setOpenProfile: func.isRequired,
 };

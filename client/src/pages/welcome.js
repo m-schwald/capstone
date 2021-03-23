@@ -3,15 +3,12 @@ import { NavLink } from "react-router-dom";
 
 import ContainerFlat from "../components/ContainerFlat";
 import Button from "../components/Button";
-import H3 from "../components/H3";
 
-import logo from "../assets/images/logo.svg";
+import logo from "../assets/images/logo.png";
 
 export default function Welcome() {
   return (
     <WelcomePage>
-      <H3 text="welcome to" />
-      <H1>gadg-supply</H1>
       <LogoWelcome src={logo} />
       <Button>
         <Link className="link" exact to="./searching">
@@ -38,15 +35,14 @@ const WelcomePage = styled(ContainerFlat)`
   align-items: center;
 `;
 
-const H1 = styled.h1`
-  color: var(--dark);
-  margin: 0;
-  font-size: 1.8rem;
-`;
-
 const LogoWelcome = styled.img`
-  height: 10vh;
-  margin: 2rem;
+  height: 35vh;
+  margin: 5rem 2rem 2rem;
+  transition: 0.5s ease-in-out all;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const Link = styled(NavLink)`

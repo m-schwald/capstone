@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-import Container from "../components/Container";
+import ContainerFlat from "../components/ContainerFlat";
 import CardOffering from "../components/CardOffering";
 import H3 from "../components/H3";
 
 import search from "../assets/images/search.svg";
 
-export default function Searching() {
+export default function Searching({ items }) {
   return (
-    <Container>
+    <ContainerFlat>
       <H3 text="search for a gadg" />
       <Flexbox>
         <InputName placeholder="looking for...?" />
@@ -35,12 +35,11 @@ export default function Searching() {
         </Label>
       </Flexbox>
       <Flexbox>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
-        <CardOffering>map...</CardOffering>
+        {items.map((item, index) => (
+          <CardOffering key={index} item={item} />
+        ))}
       </Flexbox>
-    </Container>
+    </ContainerFlat>
   );
 }
 
