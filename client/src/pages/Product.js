@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useRouteMatch, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import Container from "../components/Container";
 import Toggle from "../components/IconToggle";
@@ -10,10 +12,24 @@ import H3 from "../components/H3";
 import snowboard from "../assets/images/snowboard.jpg";
 
 export default function Product() {
-  return (
+  const { path } = useRouteMatch();
+  const { _id } = useParams();
+
+  const [item, setItem] = useState();
+
+  useEffect(() => {
+    fetch("http://localhost:4000/get-gadg/" + _id)
+      .then((result) => result.json())
+      .then((item) => setItem(item))
+      .catch((error) => console.error(error.message));
+  }, []);
+
+  console.log(item);
+
+  return item ? (
     <Container>
       <FlexboxRow>
-        <H3 text="product name" />
+        <H3 text={item.gadgName} />
         <Toggle />
       </FlexboxRow>
       <Img src={snowboard} />
@@ -29,20 +45,10 @@ export default function Product() {
             <br /> Snow
           </p>
         </FlexboxColumn>
-        <Description>
-          Bulls, Ducks in cabbage on, cauliflower irrigation Seeder onion.
-          Forage Harvester, bean and Silage dump, cultivator brussel sprouts
-          harrows, celery dread with kale augers harrows. Quack hammers eggplant
-          is utters nails garden. Apples ducks straw, quail a ostriches donkey,
-          hay hook cucumbers. Lamb pig rooster sheep. Onion organic orange.
-          <br /> <br />
-          John Deere radish barn, a hay loft house at pony. Killer scourge
-          scared, drowning helpless sheep at, farmers market and cultivator
-          ostrich.
-        </Description>
+        <Description>{item.description}</Description>
       </FlexboxRow>
     </Container>
-  );
+  ) : null;
 }
 
 const Img = styled(Image)`

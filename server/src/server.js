@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import Gadg from "../models/gadg.model.js";
-import { gadgPost } from "../controller/gadg.controller.js";
+import { gadgPost, gadgFind } from "../controller/gadg.controller.js";
 
 //import { gadgPost, gadgGet } from "../controller/gadg.controller";
 
@@ -28,5 +28,6 @@ server.get("/get-gadg", (request, response) => {
 });
 
 server.post("/create-gadg", gadgPost);
+server.get("/get-gadg/:gadgId", gadgFind);
 
 server.listen(4000);

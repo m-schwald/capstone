@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-// import { useEffect } from "react";
 
 import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
@@ -9,7 +8,12 @@ import H3 from "../components/H3";
 
 import search from "../assets/images/search.svg";
 
-export default function Offering({ items }) {
+export default function Offering({ items, available, onAvailable }) {
+  const onShowProduct = (clickedGadg) => {
+    console.log(clickedGadg._id);
+    console.log("i got clicked");
+  };
+
   return (
     <ContainerFlat>
       <ButtonCentered>
@@ -21,7 +25,13 @@ export default function Offering({ items }) {
 
       <Flexbox>
         {items.map((item, index) => (
-          <CardOffering key={index} item={item} />
+          <CardOffering
+            key={index}
+            item={item}
+            available={available}
+            onAvailable={() => onAvailable(item)}
+            onClick={onShowProduct}
+          />
         ))}
       </Flexbox>
     </ContainerFlat>
@@ -36,7 +46,7 @@ const Flexbox = styled.div`
   padding: 1rem 0;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
 `;
 
 const Search = styled.img`

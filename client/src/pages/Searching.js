@@ -6,7 +6,7 @@ import H3 from "../components/H3";
 
 import search from "../assets/images/search.svg";
 
-export default function Searching({ items }) {
+export default function Searching({ items, available, onAvailable }) {
   return (
     <ContainerFlat>
       <H3 text="search for a gadg" />
@@ -36,7 +36,12 @@ export default function Searching({ items }) {
       </Flexbox>
       <Flexbox>
         {items.map((item, index) => (
-          <CardOffering key={index} item={item} />
+          <CardOffering
+            key={index}
+            item={item}
+            available={available}
+            onAvailable={onAvailable}
+          />
         ))}
       </Flexbox>
     </ContainerFlat>

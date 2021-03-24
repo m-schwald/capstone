@@ -5,10 +5,10 @@ import Container from "./Container";
 import Toggle from "./IconToggle";
 import snowboard from "../assets/images/snowboard.jpg";
 
-export default function CardOffering({ item }) {
+export default function CardOffering({ item, onAvailable }) {
   return (
     <CardContainer>
-      <ToggleRight isAvailable={item.isAvailable} />
+      <ToggleRight available={item.isAvailable} onAvailable={onAvailable} />
       <H4>{item.gadgName}</H4>
       <Img src={snowboard} />
     </CardContainer>
@@ -29,6 +29,8 @@ const H4 = styled.h4`
   color: var(--two);
   margin: 0;
   font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 const CardContainer = styled(Container)`

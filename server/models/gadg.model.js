@@ -9,9 +9,9 @@ const gadgSchema = new mongoose.Schema({
   category: { type: String },
   size: { type: String },
   facts: { type: String },
-  personal_info: { type: String },
-  owner_id: { type: String },
-  group_id: { type: String },
+  personalInfo: { type: String },
+  ownerId: { type: String },
+  groupId: { type: String },
 });
 
 const Gadg = mongoose.model("item", gadgSchema);

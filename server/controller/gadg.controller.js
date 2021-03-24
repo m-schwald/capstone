@@ -39,4 +39,11 @@ const gadgPost = (request, response) => {
   }
 };
 
-export { gadgGet, gadgPost };
+const gadgFind = (request, response) => {
+  const gadgId = request.params.gadgId;
+  Gadg.findOne({ _id: gadgId })
+    .then((item) => response.json(item))
+    .catch(() => response.json("could not find the gadg you're looking for"));
+};
+
+export { gadgGet, gadgPost, gadgFind };

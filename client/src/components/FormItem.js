@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
@@ -6,42 +7,87 @@ import H3 from "../components/H3";
 
 import add_image from "../assets/images/add_image.svg";
 
-export default function FormItem() {
-  /*   function onCreateItem(event) {
+export default function FormItem({ submitFunction, available, onAvailable }) {
+  const initialItem = {
+    gadgName: "",
+    isAvailable: available,
+    image: "",
+    description: "",
+    category: "",
+    size: "",
+    facts: "",
+    personal_info: "",
+    owner_id: "User",
+    group_id: "Group",
+  };
+  const [newItem, setNewItem] = useState(initialItem);
+
+  const handleChange = (event) => {
+    const field = event.target;
+    const value = field.value;
+    setNewItem({
+      ...newItem,
+      [field.name]: value,
+    });
+  };
+
+  function submitForm(event) {
     event.preventDefault();
-    const form = event.target;
-    const inputGadgName = form.gadgName;
-    onCreateItem(inputGadgName.value);
-    form.reset();
-    inputGadgName.focus();
-  } */
+    submitFunction(newItem);
+    setNewItem(initialItem);
+    console.log("submitted", newItem);
+  }
 
   return (
-    <ContainerForm>
+    <ContainerForm onSubmit={submitForm}>
       <H3 text="add a new gadg" />
       <Flexbox>
-        <InputName name="gadgName" placeholder="gadg-name" maxlength="30" />
-        <Toggle />
+        <InputName
+          name="gadgName"
+          placeholder="gadg-name"
+          maxlength="30"
+          onChange={handleChange}
+          value={newItem.gadgName}
+        />
+        <Toggle
+          name="isAvailable"
+          onChange={handleChange}
+          value={available}
+          available={available}
+          onAvailable={onAvailable}
+        />
       </Flexbox>
-      <AddImg src={add_image} />
+      <AddImg
+        name="image"
+        src={add_image}
+        onChange={handleChange}
+        value={newItem.image}
+      />
       <InputText
+        name="description"
         placeholder="please describe your gadg"
         rows="5"
         maxlength="300"
+        onChange={handleChange}
+        value={newItem.description}
       />
       <Flexbox>
-        <Label htmlFor="choose_category">
+        <Label htmlFor="category">
           gadg-category
-          <Choice id="choose_category">
+          <Choice
+            id="category"
+            onChange={handleChange}
+            value={newItem.category}
+          >
             <option value="snow">snow</option>
             <option value="bike">bike</option>
             <option value="tool">tool</option>
             <option value="car">car</option>
           </Choice>
         </Label>
-        <Label htmlFor="choose_size">
+        <Label htmlFor="size" onChange={handleChange} value={newItem.size}>
           gadg-size
-          <Choice id="choose_size">
+          <Choice id="size">
             <option value="S">S</option>
             <option value="M">M</option>
             <option value="L">L</option>
@@ -49,14 +95,24 @@ export default function FormItem() {
           </Choice>
         </Label>
       </Flexbox>
-      <InputText placeholder="facts about your gadg" rows="2" maxlength="100" />
+      <InputText
+        name="facts"
+        placeholder="facts about your gadg"
+        rows="2"
+        maxlength="100"
+        onChange={handleChange}
+        value={newItem.facts}
+      />
 
       <InputText
+        name="personal_info"
         placeholder="personal preferences for usage"
         rows="2"
         maxlength="100"
+        onChange={handleChange}
+        value={newItem.personal_info}
       />
-      <ButtonCentered>offer gadg</ButtonCentered>
+      <ButtonCentered type="submit">offer gadg</ButtonCentered>
     </ContainerForm>
   );
 }

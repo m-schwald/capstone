@@ -18,24 +18,11 @@ import EditProfile from "./pages/editProfile";
 
 function App() {
   const ITEM_KEY = "itemList";
-  /* const USER_KEY = "userList";
-  const GROUP_KEY = "groupList"; */
-
   const [items, setItems] = useState(loadFromLocal(ITEM_KEY) ?? []);
-  /*   const [users, setUsers] = useState(loadFromLocal(USER_KEY) ?? []);
-  const [groups, setGroups] = useState(loadFromLocal(GROUP_KEY) ?? []); */
 
   useEffect(() => {
     saveToLocal(ITEM_KEY, items);
   }, [items]);
-
-  /*  useEffect(() => {
-    saveToLocal(USER_KEY, users);
-  }, [users]);
-
-  useEffect(() => {
-    saveToLocal(GROUP_KEY, groups);
-  }, [groups]); */
 
   useEffect(() => {
     fetch("http://localhost:4000/get-gadg")
@@ -43,6 +30,20 @@ function App() {
       .then((item) => setItems(item))
       .catch((error) => console.error(error.message));
   }, []);
+
+  //console.log(items.map((item) => item._id));
+
+  const [available, setAvailable] = useState(false);
+  const onAvailable = (availableItem) => {
+    console.log(availableItem);
+    const updatedItems = items.map((item) => {
+      if (item._id === availableItem._id) {
+        item.isAvailable = !item.isAvailable;
+      }
+      return item;
+    });
+    setItems(updatedItems);
+  };
 
   return (
     <>
@@ -52,20 +53,28 @@ function App() {
           <Route exact path="/">
             <Welcome />
           </Route>
-          <Route path="/product">
+          <Route path="/product/:_id">
             <Product />
           </Route>
           <Route path="/formNewProduct">
-            <FormNewProduct />
+            <FormNewProduct available={available} onAvailable={onAvailable} />
           </Route>
           <Route path="/offering">
-            <Offering items={items} />
+            <Offering
+              items={items}
+              available={available}
+              onAvailable={onAvailable}
+            />
           </Route>
           <Route path="/dashboard">
             <Dashboard />
           </Route>
           <Route path="/searching">
-            <Searching items={items} />
+            <Searching
+              items={items}
+              available={available}
+              onAvailable={onAvailable}
+            />
           </Route>
           <Route path="/editGroup">
             <EditGroup />
