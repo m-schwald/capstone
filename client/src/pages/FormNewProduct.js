@@ -1,7 +1,12 @@
 import FormItem from "../components/FormItem";
 import { useState } from "react";
 
-export default function FormNewProduct({ available, onAvailable }) {
+export default function FormNewProduct({
+  available,
+  setAvailable,
+  userId,
+  groupId,
+}) {
   const [items, setItems] = useState([]);
 
   const addItem = (item) => {
@@ -31,7 +36,9 @@ export default function FormNewProduct({ available, onAvailable }) {
     <FormItem
       submitFunction={addItem}
       available={available}
-      onAvailable={onAvailable}
+      setAvailable={setAvailable}
+      userId={userId}
+      groupId={groupId}
     />
   );
 }

@@ -6,31 +6,40 @@ import CardOffering from "../components/CardOffering";
 import ContainerFlat from "../components/ContainerFlat";
 import H3 from "../components/H3";
 
-import search from "../assets/images/search.svg";
+import FlexboxRow from "../components/FlexboxRow";
 
 export default function Offering({ items, available, onAvailable }) {
-  const onShowProduct = (clickedGadg) => {
-    console.log(clickedGadg._id);
-    console.log("i got clicked");
-  };
+  const availableItems = items.filter((item) => item.isAvailable);
+  const remainingItems = items.filter((item) => !item.isAvailable);
 
   return (
     <ContainerFlat>
-      <ButtonCentered>
-        <StyledLink to="./formNewProduct">add a new gadg</StyledLink>
-      </ButtonCentered>
+      <FlexboxRow>
+        <Headline text="my offered gadges" />
+        <ButtonCentered>
+          <StyledLink to="./formNewProduct"> add a new gadg</StyledLink>
+        </ButtonCentered>
+      </FlexboxRow>
 
-      <H3 text="my offered gadges" />
-      <Search src={search} />
-
+      <Headline text="available" />
       <Flexbox>
-        {items.map((item, index) => (
+        {availableItems.map((item, index) => (
           <CardOffering
             key={index}
             item={item}
             available={available}
             onAvailable={() => onAvailable(item)}
-            onClick={onShowProduct}
+          />
+        ))}
+      </Flexbox>
+      <Headline text="not available" />
+      <Flexbox>
+        {remainingItems.map((item, index) => (
+          <CardOffering
+            key={index}
+            item={item}
+            available={available}
+            onAvailable={() => onAvailable(item)}
           />
         ))}
       </Flexbox>
@@ -41,17 +50,16 @@ export default function Offering({ items, available, onAvailable }) {
 const ButtonCentered = styled(Button)`
   margin: 1rem auto;
 `;
+const Headline = styled(H3)`
+  margin: 0;
+  padding: 0;
+`;
 
 const Flexbox = styled.div`
-  padding: 1rem 0;
+  padding: 0 0 1rem 0;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-`;
-
-const Search = styled.img`
-  width: 4vw;
-  margin: 0 3vw 0 auto;
 `;
 
 const StyledLink = styled(NavLink)`

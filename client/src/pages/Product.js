@@ -22,27 +22,26 @@ export default function Product() {
       .then((result) => result.json())
       .then((item) => setItem(item))
       .catch((error) => console.error(error.message));
-  }, []);
-
-  console.log(item);
+  });
+  //console.log(item);
 
   return item ? (
     <Container>
       <FlexboxRow>
         <H3 text={item.gadgName} />
-        <Toggle />
+        <Toggle available={item.isAvailable} />
       </FlexboxRow>
       <Img src={snowboard} />
       <FlexboxRow>
         <FlexboxColumn>
           <IconUser />
-          <p>username</p>
+          <p>{item.userId}</p>
           <p>
-            Size: <br /> 168cm
+            Size: <br /> {item.size}
           </p>
           <p>
             category:
-            <br /> Snow
+            <br /> {item.category}
           </p>
         </FlexboxColumn>
         <Description>{item.description}</Description>

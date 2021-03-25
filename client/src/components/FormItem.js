@@ -7,7 +7,13 @@ import H3 from "../components/H3";
 
 import add_image from "../assets/images/add_image.svg";
 
-export default function FormItem({ submitFunction, available, onAvailable }) {
+export default function FormItem({
+  submitFunction,
+  available,
+  onAvailable,
+  userId,
+  groupId,
+}) {
   const initialItem = {
     gadgName: "",
     isAvailable: available,
@@ -17,8 +23,8 @@ export default function FormItem({ submitFunction, available, onAvailable }) {
     size: "",
     facts: "",
     personal_info: "",
-    owner_id: "User",
-    group_id: "Group",
+    owner_id: { userId },
+    group_id: { groupId },
   };
   const [newItem, setNewItem] = useState(initialItem);
 

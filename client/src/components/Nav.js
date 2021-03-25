@@ -9,7 +9,7 @@ import Logo from "./Logo";
 import IconUser from "./IconUser";
 import IconGroup from "./IconGroup";
 
-export default function Nav() {
+export default function Nav(userId, groupId) {
   const [openNav, setOpenNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [openGroup, setOpenGroup] = useState(false);
@@ -40,7 +40,7 @@ export default function Nav() {
           openGroup={openGroup}
         >
           <IconGroup />
-          <NavText>groupname</NavText>
+          <NavText>{groupId}</NavText>
         </GroupBox>
         <Group openGroup={openGroup} setOpenGroup={setOpenGroup} />
       </LinkContainer>
@@ -51,7 +51,7 @@ export default function Nav() {
           openProfile={openProfile}
         >
           <IconUser />
-          <NavText>username</NavText>
+          <NavText>{userId}</NavText>
         </GroupBox>
         <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} />
       </LinkContainer>

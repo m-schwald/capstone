@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Toggle = ({ available, onAvailable }) => {
   return (
     <Switch onClick={onAvailable}>
-      <Sign state={available ? "var(--one)" : "var(--two)"} />
+      <Sign state={available ? "var(--two)" : "var(--one)"} />
     </Switch>
   );
 };

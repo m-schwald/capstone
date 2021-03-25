@@ -1,47 +1,71 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 import ContainerFlat from "../components/ContainerFlat";
 import CardOffering from "../components/CardOffering";
-import H3 from "../components/H3";
+import Button from "../components/Button";
 
 import search from "../assets/images/search.svg";
 
-export default function Searching({ items, available, onAvailable }) {
+export default function Searching({ items }) {
+  const [filtered, setFiltered] = useState(false);
+  const [category, setCategory] = useState("all");
+
+  const categoryOptions = items.map((item) => item.category);
+  const sizeOptions = items.map((item) => item.size);
+
+  const filterAvailable = () => {
+    const availableItems = items.filter((item) => item.isAvailable);
+    return availableItems;
+  };
+
+  const handleSelect = (event) => {
+    const selectedItems = items.filter(
+      (item) => item.size === event.target.value
+    );
+    setCategory(selectedItems);
+  };
+  console.log(category);
+  /*   const filterCategory = () => {
+    const categoryItems = if () {items.filter ((item) => item.category === "snow")
+  } */
+
+  const data = filtered ? filterAvailable() : items;
   return (
     <ContainerFlat>
-      <H3 text="search for a gadg" />
       <Flexbox>
         <InputName placeholder="looking for...?" />
         <Search src={search} />
       </Flexbox>
       <Flexbox>
+        <Button
+          disabled={!items}
+          onClick={() => {
+            if (filterAvailable()) setFiltered(!filtered);
+          }}
+        >
+          {filtered ? "show all" : "available only"}
+        </Button>
         <Label htmlFor="choose_category">
-          gadg-category
-          <Choice id="choose_category">
-            <option value="snow">snow</option>
-            <option value="bike">bike</option>
-            <option value="tool">tool</option>
-            <option value="car">car</option>
+          category
+          <Choice id="choose_category" onChange={handleSelect}>
+            {categoryOptions.map((option) => (
+              <option value={option}>{option}</option>
+            ))}
           </Choice>
         </Label>
         <Label htmlFor="choose_size">
-          gadg-size
-          <Choice id="choose_size">
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
+          size
+          <Choice id="choose_size" onChange={handleSelect}>
+            {sizeOptions.map((option) => (
+              <option value={option}>{option}</option>
+            ))}
           </Choice>
         </Label>
       </Flexbox>
       <Flexbox>
-        {items.map((item, index) => (
-          <CardOffering
-            key={index}
-            item={item}
-            available={available}
-            onAvailable={onAvailable}
-          />
+        {data.map((item, index) => (
+          <CardOffering key={index} item={item} />
         ))}
       </Flexbox>
     </ContainerFlat>
@@ -50,8 +74,8 @@ export default function Searching({ items, available, onAvailable }) {
 
 const InputName = styled.input`
   margin: 0;
-  padding: 0.5rem;
-  font-size: 1.2rem;
+  padding: 0.3rem;
+  font-size: 1rem;
 
   &:focus {
     outline: var(--orange) 1px solid;
@@ -65,7 +89,7 @@ const Search = styled.img`
 `;
 
 const Flexbox = styled.div`
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;

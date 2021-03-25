@@ -17,6 +17,9 @@ import EditGroup from "./pages/editGroup";
 import EditProfile from "./pages/editProfile";
 
 function App() {
+  const userId = "Herbert Gackelmaier";
+  const groupId = "Motorradfreunde Oberrimsingen";
+
   const ITEM_KEY = "itemList";
   const [items, setItems] = useState(loadFromLocal(ITEM_KEY) ?? []);
 
@@ -31,11 +34,7 @@ function App() {
       .catch((error) => console.error(error.message));
   }, []);
 
-  //console.log(items.map((item) => item._id));
-
-  const [available, setAvailable] = useState(false);
   const onAvailable = (availableItem) => {
-    console.log(availableItem);
     const updatedItems = items.map((item) => {
       if (item._id === availableItem._id) {
         item.isAvailable = !item.isAvailable;
@@ -48,7 +47,7 @@ function App() {
   return (
     <>
       <Main>
-        <Nav />
+        <Nav userId={userId} groupId={groupId} />
         <Switch>
           <Route exact path="/">
             <Welcome />
@@ -57,30 +56,31 @@ function App() {
             <Product />
           </Route>
           <Route path="/formNewProduct">
-            <FormNewProduct available={available} onAvailable={onAvailable} />
+            <FormNewProduct
+              onAvailable={onAvailable}
+              userId={userId}
+              groupId={groupId}
+            />
           </Route>
           <Route path="/offering">
             <Offering
               items={items}
-              available={available}
               onAvailable={onAvailable}
+              userId={userId}
+              groupId={groupId}
             />
           </Route>
           <Route path="/dashboard">
             <Dashboard />
           </Route>
           <Route path="/searching">
-            <Searching
-              items={items}
-              available={available}
-              onAvailable={onAvailable}
-            />
+            <Searching items={items} userId={userId} groupId={groupId} />
           </Route>
           <Route path="/editGroup">
-            <EditGroup />
+            <EditGroup userId={userId} groupId={groupId} />
           </Route>
           <Route path="/editProfile">
-            <EditProfile />
+            <EditProfile userId={userId} groupId={groupId} />
           </Route>
         </Switch>
       </Main>
