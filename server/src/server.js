@@ -6,8 +6,6 @@ import cors from "cors";
 import Gadg from "../models/gadg.model.js";
 import { gadgPost, gadgFind } from "../controller/gadg.controller.js";
 
-//import { gadgPost, gadgGet } from "../controller/gadg.controller";
-
 const connectionString = "mongodb://localhost:27017/gadg-supply";
 
 const server = express();

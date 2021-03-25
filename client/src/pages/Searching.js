@@ -4,12 +4,13 @@ import { useState } from "react";
 import ContainerFlat from "../components/ContainerFlat";
 import CardOffering from "../components/CardOffering";
 import Button from "../components/Button";
+import Link from "../components/Link";
 
 import search from "../assets/images/search.svg";
 
 export default function Searching({ items }) {
   const [filtered, setFiltered] = useState(false);
-  const [category, setCategory] = useState("all");
+  //const [category, setCategory] = useState("all");
 
   const categoryOptions = items.map((item) => item.category);
   const sizeOptions = items.map((item) => item.size);
@@ -19,18 +20,22 @@ export default function Searching({ items }) {
     return availableItems;
   };
 
-  const handleSelect = (event) => {
+  const filterCategory = (event) => {
+    const selectedItems = items.filter(
+      (item) => item.category === event.target.value
+    );
+    return selectedItems;
+  };
+
+  const filterSize = (event) => {
     const selectedItems = items.filter(
       (item) => item.size === event.target.value
     );
-    setCategory(selectedItems);
+    return selectedItems;
   };
-  console.log(category);
-  /*   const filterCategory = () => {
-    const categoryItems = if () {items.filter ((item) => item.category === "snow")
-  } */
 
   const data = filtered ? filterAvailable() : items;
+
   return (
     <ContainerFlat>
       <Flexbox>
@@ -48,15 +53,17 @@ export default function Searching({ items }) {
         </Button>
         <Label htmlFor="choose_category">
           category
-          <Choice id="choose_category" onChange={handleSelect}>
+          <Choice id="choose_category" onChange={filterCategory}>
             {categoryOptions.map((option) => (
-              <option value={option}>{option}</option>
+              <>
+                <option value={option}>{option}</option>
+              </>
             ))}
           </Choice>
         </Label>
         <Label htmlFor="choose_size">
           size
-          <Choice id="choose_size" onChange={handleSelect}>
+          <Choice id="choose_size" onChange={filterSize}>
             {sizeOptions.map((option) => (
               <option value={option}>{option}</option>
             ))}
@@ -65,7 +72,9 @@ export default function Searching({ items }) {
       </Flexbox>
       <Flexbox>
         {data.map((item, index) => (
-          <CardOffering key={index} item={item} />
+          <Link to={`/product/${item._id}`}>
+            <CardOffering key={index} item={item} />
+          </Link>
         ))}
       </Flexbox>
     </ContainerFlat>

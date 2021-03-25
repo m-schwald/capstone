@@ -22,9 +22,9 @@ export default function FormNewProduct({
         category: item.category,
         size: item.size,
         facts: item.facts,
-        personal_info: item.personal_info,
-        owner_id: item.owner_id,
-        group_id: item.group_id,
+        personalInfo: item.personalInfo,
+        ownerId: item.ownerId,
+        groupId: item.groupId,
       }),
     })
       .then((result) => result.json())

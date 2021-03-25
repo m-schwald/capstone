@@ -9,7 +9,7 @@ import Logo from "./Logo";
 import IconUser from "./IconUser";
 import IconGroup from "./IconGroup";
 
-export default function Nav(userId, groupId) {
+export default function Nav({ userId, groupId }) {
   const [openNav, setOpenNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [openGroup, setOpenGroup] = useState(false);
@@ -42,7 +42,11 @@ export default function Nav(userId, groupId) {
           <IconGroup />
           <NavText>{groupId}</NavText>
         </GroupBox>
-        <Group openGroup={openGroup} setOpenGroup={setOpenGroup} />
+        <Group
+          openGroup={openGroup}
+          setOpenGroup={setOpenGroup}
+          groupId={groupId}
+        />
       </LinkContainer>
 
       <LinkContainer ref={nodeProfile}>
@@ -53,7 +57,11 @@ export default function Nav(userId, groupId) {
           <IconUser />
           <NavText>{userId}</NavText>
         </GroupBox>
-        <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} />
+        <Profile
+          openProfile={openProfile}
+          setOpenProfile={setOpenProfile}
+          userId={userId}
+        />
       </LinkContainer>
     </Navi>
   );
@@ -65,9 +73,9 @@ const Navi = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  height: 5vh;
+  height: 7vh;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   z-index: 100;
 `;
@@ -86,6 +94,9 @@ const LogoContainer = styled.div`
 `;
 const LinkContainer = styled.div`
   margin: 0 3vw 0 auto;
+  width: 25%;
 `;
 
-const NavText = styled.p``;
+const NavText = styled.p`
+  font-size: 0.8rem;
+`;

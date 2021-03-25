@@ -6,11 +6,11 @@ import IconGroup from "./IconGroup";
 import Button from "./Button";
 import IconUser from "./IconUser";
 
-export default function Group({ openGroup, setOpenGroup }) {
+export default function Group({ openGroup, setOpenGroup, groupId }) {
   return (
     <NavContainer openGroup={openGroup}>
       <IconGroup />
-      <h4> Groupname </h4>
+      <h4> {groupId} </h4>
       <br />
       <p> Berlin</p>
       <p>
@@ -54,7 +54,7 @@ const NavContainer = styled.div`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  z-index: -1;
+  z-index: 1000;
   transform: ${({ openGroup }) =>
     openGroup ? "translateY(0)" : "translateY(-100%)"};
 

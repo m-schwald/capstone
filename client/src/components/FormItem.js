@@ -7,24 +7,18 @@ import H3 from "../components/H3";
 
 import add_image from "../assets/images/add_image.svg";
 
-export default function FormItem({
-  submitFunction,
-  available,
-  onAvailable,
-  userId,
-  groupId,
-}) {
+export default function FormItem({ submitFunction, available, onAvailable }) {
   const initialItem = {
     gadgName: "",
-    isAvailable: available,
+    isAvailable: "",
     image: "",
     description: "",
     category: "",
     size: "",
     facts: "",
-    personal_info: "",
-    owner_id: { userId },
-    group_id: { groupId },
+    personalInfo: "",
+    ownerId: "",
+    groupId: "",
   };
   const [newItem, setNewItem] = useState(initialItem);
 
@@ -79,9 +73,9 @@ export default function FormItem({
       />
       <Flexbox>
         <Label htmlFor="category">
-          gadg-category
+          category
           <Choice
-            id="category"
+            name="category"
             onChange={handleChange}
             value={newItem.category}
           >
@@ -92,8 +86,8 @@ export default function FormItem({
           </Choice>
         </Label>
         <Label htmlFor="size" onChange={handleChange} value={newItem.size}>
-          gadg-size
-          <Choice id="size">
+          size
+          <Choice name="size">
             <option value="S">S</option>
             <option value="M">M</option>
             <option value="L">L</option>
@@ -111,12 +105,12 @@ export default function FormItem({
       />
 
       <InputText
-        name="personal_info"
+        name="personalInfo"
         placeholder="personal preferences for usage"
         rows="2"
         maxlength="100"
         onChange={handleChange}
-        value={newItem.personal_info}
+        value={newItem.personalInfo}
       />
       <ButtonCentered type="submit">offer gadg</ButtonCentered>
     </ContainerForm>
@@ -149,7 +143,7 @@ const AddImg = styled.img`
 `;
 
 const InputText = styled.textarea`
-  width: 80%;
+  width: 100%;
   margin: 0.5rem auto;
   padding: 0.5rem;
 
@@ -165,7 +159,8 @@ const Choice = styled.select`
 
 const Flexbox = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 const Label = styled.label`

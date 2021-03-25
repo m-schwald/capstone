@@ -5,11 +5,11 @@ import { NavLink } from "react-router-dom";
 import IconUser from "./IconUser";
 import Button from "./Button";
 
-export default function Profile({ openProfile, setOpenProfile }) {
+export default function Profile({ openProfile, setOpenProfile, userId }) {
   return (
     <NavContainer openProfile={openProfile}>
       <IconUser />
-      <h4> username </h4>
+      <h4> {userId} </h4>
       <p> 0173 - 981 298 88</p>
       <p> bling@schnupps.de</p>
       <br />
@@ -40,7 +40,7 @@ const NavContainer = styled.div`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  z-index: -1;
+  z-index: 1000;
   transform: ${({ openProfile }) =>
     openProfile ? "translateX(00%)" : "translateX(100%)"};
   transition: ease-in-out 0.5s all;
