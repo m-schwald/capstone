@@ -45,46 +45,44 @@ function App() {
   };
 
   return (
-    <>
-      <Main>
-        <Nav userId={userId} groupId={groupId} />
-        <Switch>
-          <Route exact path="/">
-            <Welcome />
-          </Route>
-          <Route path="/product/:_id">
-            <Product />
-          </Route>
-          <Route path="/formNewProduct">
-            <FormNewProduct
-              onAvailable={onAvailable}
-              userId={userId}
-              groupId={groupId}
-            />
-          </Route>
-          <Route path="/offering">
-            <Offering
-              items={items}
-              onAvailable={onAvailable}
-              userId={userId}
-              groupId={groupId}
-            />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/searching">
-            <Searching items={items} userId={userId} groupId={groupId} />
-          </Route>
-          <Route path="/editGroup">
-            <EditGroup userId={userId} groupId={groupId} />
-          </Route>
-          <Route path="/editProfile">
-            <EditProfile userId={userId} groupId={groupId} />
-          </Route>
-        </Switch>
-      </Main>
-    </>
+    <Main>
+      <Nav userId={userId} groupId={groupId} />
+      <Switch>
+        <Route exact path="/">
+          <Welcome />
+        </Route>
+        <Route path="/product/:_id">
+          <Product />
+        </Route>
+        <Route path="/formNewProduct">
+          <FormNewProduct
+            onAvailable={onAvailable}
+            userId={userId}
+            groupId={groupId}
+          />
+        </Route>
+        <Route path="/offering">
+          <Offering
+            items={items}
+            onAvailable={onAvailable}
+            userId={userId}
+            groupId={groupId}
+          />
+        </Route>
+        <Route path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route path="/searching">
+          <Searching items={items} userId={userId} groupId={groupId} />
+        </Route>
+        <Route path="/editGroup">
+          <EditGroup userId={userId} groupId={groupId} />
+        </Route>
+        <Route path="/editProfile">
+          <EditProfile userId={userId} groupId={groupId} />
+        </Route>
+      </Switch>
+    </Main>
   );
 }
 

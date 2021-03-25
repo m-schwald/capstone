@@ -9,32 +9,31 @@ import Link from "../components/Link";
 import search from "../assets/images/search.svg";
 
 export default function Searching({ items }) {
-  const [filtered, setFiltered] = useState(false);
-  //const [category, setCategory] = useState("all");
+  const [availableOnly, setAvailableOnly] = useState(false);
+  const [category, setCategory] = useState("all");
+  const [size, setSize] = useState("all");
 
   const categoryOptions = items.map((item) => item.category);
+  categoryOptions.unshift("all");
+
   const sizeOptions = items.map((item) => item.size);
+  sizeOptions.unshift("all");
 
-  const filterAvailable = () => {
-    const availableItems = items.filter((item) => item.isAvailable);
-    return availableItems;
+  const byAvailability = (item) => {
+    if (!availableOnly) return item;
+    return item.isAvailable;
   };
 
-  const filterCategory = (event) => {
-    const selectedItems = items.filter(
-      (item) => item.category === event.target.value
-    );
-    return selectedItems;
+  const byCategory = (item) => {
+    if (category === "all") return item;
+    return item.category === category;
+  };
+  const bySize = (item) => {
+    if (size === "all") return item;
+    return item.size === size;
   };
 
-  const filterSize = (event) => {
-    const selectedItems = items.filter(
-      (item) => item.size === event.target.value
-    );
-    return selectedItems;
-  };
-
-  const data = filtered ? filterAvailable() : items;
+  const data = items.filter(byCategory).filter(bySize).filter(byAvailability);
 
   return (
     <ContainerFlat>
@@ -45,35 +44,41 @@ export default function Searching({ items }) {
       <Flexbox>
         <Button
           disabled={!items}
-          onClick={() => {
-            if (filterAvailable()) setFiltered(!filtered);
-          }}
+          onClick={() => setAvailableOnly(!availableOnly)}
         >
-          {filtered ? "show all" : "available only"}
+          {availableOnly ? "show all" : "available only"}
         </Button>
         <Label htmlFor="choose_category">
           category
-          <Choice id="choose_category" onChange={filterCategory}>
-            {categoryOptions.map((option) => (
-              <>
-                <option value={option}>{option}</option>
-              </>
+          <select
+            id="choose_category"
+            onChange={(event) => setCategory(event.target.value)}
+          >
+            {categoryOptions.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
             ))}
-          </Choice>
+          </select>
         </Label>
         <Label htmlFor="choose_size">
           size
-          <Choice id="choose_size" onChange={filterSize}>
-            {sizeOptions.map((option) => (
-              <option value={option}>{option}</option>
+          <select
+            id="choose_size"
+            onChange={(event) => setSize(event.target.value)}
+          >
+            {sizeOptions.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
             ))}
-          </Choice>
+          </select>
         </Label>
       </Flexbox>
       <Flexbox>
-        {data.map((item, index) => (
-          <Link to={`/product/${item._id}`}>
-            <CardOffering key={index} item={item} />
+        {data.map((item) => (
+          <Link key={item._id} to={`/product/${item._id}`}>
+            <CardOffering item={item} />
           </Link>
         ))}
       </Flexbox>
@@ -104,10 +109,10 @@ const Flexbox = styled.div`
   justify-content: space-around;
 `;
 
-const Choice = styled.select`
-  width: 80%;
-`;
-
 const Label = styled.label`
   font-size: 0.8rem;
+
+  select {
+    width: 80%;
+  }
 `;
