@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useQuery } from "react-query";
 
 import ContainerFlat from "../components/ContainerFlat";
 import CardOffering from "../components/CardOffering";
@@ -8,16 +9,24 @@ import Link from "../components/Link";
 
 import search from "../assets/images/search.svg";
 
-export default function Searching({ items }) {
+export default function Searching() {
+  const getGadg = async () => {
+    const data = await fetch("http://localhost:4000/get-gadg");
+    const result = await data.json();
+    return result;
+  };
+
+  const { isLoading, isError, data, error } = useQuery("gadges", getGadg);
+
   const [availableOnly, setAvailableOnly] = useState(false);
   const [category, setCategory] = useState("all");
   const [size, setSize] = useState("all");
 
-  const categoryOptions = items.map((item) => item.category);
-  categoryOptions.unshift("all");
+  const categoryOptions = data?.map((item) => item.category);
+  categoryOptions?.unshift("all");
 
-  const sizeOptions = items.map((item) => item.size);
-  sizeOptions.unshift("all");
+  const sizeOptions = data?.map((item) => item.size);
+  sizeOptions?.unshift("all");
 
   const byAvailability = (item) => {
     if (!availableOnly) return item;
@@ -33,7 +42,7 @@ export default function Searching({ items }) {
     return item.size === size;
   };
 
-  const data = items.filter(byCategory).filter(bySize).filter(byAvailability);
+  const items = data?.filter(byCategory).filter(bySize).filter(byAvailability);
 
   return (
     <ContainerFlat>
@@ -43,7 +52,7 @@ export default function Searching({ items }) {
       </Flexbox>
       <Flexbox>
         <Button
-          disabled={!items}
+          disabled={!data}
           onClick={() => setAvailableOnly(!availableOnly)}
         >
           {availableOnly ? "show all" : "available only"}
@@ -54,7 +63,7 @@ export default function Searching({ items }) {
             id="choose_category"
             onChange={(event) => setCategory(event.target.value)}
           >
-            {categoryOptions.map((option, index) => (
+            {categoryOptions?.map((option, index) => (
               <option key={index} value={option}>
                 {option}
               </option>
@@ -67,7 +76,7 @@ export default function Searching({ items }) {
             id="choose_size"
             onChange={(event) => setSize(event.target.value)}
           >
-            {sizeOptions.map((option, index) => (
+            {sizeOptions?.map((option, index) => (
               <option key={index} value={option}>
                 {option}
               </option>
@@ -76,11 +85,15 @@ export default function Searching({ items }) {
         </Label>
       </Flexbox>
       <Flexbox>
-        {data.map((item) => (
-          <Link key={item._id} to={`/product/${item._id}`}>
-            <CardOffering item={item} />
-          </Link>
-        ))}
+        {isLoading ? (
+          <p>is loading... </p>
+        ) : (
+          items.map((item) => (
+            <Link key={item._id} to={`/product/${item._id}`}>
+              <CardOffering item={item} />
+            </Link>
+          ))
+        )}
       </Flexbox>
     </ContainerFlat>
   );

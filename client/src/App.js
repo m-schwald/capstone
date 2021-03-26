@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 
 import loadFromLocal from "./lib/loadFromLocal";
 import saveToLocal from "./lib/saveToLocal";
@@ -20,12 +21,24 @@ function App() {
   const userId = "Herbert Gackelmaier";
   const groupId = "Motorradfreunde Oberrimsingen";
 
-  const ITEM_KEY = "itemList";
-  const [items, setItems] = useState(loadFromLocal(ITEM_KEY) ?? []);
+  /*const ITEM_KEY = "itemList";
 
-  useEffect(() => {
+    useEffect(() => {
     saveToLocal(ITEM_KEY, items);
-  }, [items]);
+  }, [items]); */
+  const getGadg = async () => {
+    const data = await fetch("http://localhost:4000/get-gadg");
+    const result = await data.json();
+    return result;
+  };
+
+  const { isLoading, isError, data, error } = useQuery(
+    ["gadges", "currywurst"],
+    getGadg
+  );
+  const [items, setItems] = useState(data);
+
+  console.log("data", data);
 
   useEffect(() => {
     fetch("http://localhost:4000/get-gadg")
