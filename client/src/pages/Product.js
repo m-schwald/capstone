@@ -1,52 +1,66 @@
 import styled from "styled-components";
-import { useRouteMatch, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useRouteMatch, useParams, useHistory } from "react-router-dom";
+//import { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 
-import Container from "../components/Container";
 import Toggle from "../components/IconToggle";
 import IconUser from "../components/IconUser";
 import FlexboxRow from "../components/FlexboxRow";
 import Image from "../components/Image";
 import H3 from "../components/H3";
+import Button from "../components/Button";
+import ContainerFlat from "../components/ContainerFlat";
 
 import snowboard from "../assets/images/snowboard.jpg";
 
 export default function Product() {
   const { path } = useRouteMatch();
   const { _id } = useParams();
+  let history = useHistory();
 
-  const [item, setItem] = useState();
+  const getGadg = async () => {
+    const data = await fetch("http://localhost:4000/get-gadg/" + _id);
+    const result = await data.json();
+    return result;
+  };
 
-  useEffect(() => {
-    fetch("http://localhost:4000/get-gadg/" + _id)
-      .then((result) => result.json())
-      .then((item) => setItem(item))
-      .catch((error) => console.error(error.message));
-  });
-  //console.log(item);
+  const { isLoading, isError, data, error } = useQuery("product", getGadg);
 
-  return item ? (
-    <Container>
+  const goBack = () => {
+    history.goBack();
+  };
+
+  return isLoading ? (
+    <p>is loading... </p>
+  ) : isError ? (
+    <p>Error: {error.message} </p>
+  ) : data ? (
+    <ContainerFlat>
       <FlexboxRow>
-        <H3 text={item.gadgName} />
-        <Toggle available={item.isAvailable} />
+        <H3 text={data.gadgName} />
+        <Toggle available={data.isAvailable} />
       </FlexboxRow>
       <Img src={snowboard} />
-      <FlexboxRow>
+      <Flexbox>
         <FlexboxColumn>
           <IconUser />
-          <p>{item.userId}</p>
+          <p>{data.userId}</p>
           <p>
-            Size: <br /> {item.size}
+            Size: <br /> {data.size}
           </p>
           <p>
             category:
-            <br /> {item.category}
+            <br /> {data.category}
           </p>
         </FlexboxColumn>
-        <Description>{item.description}</Description>
-      </FlexboxRow>
-    </Container>
+        <Description>
+          <p>{data.description}</p>
+          <p>{data.facts}</p>
+          <p>{data.personalInfo}</p>
+        </Description>
+      </Flexbox>
+      <Button onClick={goBack}>go back</Button>
+    </ContainerFlat>
   ) : null;
 }
 
@@ -62,19 +76,28 @@ const Img = styled(Image)`
 const FlexboxColumn = styled.div`
   display: flex;
   flex-flow: column wrap;
-  justify-content: flex-end;
-  align-items: flex-start;
-  margin: 0 auto;
+  justify-content: flex-start;
+  align-items: center;
 
   & p {
     padding: 0.5rem;
     margin: 0;
     font-size: 0.8rem;
+    text-align: center;
   }
 `;
 
-const Description = styled.p`
-  font-size: 0.8rem;
-  padding: 0 0 0 0.5rem;
-  border-left: solid var(--orange) 1px;
+const Flexbox = styled.section`
+  display: flex;
+  justify-content: flex-start;
+  padding: 1rem 0;
+`;
+
+const Description = styled.div`
+  padding: 0 1rem;
+  p {
+    font-size: 0.8rem;
+    padding: 0 0 0 0.5rem;
+    border-left: solid var(--orange) 1px;
+  }
 `;

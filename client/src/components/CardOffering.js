@@ -8,32 +8,45 @@ import snowboard from "../assets/images/snowboard.jpg";
 export default function CardOffering({ item, onAvailable }) {
   return (
     <CardContainer>
-      <ToggleRight available={item.isAvailable} onAvailable={onAvailable} />
+      <div>
+        <ToggleRight available={item.isAvailable} onAvailable={onAvailable} />
+        <Img src={snowboard} />
+      </div>
       <H4>{item.gadgName}</H4>
-      <Img src={snowboard} />
     </CardContainer>
   );
 }
 
 const ToggleRight = styled(Toggle)`
-  margin: 0;
+  position: absolute;
 `;
 
 const Img = styled(Image)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
+  height: auto;
   margin: 0 auto;
-  border-radius: 20%;
+  z-index: -1;
+  border-radius: 0;
+  border: var(--one) 2px inset;
 `;
 
 const H4 = styled.h4`
+  position: absolute;
+  top: 70%;
   color: var(--two);
-  margin: 0;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  overflow: hidden;
+  margin: 0 0.5rem;
+  font-size: 0.75rem;
 `;
 
 const CardContainer = styled(Container)`
-  width: 20vw;
-  margin: 0 3vw;
+  position: relative;
+  width: 25vw;
+  margin: 0.5rem;
+  background: linear-gradient(var(--dark) 10%, var(--three));
+  z-index: -3;
+  height: 21vh;
 `;

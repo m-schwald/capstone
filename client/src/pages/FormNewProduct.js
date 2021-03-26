@@ -1,5 +1,6 @@
 import FormItem from "../components/FormItem";
 import { useState } from "react";
+import { useMutation } from "react-query";
 
 export default function FormNewProduct({
   available,
@@ -7,7 +8,9 @@ export default function FormNewProduct({
   userId,
   groupId,
 }) {
-  const [items, setItems] = useState([]);
+  const addItem = useMutation((newGadg) => fetch.post("allGadges", newGadg));
+
+  /*   const [items, setItems] = useState([]);
 
   const addItem = (item) => {
     fetch("http://localhost:4000/create-gadg", {
@@ -31,7 +34,7 @@ export default function FormNewProduct({
       .then((item) => setItems(item))
       .catch((error) => console.error(error.message));
   };
-
+ */
   return (
     <FormItem
       submitFunction={addItem}

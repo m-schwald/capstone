@@ -3,8 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 
-import loadFromLocal from "./lib/loadFromLocal";
-import saveToLocal from "./lib/saveToLocal";
+//import loadFromLocal from "./lib/loadFromLocal";
+//import saveToLocal from "./lib/saveToLocal";
 
 import Nav from "./components/Nav";
 
@@ -32,13 +32,8 @@ function App() {
     return result;
   };
 
-  const { isLoading, isError, data, error } = useQuery(
-    ["gadges", "currywurst"],
-    getGadg
-  );
+  const { data } = useQuery("allGadges", getGadg);
   const [items, setItems] = useState(data);
-
-  console.log("data", data);
 
   useEffect(() => {
     fetch("http://localhost:4000/get-gadg")

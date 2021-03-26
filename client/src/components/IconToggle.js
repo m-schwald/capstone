@@ -1,8 +1,4 @@
 import styled from "styled-components";
-//import { useState } from "react";
-
-//import toggle_on from "../assets/images/toggle-on.svg";
-//import toggle_off from "../assets/images/toggle-off.svg";
 
 const Toggle = ({ available, onAvailable }) => {
   return (
@@ -13,7 +9,7 @@ const Toggle = ({ available, onAvailable }) => {
 };
 
 const Switch = styled.label`
-  width: 100%;
+  width: auto;
   height: 1rem;
 `;
 
@@ -23,7 +19,7 @@ const Sign = styled.div`
   background: ${(props) => props.state};
   border-radius: 50%;
   box-shadow: var(--dark) 2px 1px 3px;
-  margin: 0 0 0 auto;
+  margin: 0.3rem 0.3rem 0.3rem auto;
 `;
 
 export default Toggle;

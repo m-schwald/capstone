@@ -16,7 +16,7 @@ export default function Searching() {
     return result;
   };
 
-  const { isLoading, isError, data, error } = useQuery("gadges", getGadg);
+  const { isLoading, isError, data, error } = useQuery("allGadges", getGadg);
 
   const [availableOnly, setAvailableOnly] = useState(false);
   const [category, setCategory] = useState("all");
@@ -87,6 +87,8 @@ export default function Searching() {
       <Flexbox>
         {isLoading ? (
           <p>is loading... </p>
+        ) : isError ? (
+          <p>Error: {error.message} </p>
         ) : (
           items.map((item) => (
             <Link key={item._id} to={`/product/${item._id}`}>
@@ -119,7 +121,7 @@ const Flexbox = styled.div`
   padding: 0.5rem 0;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: center;
 `;
 
 const Label = styled.label`

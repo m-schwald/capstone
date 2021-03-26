@@ -1,16 +1,26 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useQuery } from "react-query";
 
 import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
 import ContainerFlat from "../components/ContainerFlat";
 import H3 from "../components/H3";
+import Link from "../components/Link";
 
 import FlexboxRow from "../components/FlexboxRow";
 
-export default function Offering({ items, available, onAvailable }) {
-  const availableItems = items.filter((item) => item.isAvailable);
-  const remainingItems = items.filter((item) => !item.isAvailable);
+export default function Offering({ available, onAvailable }) {
+  const getGadg = async () => {
+    const data = await fetch("http://localhost:4000/get-gadg");
+    const result = await data.json();
+    return result;
+  };
+
+  const { isLoading, isError, data, error } = useQuery("allGadges", getGadg);
+
+  const availableItems = data?.filter((item) => item.isAvailable);
+  const remainingItems = data?.filter((item) => !item.isAvailable);
 
   return (
     <ContainerFlat>
@@ -23,25 +33,41 @@ export default function Offering({ items, available, onAvailable }) {
 
       <Headline text="available" />
       <Flexbox>
-        {availableItems.map((item, index) => (
-          <CardOffering
-            key={index}
-            item={item}
-            available={available}
-            onAvailable={() => onAvailable(item)}
-          />
-        ))}
+        {isLoading ? (
+          <p>is loading... </p>
+        ) : isError ? (
+          <p>Error: {error.message} </p>
+        ) : (
+          availableItems?.map((item, index) => (
+            <Link key={item._id} to={`/product/${item._id}`}>
+              <CardOffering
+                key={index}
+                item={item}
+                available={available}
+                onAvailable={() => onAvailable(item)}
+              />
+            </Link>
+          ))
+        )}
       </Flexbox>
       <Headline text="not available" />
       <Flexbox>
-        {remainingItems.map((item, index) => (
-          <CardOffering
-            key={index}
-            item={item}
-            available={available}
-            onAvailable={() => onAvailable(item)}
-          />
-        ))}
+        {isLoading ? (
+          <p>is loading... </p>
+        ) : isError ? (
+          <p>Error: {error.message} </p>
+        ) : (
+          remainingItems?.map((item, index) => (
+            <Link key={item._id} to={`/product/${item._id}`}>
+              <CardOffering
+                key={index}
+                item={item}
+                available={available}
+                onAvailable={() => onAvailable(item)}
+              />
+            </Link>
+          ))
+        )}
       </Flexbox>
     </ContainerFlat>
   );

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Button = styled.button`
   margin: 0.5rem auto;
@@ -22,6 +22,11 @@ const Button = styled.button`
   &:focus {
     outline: none;
   }
+  ${(props) =>
+    props.cancel &&
+    css`
+      background: var(--one);
+    `};
 `;
 
 export default Button;

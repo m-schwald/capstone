@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
 import H3 from "../components/H3";
 
 import add_image from "../assets/images/add_image.svg";
+import FlexboxRow from "./FlexboxRow";
 
 export default function FormItem({ submitFunction, available, onAvailable }) {
   const initialItem = {
@@ -21,6 +23,11 @@ export default function FormItem({ submitFunction, available, onAvailable }) {
     groupId: "",
   };
   const [newItem, setNewItem] = useState(initialItem);
+  let history = useHistory();
+
+  const goBack = () => {
+    history.goBack();
+  };
 
   const handleChange = (event) => {
     const field = event.target;
@@ -112,7 +119,12 @@ export default function FormItem({ submitFunction, available, onAvailable }) {
         onChange={handleChange}
         value={newItem.personalInfo}
       />
-      <ButtonCentered type="submit">offer gadg</ButtonCentered>
+      <FlexboxRow>
+        <Button cancel onClick={goBack}>
+          cancel
+        </Button>
+        <Button type="submit">offer gadg</Button>
+      </FlexboxRow>
     </ContainerForm>
   );
 }
@@ -165,9 +177,4 @@ const Flexbox = styled.div`
 
 const Label = styled.label`
   font-size: 0.8rem;
-`;
-
-const ButtonCentered = styled(Button)`
-  width: 30%;
-  margin: 0 auto;
 `;

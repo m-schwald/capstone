@@ -7,12 +7,13 @@ import IconGroup from "../components/IconGroup";
 export default function EditGroup() {
   return (
     <Container>
-      <H3 text="edit group" />
+      <H3 text="edit grouf" />
       <BigIconGroup />
     </Container>
   );
 }
 
 const BigIconGroup = styled(IconGroup)`
-  height: 20vh;
+  height: auto;
+  width: auto;
 `;

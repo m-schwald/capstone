@@ -5,7 +5,7 @@ const FlexboxRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 0.5rem 0;
+  margin: 0;
 `;
 
 export default FlexboxRow;

@@ -8,7 +8,7 @@ import Button from "./Button";
 export default function Profile({ openProfile, setOpenProfile, userId }) {
   return (
     <NavContainer openProfile={openProfile}>
-      <IconUser />
+      <ImgUser />
       <h4> {userId} </h4>
       <p> 0173 - 981 298 88</p>
       <p> bling@schnupps.de</p>
@@ -45,6 +45,12 @@ const NavContainer = styled.div`
     openProfile ? "translateX(00%)" : "translateX(100%)"};
   transition: ease-in-out 0.5s all;
 `;
+
+const ImgUser = styled(IconUser)`
+  height: 10vh;
+  border: solid red 3px;
+`;
+
 const Link = styled(NavLink)`
   color: var(--dark);
   text-align: center;
