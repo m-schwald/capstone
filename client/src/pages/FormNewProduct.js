@@ -8,8 +8,23 @@ export default function FormNewProduct({
   userId,
   groupId,
 }) {
-  const addItem = useMutation((newGadg) => fetch.post("allGadges", newGadg));
+  const mutation = useMutation((newGadg) => fetch.post("allGadges", newGadg));
 
+  function addItem(item) {
+    mutation.mutate({
+      _id: item._id,
+      gadgName: item.gadgName,
+      isAvailable: item.isAvailable,
+      image: item.image,
+      description: item.description,
+      category: item.category,
+      size: item.size,
+      facts: item.facts,
+      personalInfo: item.personalInfo,
+      ownerId: item.ownerId,
+      groupId: item.groupId,
+    });
+  }
   /*   const [items, setItems] = useState([]);
 
   const addItem = (item) => {
