@@ -1,14 +1,15 @@
-import FormItem from "../components/FormItem";
-import { useState } from "react";
 import { useMutation } from "react-query";
+import axios from "axios";
+import { useHistory } from "react-router";
 
-export default function FormNewProduct({
-  available,
-  setAvailable,
-  userId,
-  groupId,
-}) {
-  const mutation = useMutation((newGadg) => fetch.post("allGadges", newGadg));
+import FormItem from "../components/FormItem";
+
+export default function FormNewProduct({ setAvailable, userId, groupId }) {
+  const mutation = useMutation((newGadg) =>
+    axios.post("http://localhost:4000/create-gadg", newGadg)
+  );
+
+  let history = useHistory();
 
   function addItem(item) {
     mutation.mutate({
@@ -21,39 +22,16 @@ export default function FormNewProduct({
       size: item.size,
       facts: item.facts,
       personalInfo: item.personalInfo,
-      ownerId: item.ownerId,
+      ownerId: userId,
       groupId: item.groupId,
     });
+    console.log(userId);
+    history.goBack();
   }
-  /*   const [items, setItems] = useState([]);
 
-  const addItem = (item) => {
-    fetch("http://localhost:4000/create-gadg", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        _id: item._id,
-        gadgName: item.gadgName,
-        isAvailable: item.isAvailable,
-        image: item.image,
-        description: item.description,
-        category: item.category,
-        size: item.size,
-        facts: item.facts,
-        personalInfo: item.personalInfo,
-        ownerId: item.ownerId,
-        groupId: item.groupId,
-      }),
-    })
-      .then((result) => result.json())
-      .then((item) => setItems(item))
-      .catch((error) => console.error(error.message));
-  };
- */
   return (
     <FormItem
       submitFunction={addItem}
-      available={available}
       setAvailable={setAvailable}
       userId={userId}
       groupId={groupId}

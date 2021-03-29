@@ -9,7 +9,7 @@ import Link from "../components/Link";
 
 import search from "../assets/images/search.svg";
 
-export default function Searching() {
+export default function Searching({ userId }) {
   const getGadg = async () => {
     const data = await fetch("http://localhost:4000/get-gadg");
     const result = await data.json();
@@ -42,7 +42,11 @@ export default function Searching() {
     return item.size === size;
   };
 
-  const items = data?.filter(byCategory).filter(bySize).filter(byAvailability);
+  const items = data
+    ?.filter((item) => item.ownerId !== userId)
+    .filter(byCategory)
+    .filter(bySize)
+    .filter(byAvailability);
 
   return (
     <ContainerFlat>

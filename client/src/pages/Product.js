@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import axios from "axios";
 import { useRouteMatch, useParams, useHistory } from "react-router-dom";
-//import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 
 import Toggle from "../components/IconToggle";
 import IconUser from "../components/IconUser";
@@ -26,6 +26,16 @@ export default function Product() {
 
   const { isLoading, isError, data, error } = useQuery("product", getGadg);
 
+  /*   const mutation = useMutation((deleteGadg) =>
+    axios.get("http://localhost:4000/get-gadg + _id", deleteGadg)
+  );
+
+  const deleteItem = (item) => {
+    mutation.mutate(
+      
+      )
+    } */
+
   const goBack = () => {
     history.goBack();
   };
@@ -41,6 +51,10 @@ export default function Product() {
         <Toggle available={data.isAvailable} />
       </FlexboxRow>
       <Img src={snowboard} />
+      <Description>
+        <h5> Description </h5>
+        <p>{data.description}</p>
+      </Description>
       <Flexbox>
         <FlexboxColumn>
           <IconUser />
@@ -54,8 +68,9 @@ export default function Product() {
           </p>
         </FlexboxColumn>
         <Description>
-          <p>{data.description}</p>
+          <h5> Facts </h5>
           <p>{data.facts}</p>
+          <h5> preferences for usage </h5>
           <p>{data.personalInfo}</p>
         </Description>
       </Flexbox>
@@ -74,6 +89,7 @@ const Img = styled(Image)`
 `;
 
 const FlexboxColumn = styled.div`
+  padding: 2rem 0;
   display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
@@ -94,10 +110,21 @@ const Flexbox = styled.section`
 `;
 
 const Description = styled.div`
+  width: 100%;
   padding: 0 1rem;
   p {
     font-size: 0.8rem;
-    padding: 0 0 0 0.5rem;
+    padding: 0 0.5rem;
     border-left: solid var(--orange) 1px;
+    text-align: justify;
+    margin: 0.5rem 0;
+  }
+  h5 {
+    text-transform: lowercase;
+    text-align: right;
+    margin: 0.5rem 0;
+    padding: 0.1rem 1rem 0.1rem 0;
+    background: var(--dark);
+    color: var(--light);
   }
 `;

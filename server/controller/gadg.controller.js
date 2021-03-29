@@ -46,4 +46,13 @@ const gadgFind = (request, response) => {
     .catch(() => response.json("could not find the gadg you're looking for"));
 };
 
-export { gadgGet, gadgPost, gadgFind };
+const gadgDelete = (request, response) => {
+  const gadgId = request.params.gadgId;
+  Gadg.findOneAndDelete({ _id: gadgId })
+    .then((item) =>
+      response.json(`${item.gadgName} was removed from your list.`)
+    )
+    .catch(() => response.json("could not find the gadg you're looking for"));
+};
+
+export { gadgGet, gadgPost, gadgFind, gadgDelete };

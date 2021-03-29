@@ -16,9 +16,10 @@ import Searching from "./pages/searching";
 import Welcome from "./pages/welcome";
 import EditGroup from "./pages/editGroup";
 import EditProfile from "./pages/editProfile";
+import EditProduct from "./pages/editProduct";
 
 function App() {
-  const userId = "Herbert Gackelmaier";
+  const userId = "60618dca76b0a8d849265635";
   const groupId = "Motorradfreunde Oberrimsingen";
 
   /*const ITEM_KEY = "itemList";
@@ -61,6 +62,9 @@ function App() {
         </Route>
         <Route path="/product/:_id">
           <Product />
+        </Route>
+        <Route path="/editProduct/:_id">
+          <EditProduct />
         </Route>
         <Route path="/formNewProduct">
           <FormNewProduct

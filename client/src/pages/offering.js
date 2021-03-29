@@ -10,18 +10,22 @@ import Link from "../components/Link";
 
 import FlexboxRow from "../components/FlexboxRow";
 
-export default function Offering({ available, onAvailable }) {
+export default function Offering({ available, onAvailable, userId }) {
   const getGadg = async () => {
     const data = await fetch("http://localhost:4000/get-gadg");
     const result = await data.json();
     return result;
   };
-
   const { isLoading, isError, data, error } = useQuery("allGadges", getGadg);
 
-  const availableItems = data?.filter((item) => item.isAvailable);
-  const remainingItems = data?.filter((item) => !item.isAvailable);
+  const availableItems = data
+    ?.filter((item) => item.ownerId === userId)
+    .filter((item) => item.isAvailable);
+  const remainingItems = data
+    ?.filter((item) => item.ownerId === !userId)
+    .filter((item) => !item.isAvailable);
 
+  console.log(availableItems);
   return (
     <ContainerFlat>
       <FlexboxRow>

@@ -8,17 +8,17 @@ const Button = styled.button`
   color: var(--dark);
   border: none;
   transition: ease-in-out all 0.4s;
-  min-width: 40%;
+  min-width: 30%;
 
   &:hover {
-    background: var(--one);
+    background: var(--dark);
     color: var(--light);
   }
 
   &:active {
-    background: var(--one);
     color: var(--light);
   }
+
   &:focus {
     outline: none;
   }

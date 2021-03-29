@@ -4,7 +4,18 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import Gadg from "../models/gadg.model.js";
-import { gadgPost, gadgFind } from "../controller/gadg.controller.js";
+import {
+  gadgPost,
+  gadgFind,
+  gadgDelete,
+  gadgGet,
+} from "../controller/gadg.controller.js";
+import {
+  userDelete,
+  userGet,
+  userPost,
+  userFind,
+} from "../controller/user.controller.js";
 
 const connectionString = "mongodb://localhost:27017/gadg-supply";
 
@@ -21,11 +32,14 @@ server.get("/", (request, response) => {
   response.json({ status: "gadg-server is running" });
 });
 
-server.get("/get-gadg", (request, response) => {
-  Gadg.find().then((item) => response.json(item));
-});
-
+server.get("/get-gadg", gadgGet);
 server.post("/create-gadg", gadgPost);
 server.get("/get-gadg/:gadgId", gadgFind);
+server.delete("/get-gadg/:gadgId", gadgDelete);
+
+server.get("/get-user", userGet);
+server.get("/get-user/:userId", userFind);
+server.post("/create-user", userPost);
+server.delete("/get-gadg/:userId", userDelete);
 
 server.listen(4000);

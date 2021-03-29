@@ -39,7 +39,11 @@ const H4 = styled.h4`
   top: 70%;
   color: var(--two);
   margin: 0 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  width: 11ch;
+  line-height: 1rem;
+  height: 2rem;
+  overflow: hidden;
 `;
 
 const CardContainer = styled(Container)`

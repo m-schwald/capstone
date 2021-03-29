@@ -1,69 +1,95 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { useHistory } from "react-router";
+import {
+  useHistory,
+  useMutation,
+  useParams,
+  useRouteMatch,
+} from "react-router";
+import { useQuery } from "react-query";
+import axios from "axios";
 
-import Toggle from "../components/IconToggle";
-import Button from "../components/Button";
-import H3 from "../components/H3";
+import Toggle from "./IconToggle";
+import Button from "./Button";
+import H3 from "./H3";
 import FlexboxRow from "./FlexboxRow";
 
 import add_image from "../assets/images/add_image.svg";
 
-export default function FormItem({
-  submitFunction,
-  onAvailable,
-  userId,
-  groupId,
-}) {
+export default function FormEditProduct({ submitFunction, onAvailable }) {
+  const { path } = useRouteMatch();
+  const { _id } = useParams();
+
   let history = useHistory();
   const goBack = () => {
     history.goBack();
   };
 
-  let available = true;
-  const user = userId;
-  const group = groupId;
+  const [available, setAvailable] = useState(true);
 
-  const initialItem = {
-    gadgName: "",
-    isAvailable: available,
-    image: "",
-    description: "",
-    category: "",
-    size: "",
-    facts: "",
-    personalInfo: "",
-    ownerId: user,
-    groupId: group,
+  const getGadg = async () => {
+    const data = await fetch("http://localhost:4000/get-gadg/" + _id);
+    const result = await data.json();
+    return result;
   };
-  const [newItem, setNewItem] = useState(initialItem);
+
+  const { isLoading, isError, data, error } = useQuery("product", getGadg);
+  /* 
+  const mutation = useMutation((editGadg) =>
+    axios.post("http://localhost:4000/get-gadg" + _id, editGadg)
+  ); 
+
+  function editItem(item) {
+    mutation.mutate({
+      gadgName: item.gadgName,
+      isAvailable: item.isAvailable,
+      image: item.image,
+      description: item.description,
+      category: item.category,
+      size: item.size,
+      facts: item.facts,
+      personalInfo: item.personalInfo,
+    });
+  } */
+  data ? console.log(data) : console.log("no net");
+
+  const productToEdit = {
+    gadgName: data.gadgName,
+    isAvailable: data.isAvailable,
+    image: data.image,
+    description: data.description,
+    category: data.category,
+    size: data.size,
+    facts: data.facts,
+    personalInfo: data.personalInfo,
+  };
+  const [editedItem, setEditedItem] = useState({ productToEdit });
 
   const handleChange = (event) => {
     const field = event.target;
     const value = field.value;
-    setNewItem({
-      ...newItem,
+    setEditedItem({
+      ...editedItem,
       [field.name]: value,
     });
   };
 
   function submitForm(event) {
     event.preventDefault();
-    submitFunction(newItem);
-    setNewItem(initialItem);
-    console.log("submitted", newItem);
+    submitFunction(editedItem);
+    console.log("submitted", editedItem);
   }
 
   return (
     <ContainerForm onSubmit={submitForm}>
-      <H3 text="add a new gadg" />
+      <H3 text="edit your gadg" />
       <Flexbox>
         <InputName
           name="gadgName"
           placeholder="gadg-name"
           maxlength="30"
           onChange={handleChange}
-          value={newItem.gadgName}
+          value={editedItem.gadgName}
         />
         <Toggle
           name="isAvailable"
@@ -77,7 +103,7 @@ export default function FormItem({
         name="image"
         src={add_image}
         onChange={handleChange}
-        value={newItem.image}
+        value={editedItem.image}
       />
       <InputText
         name="description"
@@ -85,7 +111,7 @@ export default function FormItem({
         rows="5"
         maxlength="300"
         onChange={handleChange}
-        value={newItem.description}
+        value={editedItem.description}
       />
       <Flexbox>
         <Label htmlFor="category">
@@ -93,7 +119,7 @@ export default function FormItem({
           <Choice
             name="category"
             onChange={handleChange}
-            value={newItem.category}
+            value={editedItem.category}
           >
             <option value="snow">snow</option>
             <option value="bike">bike</option>
@@ -101,7 +127,7 @@ export default function FormItem({
             <option value="car">car</option>
           </Choice>
         </Label>
-        <Label htmlFor="size" onChange={handleChange} value={newItem.size}>
+        <Label htmlFor="size" onChange={handleChange} value={editedItem.size}>
           size
           <Choice name="size">
             <option value="S">S</option>
@@ -117,7 +143,7 @@ export default function FormItem({
         rows="2"
         maxlength="100"
         onChange={handleChange}
-        value={newItem.facts}
+        value={editedItem.facts}
       />
 
       <InputText
@@ -126,13 +152,13 @@ export default function FormItem({
         rows="2"
         maxlength="100"
         onChange={handleChange}
-        value={newItem.personalInfo}
+        value={editedItem.personalInfo}
       />
       <FlexboxRow>
         <Button cancel onClick={goBack}>
           cancel
         </Button>
-        <Button type="submit">offer gadg</Button>
+        <Button>save changes</Button>
       </FlexboxRow>
     </ContainerForm>
   );

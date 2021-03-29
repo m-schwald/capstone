@@ -8,6 +8,7 @@ import Group from "./Group";
 import Logo from "./Logo";
 import IconUser from "./IconUser";
 import IconGroup from "./IconGroup";
+import { useQuery } from "react-query";
 
 export default function Nav({ userId, groupId }) {
   const [openNav, setOpenNav] = useState(false);
@@ -23,7 +24,18 @@ export default function Nav({ userId, groupId }) {
   const nodeGroup = useRef();
   useOnClickOutside(nodeGroup, () => setOpenGroup(false));
 
-  return (
+  const getUser = async () => {
+    const data = await fetch("http://localhost:4000/get-user/" + userId);
+    const result = await data.json();
+    return result;
+  };
+  const { isLoading, isError, data, error } = useQuery("user", getUser);
+
+  return isLoading ? (
+    <p>is loading... </p>
+  ) : isError ? (
+    <p>Error: {error.message} </p>
+  ) : data ? (
     <Navi>
       <LogoContainer ref={nodeNav}>
         <Logo
@@ -55,7 +67,7 @@ export default function Nav({ userId, groupId }) {
           openProfile={openProfile}
         >
           <IconUser />
-          <NavText>{userId}</NavText>
+          <NavText>{data.userName}</NavText>
         </GroupBox>
         <Profile
           openProfile={openProfile}
@@ -64,7 +76,7 @@ export default function Nav({ userId, groupId }) {
         />
       </LinkContainer>
     </Navi>
-  );
+  ) : null;
 }
 
 const Navi = styled.div`

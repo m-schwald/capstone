@@ -6,26 +6,26 @@ import Button from "./Button";
 export default function SideNav({ openNav, setOpenNav }) {
   return (
     <NavContainer openNav={openNav}>
-      <Button>
+      <ButtonNav>
         <Link exact to="/" onClick={() => setOpenNav(!openNav)}>
           home
         </Link>
-      </Button>
-      <Button>
+      </ButtonNav>
+      <ButtonNav>
         <Link to="/dashboard" onClick={() => setOpenNav(!openNav)}>
           gadgboard
         </Link>
-      </Button>
-      <Button>
+      </ButtonNav>
+      <ButtonNav>
         <Link to="/searching" onClick={() => setOpenNav(!openNav)}>
           i need a gadg
         </Link>
-      </Button>
-      <Button>
+      </ButtonNav>
+      <ButtonNav>
         <Link to="/offering" onClick={() => setOpenNav(!openNav)}>
           i got a gadg
         </Link>
-      </Button>
+      </ButtonNav>
     </NavContainer>
   );
 }
@@ -54,6 +54,10 @@ const Link = styled(NavLink)`
   color: var(--dark);
   text-align: center;
   text-decoration: none;
+`;
+
+const ButtonNav = styled(Button)`
+  min-width: 70%;
 `;
 
 SideNav.propTypes = {
