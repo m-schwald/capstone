@@ -22,11 +22,6 @@ function App() {
   const userId = "60618dca76b0a8d849265635";
   const groupId = "Motorradfreunde Oberrimsingen";
 
-  /*const ITEM_KEY = "itemList";
-
-    useEffect(() => {
-    saveToLocal(ITEM_KEY, items);
-  }, [items]); */
   const getGadg = async () => {
     const data = await fetch("http://localhost:4000/get-gadg");
     const result = await data.json();
@@ -61,7 +56,7 @@ function App() {
           <Welcome />
         </Route>
         <Route path="/product/:_id">
-          <Product />
+          <Product onAvailable={onAvailable} userId={userId} />
         </Route>
         <Route path="/editProduct/:_id">
           <EditProduct />

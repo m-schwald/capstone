@@ -31,6 +31,8 @@ export default function Nav({ userId, groupId }) {
   };
   const { isLoading, isError, data, error } = useQuery("user", getUser);
 
+  const imageUser = data?.image ? `/users/${data?.image}` : "";
+
   return isLoading ? (
     <p>is loading... </p>
   ) : isError ? (
@@ -66,7 +68,7 @@ export default function Nav({ userId, groupId }) {
           onClick={() => setOpenProfile(!openProfile)}
           openProfile={openProfile}
         >
-          <IconUser />
+          <IconUser imageUser={imageUser} />
           <NavText>{data.userName}</NavText>
         </GroupBox>
         <Profile

@@ -1,27 +1,33 @@
+import axios from "axios";
+import { useMutation } from "react-query";
 import { useHistory } from "react-router";
 
 import FormEditProduct from "../components/FormEditProduct";
-import Button from "../components/Button";
 
 export default function EditProduct({ setAvailable, userId, groupId }) {
-  let history = useHistory();
+  const mutation = useMutation((editGadg) =>
+    axios.post("http://localhost:4000/get-gadg", editGadg)
+  );
 
-  const goBack = () => {
-    history.goBack();
-  };
+  function editItem(item) {
+    mutation.mutate({
+      gadgName: item.gadgName,
+      isAvailable: item.isAvailable,
+      image: item.image,
+      description: item.description,
+      category: item.category,
+      size: item.size,
+      facts: item.facts,
+      personalInfo: item.personalInfo,
+    });
+  }
 
   return (
-    <>
-      <FormEditProduct
-        //submitFunction={addItem}
-        setAvailable={setAvailable}
-        userId={userId}
-        groupId={groupId}
-      />
-      <Button cancel onClick={goBack}>
-        cancel
-      </Button>
-      <Button />
-    </>
+    <FormEditProduct
+      submitFunction={editItem}
+      setAvailable={setAvailable}
+      userId={userId}
+      groupId={groupId}
+    />
   );
 }

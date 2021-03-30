@@ -25,7 +25,6 @@ export default function FormNewProduct({ setAvailable, userId, groupId }) {
       ownerId: userId,
       groupId: item.groupId,
     });
-    console.log(userId);
     history.goBack();
   }
 

@@ -15,6 +15,7 @@ import {
   userGet,
   userPost,
   userFind,
+  ownerFind,
 } from "../controller/user.controller.js";
 
 const connectionString = "mongodb://localhost:27017/gadg-supply";
@@ -39,6 +40,7 @@ server.delete("/get-gadg/:gadgId", gadgDelete);
 
 server.get("/get-user", userGet);
 server.get("/get-user/:userId", userFind);
+server.get("/get-owner/:userId", ownerFind);
 server.post("/create-user", userPost);
 server.delete("/get-gadg/:userId", userDelete);
 

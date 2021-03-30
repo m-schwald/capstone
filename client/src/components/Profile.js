@@ -9,7 +9,6 @@ import FlexboxRow from "./FlexboxRow";
 import phone from "../assets/images/phone.svg";
 import home from "../assets/images/home.svg";
 import mail from "../assets/images/mail.svg";
-import user from "../assets/images/user.png";
 
 export default function Profile({ openProfile, setOpenProfile, userId }) {
   const getUser = async () => {
@@ -20,13 +19,15 @@ export default function Profile({ openProfile, setOpenProfile, userId }) {
 
   const { isLoading, isError, data, error } = useQuery("user", getUser);
 
+  const imageUser = data?.image ? `/users/${data.image}` : "";
+
   return isLoading ? (
     <p>is loading... </p>
   ) : isError ? (
     <p>Error: {error.message} </p>
   ) : data ? (
     <NavContainer openProfile={openProfile}>
-      <IconUser src={user} />
+      <IconUser src={imageUser} />
       <h4> {data.userName} </h4>
       <h5>Motto:</h5>
       <p> {data.motto}</p>
@@ -78,7 +79,7 @@ const NavContainer = styled.div`
   transition: ease-in-out 0.5s all;
   h4 {
     padding: 0 1rem;
-    margin: 1rem 0 0 0;
+    margin: 1rem 0 0.5rem 0;
   }
   h5 {
     text-align: left;
@@ -94,6 +95,11 @@ const NavContainer = styled.div`
     font-size: 0.9rem;
     margin: 0;
     padding: 0.2rem 0 0.2rem 1rem;
+  }
+
+  Button {
+    width: 40%;
+    font-size: 0.8rem;
   }
 `;
 

@@ -21,6 +21,7 @@ export default function Searching({ userId }) {
   const [availableOnly, setAvailableOnly] = useState(false);
   const [category, setCategory] = useState("all");
   const [size, setSize] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const categoryOptions = data?.map((item) => item.category);
   categoryOptions?.unshift("all");
@@ -43,7 +44,18 @@ export default function Searching({ userId }) {
   };
 
   const items = data
-    ?.filter((item) => item.ownerId !== userId)
+    ?.filter((value) => {
+      if (searchTerm === "") {
+        return value;
+      } else if (
+        value.gadgName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        value.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        value.facts.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return value;
+      }
+    })
+    .filter((item) => item.ownerId !== userId)
     .filter(byCategory)
     .filter(bySize)
     .filter(byAvailability);
@@ -51,7 +63,13 @@ export default function Searching({ userId }) {
   return (
     <ContainerFlat>
       <Flexbox>
-        <InputName placeholder="looking for...?" />
+        <InputName
+          placeholder="looking for...?"
+          type="text"
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
         <Search src={search} />
       </Flexbox>
       <Flexbox>

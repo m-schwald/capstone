@@ -41,6 +41,12 @@ const userFind = (request, response) => {
     .then((person) => response.json(person))
     .catch(() => response.json("could not find the person you're looking for"));
 };
+const ownerFind = (request, response) => {
+  const userId = request.params.userId;
+  User.findOne({ _id: userId })
+    .then((person) => response.json(person))
+    .catch(() => response.json("could not find the person you're looking for"));
+};
 
 const userDelete = (request, response) => {
   const userId = request.params.userId;
@@ -51,4 +57,4 @@ const userDelete = (request, response) => {
     .catch(() => response.json("could not find the person you're looking for"));
 };
 
-export { userGet, userPost, userFind, userDelete };
+export { userGet, userPost, userFind, userDelete, ownerFind };

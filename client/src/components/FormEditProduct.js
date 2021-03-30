@@ -1,31 +1,25 @@
-import styled from "styled-components";
-import { useState } from "react";
-import {
-  useHistory,
-  useMutation,
-  useParams,
-  useRouteMatch,
-} from "react-router";
 import { useQuery } from "react-query";
-import axios from "axios";
+import styled from "styled-components";
+import { useHistory, useParams } from "react-router";
+import { useState } from "react";
 
 import Toggle from "./IconToggle";
-import Button from "./Button";
 import H3 from "./H3";
 import FlexboxRow from "./FlexboxRow";
+import Button from "./Button";
 
 import add_image from "../assets/images/add_image.svg";
 
-export default function FormEditProduct({ submitFunction, onAvailable }) {
-  const { path } = useRouteMatch();
+export default function FormEditProduct({
+  available,
+  submitFunction,
+  onAvailable,
+}) {
   const { _id } = useParams();
-
   let history = useHistory();
   const goBack = () => {
     history.goBack();
   };
-
-  const [available, setAvailable] = useState(true);
 
   const getGadg = async () => {
     const data = await fetch("http://localhost:4000/get-gadg/" + _id);
@@ -54,14 +48,14 @@ export default function FormEditProduct({ submitFunction, onAvailable }) {
   data ? console.log(data) : console.log("no net");
 
   const productToEdit = {
-    gadgName: data.gadgName,
-    isAvailable: data.isAvailable,
-    image: data.image,
-    description: data.description,
-    category: data.category,
-    size: data.size,
-    facts: data.facts,
-    personalInfo: data.personalInfo,
+    gadgName: data?.gadgName,
+    isAvailable: data?.isAvailable,
+    image: data?.image,
+    description: data?.description,
+    category: data?.category,
+    size: data?.size,
+    facts: data?.facts,
+    personalInfo: data?.personalInfo,
   };
   const [editedItem, setEditedItem] = useState({ productToEdit });
 
@@ -80,16 +74,20 @@ export default function FormEditProduct({ submitFunction, onAvailable }) {
     console.log("submitted", editedItem);
   }
 
-  return (
+  return isLoading ? (
+    <p>is loading... </p>
+  ) : isError ? (
+    <p>Error: {error.message} </p>
+  ) : data ? (
     <ContainerForm onSubmit={submitForm}>
       <H3 text="edit your gadg" />
       <Flexbox>
         <InputName
           name="gadgName"
-          placeholder="gadg-name"
+          placeholder={productToEdit.gadgName}
           maxlength="30"
           onChange={handleChange}
-          value={editedItem.gadgName}
+          value={productToEdit.gadgName}
         />
         <Toggle
           name="isAvailable"
@@ -103,15 +101,15 @@ export default function FormEditProduct({ submitFunction, onAvailable }) {
         name="image"
         src={add_image}
         onChange={handleChange}
-        value={editedItem.image}
+        value={productToEdit.image}
       />
       <InputText
         name="description"
-        placeholder="please describe your gadg"
+        placeholder={productToEdit.description}
         rows="5"
         maxlength="300"
         onChange={handleChange}
-        value={editedItem.description}
+        value={productToEdit.description}
       />
       <Flexbox>
         <Label htmlFor="category">
@@ -119,7 +117,7 @@ export default function FormEditProduct({ submitFunction, onAvailable }) {
           <Choice
             name="category"
             onChange={handleChange}
-            value={editedItem.category}
+            value={productToEdit.category}
           >
             <option value="snow">snow</option>
             <option value="bike">bike</option>
@@ -127,7 +125,11 @@ export default function FormEditProduct({ submitFunction, onAvailable }) {
             <option value="car">car</option>
           </Choice>
         </Label>
-        <Label htmlFor="size" onChange={handleChange} value={editedItem.size}>
+        <Label
+          htmlFor="size"
+          onChange={handleChange}
+          value={productToEdit.size}
+        >
           size
           <Choice name="size">
             <option value="S">S</option>
@@ -143,7 +145,7 @@ export default function FormEditProduct({ submitFunction, onAvailable }) {
         rows="2"
         maxlength="100"
         onChange={handleChange}
-        value={editedItem.facts}
+        value={productToEdit.facts}
       />
 
       <InputText
@@ -152,16 +154,16 @@ export default function FormEditProduct({ submitFunction, onAvailable }) {
         rows="2"
         maxlength="100"
         onChange={handleChange}
-        value={editedItem.personalInfo}
+        value={productToEdit.personalInfo}
       />
       <FlexboxRow>
         <Button cancel onClick={goBack}>
           cancel
         </Button>
-        <Button>save changes</Button>
+        <Button type="submit">offer gadg</Button>
       </FlexboxRow>
     </ContainerForm>
-  );
+  ) : null;
 }
 
 const ContainerForm = styled.form`

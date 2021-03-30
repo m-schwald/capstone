@@ -22,10 +22,9 @@ export default function Offering({ available, onAvailable, userId }) {
     ?.filter((item) => item.ownerId === userId)
     .filter((item) => item.isAvailable);
   const remainingItems = data
-    ?.filter((item) => item.ownerId === !userId)
+    ?.filter((item) => item.ownerId === userId)
     .filter((item) => !item.isAvailable);
 
-  console.log(availableItems);
   return (
     <ContainerFlat>
       <FlexboxRow>
@@ -49,6 +48,7 @@ export default function Offering({ available, onAvailable, userId }) {
                 item={item}
                 available={available}
                 onAvailable={() => onAvailable(item)}
+                userId={userId}
               />
             </Link>
           ))

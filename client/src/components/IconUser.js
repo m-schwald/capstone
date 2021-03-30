@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import user from "../assets/images/user.png";
 
-export default function IconUser() {
-  return <Img src={user} />;
+export default function IconUser({ imageUser }) {
+  return <Img src={imageUser} />;
 }
 
 const Img = styled.img`

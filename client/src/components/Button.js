@@ -8,7 +8,8 @@ const Button = styled.button`
   color: var(--dark);
   border: none;
   transition: ease-in-out all 0.4s;
-  min-width: 30%;
+  min-width: 25%;
+  font-family: "Edo";
 
   &:hover {
     background: var(--dark);

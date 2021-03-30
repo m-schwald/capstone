@@ -60,6 +60,10 @@ const NavContainer = styled.div`
 
   transition: ease-in-out 0.5s all;
   overflow: hidden;
+
+  IconGroup {
+    width: 100%;
+  }
 `;
 const Link = styled(NavLink)`
   color: var(--dark);

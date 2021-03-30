@@ -3,23 +3,20 @@ import Image from "../components/Image";
 
 import Container from "./Container";
 import Toggle from "./IconToggle";
-import snowboard from "../assets/images/snowboard.jpg";
 
-export default function CardOffering({ item, onAvailable }) {
+export default function CardOffering({ item, onAvailable, userId }) {
+  const image = item?.image ? `/products/${item.image}` : "";
+
   return (
     <CardContainer>
       <div>
-        <ToggleRight available={item.isAvailable} onAvailable={onAvailable} />
-        <Img src={snowboard} />
+        <Toggle available={item?.isAvailable} onAvailable={onAvailable} />
+        <Img src={image} />
       </div>
       <H4>{item.gadgName}</H4>
     </CardContainer>
   );
 }
-
-const ToggleRight = styled(Toggle)`
-  position: absolute;
-`;
 
 const Img = styled(Image)`
   position: absolute;
