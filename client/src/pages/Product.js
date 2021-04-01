@@ -5,7 +5,6 @@ import { useRouteMatch, useParams, useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 
 import Toggle from "../components/IconToggle";
-import IconUser from "../components/IconUser";
 import FlexboxRow from "../components/FlexboxRow";
 import Image from "../components/Image";
 import H3 from "../components/H3";

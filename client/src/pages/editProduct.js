@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useMutation } from "react-query";
-import { useHistory } from "react-router";
 
 import FormEditProduct from "../components/FormEditProduct";
 

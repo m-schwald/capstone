@@ -6,8 +6,8 @@ import { useQuery } from "react-query";
 import Button from "./Button";
 import FlexboxRow from "./FlexboxRow";
 
-import phone from "../assets/images/phone.svg";
 import home from "../assets/images/home.svg";
+import phone from "../assets/images/phone.svg";
 import mail from "../assets/images/mail.svg";
 
 export default function Profile({ openProfile, setOpenProfile, userId }) {

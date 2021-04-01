@@ -19,7 +19,10 @@ import EditProfile from "./pages/editProfile";
 import EditProduct from "./pages/editProduct";
 
 function App() {
-  const userId = "60618dca76b0a8d849265635";
+  //const userId = "60618dca76b0a8d849265635";
+  const [userId, setUserId] = useState("60618e1876b0a8d849265636");
+  //const userId = "6061844e76b0a8d849265634";
+
   const groupId = "Motorradfreunde Oberrimsingen";
 
   const getGadg = async () => {
@@ -47,10 +50,11 @@ function App() {
     });
     setItems(updatedItems);
   };
+  console.log("logged in", userId);
 
   return (
     <Main>
-      <Nav userId={userId} groupId={groupId} />
+      <Nav userId={userId} groupId={groupId} setUserId={setUserId} />
       <Switch>
         <Route exact path="/">
           <Welcome />

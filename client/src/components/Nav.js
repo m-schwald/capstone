@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "../hooks";
 
 import SideNav from "./SideNav";
@@ -10,7 +10,7 @@ import IconUser from "./IconUser";
 import IconGroup from "./IconGroup";
 import { useQuery } from "react-query";
 
-export default function Nav({ userId, groupId }) {
+export default function Nav({ userId, groupId, setUserId }) {
   const [openNav, setOpenNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [openGroup, setOpenGroup] = useState(false);
@@ -31,6 +31,13 @@ export default function Nav({ userId, groupId }) {
   };
   const { isLoading, isError, data, error } = useQuery("user", getUser);
 
+  /* 
+    const [LoginId, setLoginId] = useState(userId);
+useEffect((userId) => {
+  setLoginId(userId);
+  }, []);
+  console.log(5, LoginId); */
+
   const imageUser = data?.image ? `/users/${data?.image}` : "";
 
   return isLoading ? (
@@ -45,7 +52,11 @@ export default function Nav({ userId, groupId }) {
           openNav={openNav}
           setOpenNav={setOpenNav}
         />
-        <SideNav openNav={openNav} setOpenNav={setOpenNav} />
+        <SideNav
+          openNav={openNav}
+          setOpenNav={setOpenNav}
+          setUserId={setUserId}
+        />
       </LogoContainer>
 
       <LinkContainer ref={nodeGroup}>
