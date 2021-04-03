@@ -3,12 +3,12 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 
-import Gadg from "../models/gadg.model.js";
 import {
   gadgPost,
   gadgFind,
   gadgDelete,
   gadgGet,
+  gadgChange,
 } from "../controller/gadg.controller.js";
 import {
   userDelete,
@@ -16,6 +16,7 @@ import {
   userPost,
   userFind,
   ownerFind,
+  userChange,
 } from "../controller/user.controller.js";
 
 const connectionString = "mongodb://localhost:27017/gadg-supply";
@@ -37,9 +38,11 @@ server.get("/get-gadg", gadgGet);
 server.post("/create-gadg", gadgPost);
 server.get("/get-gadg/:gadgId", gadgFind);
 server.delete("/get-gadg/:gadgId", gadgDelete);
+server.put("/get-gadg/:gadgId", gadgChange);
 
 server.get("/get-user", userGet);
 server.get("/get-user/:userId", userFind);
+server.put("/get-user/:userId", userChange);
 server.get("/get-owner/:userId", ownerFind);
 server.post("/create-user", userPost);
 server.delete("/get-gadg/:userId", userDelete);

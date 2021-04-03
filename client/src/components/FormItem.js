@@ -4,7 +4,6 @@ import { useHistory } from "react-router";
 
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
-import H3 from "../components/H3";
 import FlexboxRow from "./FlexboxRow";
 
 import add_image from "../assets/images/add_image.svg";
@@ -186,4 +185,8 @@ const Flexbox = styled.div`
 
 const Label = styled.label`
   font-size: 0.8rem;
+`;
+
+const H3 = styled.h3`
+  margin: 1rem auto;
 `;

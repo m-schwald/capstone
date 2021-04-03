@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-import { useQuery } from "react-query";
-
-//import loadFromLocal from "./lib/loadFromLocal";
-//import saveToLocal from "./lib/saveToLocal";
 
 import Nav from "./components/Nav";
 
 import Product from "./pages/product";
 import FormNewProduct from "./pages/formNewProduct";
 import Offering from "./pages/offering";
-import Dashboard from "./pages/dashboard";
 import Searching from "./pages/searching";
 import Welcome from "./pages/welcome";
 import EditGroup from "./pages/editGroup";
@@ -19,9 +14,21 @@ import EditProfile from "./pages/editProfile";
 import EditProduct from "./pages/editProduct";
 
 function App() {
-  //const userId = "60618dca76b0a8d849265635";
   const [userId, setUserId] = useState("60618e1876b0a8d849265636");
-  //const userId = "6061844e76b0a8d849265634";
+  const [user, setUser] = useState({});
+  const [items, setItems] = useState({});
+
+  const getUser = async () => {
+    const data = await fetch("http://localhost:4000/get-user/" + userId);
+    const result = await data.json();
+    return result;
+  };
+  const loginUser = async () => {
+    const userToLogin = await getUser();
+    setUser(userToLogin);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => loginUser(), [userId]);
 
   const groupId = "Motorradfreunde Oberrimsingen";
 
@@ -31,30 +38,29 @@ function App() {
     return result;
   };
 
-  const { data } = useQuery("allGadges", getGadg);
-  const [items, setItems] = useState(data);
-
-  useEffect(() => {
-    fetch("http://localhost:4000/get-gadg")
-      .then((result) => result.json())
-      .then((item) => setItems(item))
-      .catch((error) => console.error(error.message));
-  }, []);
+  const getAllGadges = async () => {
+    const gadges = await getGadg();
+    setItems(gadges);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getAllGadges(), []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getAllGadges(), [items.onAvailable]);
 
   const onAvailable = (availableItem) => {
     const updatedItems = items.map((item) => {
       if (item._id === availableItem._id) {
         item.isAvailable = !item.isAvailable;
+        console.log("item.isAvailable");
       }
       return item;
     });
     setItems(updatedItems);
   };
-  console.log("logged in", userId);
 
   return (
     <Main>
-      <Nav userId={userId} groupId={groupId} setUserId={setUserId} />
+      <Nav user={user} groupId={groupId} setUserId={setUserId} />
       <Switch>
         <Route exact path="/">
           <Welcome />
@@ -63,7 +69,7 @@ function App() {
           <Product onAvailable={onAvailable} userId={userId} />
         </Route>
         <Route path="/editProduct/:_id">
-          <EditProduct />
+          <EditProduct items={items} onAvailable={onAvailable} />
         </Route>
         <Route path="/formNewProduct">
           <FormNewProduct
@@ -80,9 +86,6 @@ function App() {
             groupId={groupId}
           />
         </Route>
-        <Route path="/dashboard">
-          <Dashboard />
-        </Route>
         <Route path="/searching">
           <Searching items={items} userId={userId} groupId={groupId} />
         </Route>
@@ -90,7 +93,7 @@ function App() {
           <EditGroup userId={userId} groupId={groupId} />
         </Route>
         <Route path="/editProfile">
-          <EditProfile userId={userId} groupId={groupId} />
+          <EditProfile userId={userId} groupId={groupId} user={user} />
         </Route>
       </Switch>
     </Main>

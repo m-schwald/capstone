@@ -1,33 +1,31 @@
 import styled from "styled-components";
 import { bool, func } from "prop-types";
-import { useQuery } from "react-query";
 import { NavLink } from "react-router-dom";
 
 import Button from "./Button";
+import { useEffect, useState } from "react";
 
 export default function SideNav({ openNav, setOpenNav, setUserId }) {
+  const [allUsers, setAllUsers] = useState([]);
+
   const getUser = async () => {
     const data = await fetch("http://localhost:4000/get-user");
     const result = await data.json();
     return result;
   };
-  const { isLoading, isError, data: users, error } = useQuery("users", getUser);
-  console.log(1, users);
 
-  return isLoading ? (
-    <p>is loading... </p>
-  ) : isError ? (
-    <p>Error: {error.message} </p>
-  ) : users ? (
+  const getAllUsers = async () => {
+    const userToLogin = await getUser();
+    setAllUsers(userToLogin);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getAllUsers(), []);
+
+  return (
     <NavContainer openNav={openNav}>
       <ButtonNav>
         <Link exact to="/" onClick={() => setOpenNav(!openNav)}>
           home
-        </Link>
-      </ButtonNav>
-      <ButtonNav>
-        <Link to="/dashboard" onClick={() => setOpenNav(!openNav)}>
-          gadgboard
         </Link>
       </ButtonNav>
       <ButtonNav>
@@ -43,7 +41,7 @@ export default function SideNav({ openNav, setOpenNav, setUserId }) {
 
       <section>
         <p> click your pic to log in</p>
-        {users?.map((user, index) => {
+        {allUsers?.map((user, index) => {
           const imageUser = user?.image ? `/users/${user?.image}` : "";
           return (
             <UserCard key={index} onClick={() => setUserId(user?._id)}>
@@ -53,11 +51,11 @@ export default function SideNav({ openNav, setOpenNav, setUserId }) {
         })}
       </section>
     </NavContainer>
-  ) : null;
+  );
 }
 
 const NavContainer = styled.div`
-  padding: 3rem 0 0 0;
+  padding: 10rem 0 0 0;
   position: absolute;
   background: var(--onetransparent);
   top: 0;
@@ -102,6 +100,7 @@ const Link = styled(NavLink)`
 
 const ButtonNav = styled(Button)`
   min-width: 70%;
+  margin: 1rem;
 `;
 const UserCard = styled.div`
   width: 5vh;

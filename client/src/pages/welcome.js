@@ -20,17 +20,13 @@ export default function Welcome() {
           i got a gadg
         </Link>
       </Button>
-      <Button>
-        <Link exact to="./dashboard">
-          let's just start
-        </Link>
-      </Button>
     </WelcomePage>
   );
 }
 
 const WelcomePage = styled(ContainerFlat)`
   display: flex;
+
   justify-content: center;
   align-items: center;
 `;

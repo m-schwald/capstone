@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { bool, func } from "prop-types";
 import { NavLink } from "react-router-dom";
-import { useQuery } from "react-query";
 
 import Button from "./Button";
 import FlexboxRow from "./FlexboxRow";
@@ -10,42 +9,30 @@ import home from "../assets/images/home.svg";
 import phone from "../assets/images/phone.svg";
 import mail from "../assets/images/mail.svg";
 
-export default function Profile({ openProfile, setOpenProfile, userId }) {
-  const getUser = async () => {
-    const data = await fetch("http://localhost:4000/get-user/" + userId);
-    const result = await data.json();
-    return result;
-  };
+export default function Profile({ openProfile, setOpenProfile, user }) {
+  const imageUser = user?.image ? `/users/${user.image}` : "";
 
-  const { isLoading, isError, data, error } = useQuery("user", getUser);
-
-  const imageUser = data?.image ? `/users/${data.image}` : "";
-
-  return isLoading ? (
-    <p>is loading... </p>
-  ) : isError ? (
-    <p>Error: {error.message} </p>
-  ) : data ? (
+  return (
     <NavContainer openProfile={openProfile}>
       <IconUser src={imageUser} />
-      <h4> {data.userName} </h4>
+      <h4> {user.userName} </h4>
       <h5>Motto:</h5>
-      <p> {data.motto}</p>
+      <p> {user.motto}</p>
       <h5>Contact:</h5>
       <p>
-        <Icon src={phone} /> {data.phone}
+        <Icon src={phone} /> {user.phone}
       </p>
       <p>
-        <Icon src={mail} /> {data.email}
+        <Icon src={mail} /> {user.email}
       </p>
       <p>
         <Icon src={home} />
-        {data.adress}
+        {user.adress}
       </p>
       <h5>Interests:</h5>
-      <p> {data.interests}</p>
+      <p> {user.interests}</p>
       <h5>Groups:</h5>
-      <p> {data.groups}</p>
+      <p> {user.groups}</p>
       <FlexboxRow>
         <Button>
           <Link to="/editProfile" onClick={() => setOpenProfile(!openProfile)}>
@@ -57,7 +44,7 @@ export default function Profile({ openProfile, setOpenProfile, userId }) {
         </Button>
       </FlexboxRow>
     </NavContainer>
-  ) : null;
+  );
 }
 
 const NavContainer = styled.div`

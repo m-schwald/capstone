@@ -4,7 +4,6 @@ import { useHistory, useParams } from "react-router";
 import { useState } from "react";
 
 import Toggle from "./IconToggle";
-import H3 from "./H3";
 import FlexboxRow from "./FlexboxRow";
 import Button from "./Button";
 
@@ -28,23 +27,7 @@ export default function FormEditProduct({
   };
 
   const { isLoading, isError, data, error } = useQuery("product", getGadg);
-  /* 
-  const mutation = useMutation((editGadg) =>
-    axios.post("http://localhost:4000/get-gadg" + _id, editGadg)
-  ); 
 
-  function editItem(item) {
-    mutation.mutate({
-      gadgName: item.gadgName,
-      isAvailable: item.isAvailable,
-      image: item.image,
-      description: item.description,
-      category: item.category,
-      size: item.size,
-      facts: item.facts,
-      personalInfo: item.personalInfo,
-    });
-  } */
   data ? console.log(data) : console.log("no net");
 
   const productToEdit = {
@@ -214,4 +197,8 @@ const Flexbox = styled.div`
 
 const Label = styled.label`
   font-size: 0.8rem;
+`;
+
+const H3 = styled.h3`
+  margin: 1rem auto;
 `;

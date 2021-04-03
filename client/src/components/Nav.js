@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useOnClickOutside } from "../hooks";
 
 import SideNav from "./SideNav";
@@ -8,9 +8,8 @@ import Group from "./Group";
 import Logo from "./Logo";
 import IconUser from "./IconUser";
 import IconGroup from "./IconGroup";
-import { useQuery } from "react-query";
 
-export default function Nav({ userId, groupId, setUserId }) {
+export default function Nav({ user, groupId, setUserId }) {
   const [openNav, setOpenNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [openGroup, setOpenGroup] = useState(false);
@@ -24,27 +23,9 @@ export default function Nav({ userId, groupId, setUserId }) {
   const nodeGroup = useRef();
   useOnClickOutside(nodeGroup, () => setOpenGroup(false));
 
-  const getUser = async () => {
-    const data = await fetch("http://localhost:4000/get-user/" + userId);
-    const result = await data.json();
-    return result;
-  };
-  const { isLoading, isError, data, error } = useQuery("user", getUser);
+  const imageUser = user?.image ? `/users/${user.image}` : "";
 
-  /* 
-    const [LoginId, setLoginId] = useState(userId);
-useEffect((userId) => {
-  setLoginId(userId);
-  }, []);
-  console.log(5, LoginId); */
-
-  const imageUser = data?.image ? `/users/${data?.image}` : "";
-
-  return isLoading ? (
-    <p>is loading... </p>
-  ) : isError ? (
-    <p>Error: {error.message} </p>
-  ) : data ? (
+  return (
     <Navi>
       <LogoContainer ref={nodeNav}>
         <Logo
@@ -56,6 +37,7 @@ useEffect((userId) => {
           openNav={openNav}
           setOpenNav={setOpenNav}
           setUserId={setUserId}
+          user={user}
         />
       </LogoContainer>
 
@@ -80,16 +62,16 @@ useEffect((userId) => {
           openProfile={openProfile}
         >
           <IconUser imageUser={imageUser} />
-          <NavText>{data.userName}</NavText>
+          <NavText>{user.userName}</NavText>
         </GroupBox>
         <Profile
           openProfile={openProfile}
           setOpenProfile={setOpenProfile}
-          userId={userId}
+          user={user}
         />
       </LinkContainer>
     </Navi>
-  ) : null;
+  );
 }
 
 const Navi = styled.div`

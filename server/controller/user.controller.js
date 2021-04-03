@@ -57,4 +57,34 @@ const userDelete = (request, response) => {
     .catch(() => response.json("could not find the person you're looking for"));
 };
 
-export { userGet, userPost, userFind, userDelete, ownerFind };
+const userChange = (request, response) => {
+  const userId = request.params.userId;
+  const userName = request.body.userName;
+  const image = request.body.image;
+  const phone = request.body.phone;
+  const email = request.body.email;
+  const adress = request.body.adress;
+  const interests = request.body.interests;
+  const motto = request.body.motto;
+  const groups = request.body.groups;
+
+  User.updateOne(
+    { _id: userId },
+    {
+      userName: userName,
+      image: image,
+      phone: phone,
+      email: email,
+      adress: adress,
+      interests: interests,
+      motto: motto,
+      groups: groups,
+    },
+    (error, result) => {
+      if (error) response.json(error);
+      response.json(result);
+    }
+  );
+};
+
+export { userGet, userPost, userFind, userDelete, ownerFind, userChange };

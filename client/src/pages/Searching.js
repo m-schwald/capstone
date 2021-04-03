@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { useQuery } from "react-query";
 
 import ContainerFlat from "../components/ContainerFlat";
 import CardOffering from "../components/CardOffering";
@@ -9,24 +8,16 @@ import Link from "../components/Link";
 
 import search from "../assets/images/search.svg";
 
-export default function Searching({ userId }) {
-  const getGadg = async () => {
-    const data = await fetch("http://localhost:4000/get-gadg");
-    const result = await data.json();
-    return result;
-  };
-
-  const { isLoading, isError, data, error } = useQuery("allGadges", getGadg);
-
+export default function Searching({ items, userId }) {
   const [availableOnly, setAvailableOnly] = useState(false);
   const [category, setCategory] = useState("all");
   const [size, setSize] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const categoryOptions = data?.map((item) => item.category);
+  const categoryOptions = items?.map((item) => item.category);
   categoryOptions?.unshift("all");
 
-  const sizeOptions = data?.map((item) => item.size);
+  const sizeOptions = items?.map((item) => item.size);
   sizeOptions?.unshift("all");
 
   const byAvailability = (item) => {
@@ -43,7 +34,7 @@ export default function Searching({ userId }) {
     return item.size === size;
   };
 
-  const items = data
+  const data = items
     ?.filter((value) => {
       if (searchTerm === "") {
         return value;
@@ -74,7 +65,7 @@ export default function Searching({ userId }) {
       </Flexbox>
       <Flexbox>
         <Button
-          disabled={!data}
+          disabled={!items}
           onClick={() => setAvailableOnly(!availableOnly)}
         >
           {availableOnly ? "show all" : "available only"}
@@ -107,17 +98,11 @@ export default function Searching({ userId }) {
         </Label>
       </Flexbox>
       <Flexbox>
-        {isLoading ? (
-          <p>is loading... </p>
-        ) : isError ? (
-          <p>Error: {error.message} </p>
-        ) : (
-          items.map((item) => (
-            <Link key={item._id} to={`/product/${item._id}`}>
-              <CardOffering item={item} />
-            </Link>
-          ))
-        )}
+        {data.map((item) => (
+          <Link key={item._id} to={`/product/${item._id}`}>
+            <CardOffering item={item} />
+          </Link>
+        ))}
       </Flexbox>
     </ContainerFlat>
   );

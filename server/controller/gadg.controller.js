@@ -55,4 +55,38 @@ const gadgDelete = (request, response) => {
     .catch(() => response.json("could not find the gadg you're looking for"));
 };
 
-export { gadgGet, gadgPost, gadgFind, gadgDelete };
+const gadgChange = (request, response) => {
+  const gadgId = request.params.gadgId;
+  const gadgName = request.body.gadgName;
+  const image = request.body.image;
+  const isAvailable = request.body.isAvailable;
+  const description = request.body.description;
+  const category = request.body.category;
+  const size = request.body.size;
+  const facts = request.body.facts;
+  const personalInfo = request.body.personalInfo;
+  const ownerId = request.body.ownerId;
+  const groupId = request.body.groupId;
+
+  Gadg.updateOne(
+    { _id: gadgId },
+    {
+      gadgName: gadgName,
+      image: image,
+      isAvailable: isAvailable,
+      description: description,
+      category: category,
+      size: size,
+      facts: facts,
+      personalInfo: personalInfo,
+      ownerId: ownerId,
+      groupId: groupId,
+    },
+    (error, result) => {
+      if (error) response.json(error);
+      response.json(result);
+    }
+  );
+};
+
+export { gadgGet, gadgPost, gadgFind, gadgDelete, gadgChange };

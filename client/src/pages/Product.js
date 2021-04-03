@@ -1,66 +1,70 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import axios from "axios";
-import { useRouteMatch, useParams, useHistory } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
+import {
+  NavLink,
+  useRouteMatch,
+  useParams,
+  useHistory,
+} from "react-router-dom";
 
 import Toggle from "../components/IconToggle";
-import FlexboxRow from "../components/FlexboxRow";
-import Image from "../components/Image";
-import H3 from "../components/H3";
 import Button from "../components/Button";
+import Image from "../components/Image";
 import ContainerFlat from "../components/ContainerFlat";
 import { StyledModal } from "../components/reusableModal";
 
 import phone from "../assets/images/phone.svg";
 import mail from "../assets/images/mail.svg";
+import trash from "../assets/images/trash.svg";
+import edit from "../assets/images/wrench.svg";
 
 export default function Product({ onAvailable, userId }) {
   const { path } = useRouteMatch();
   const { _id } = useParams();
   let history = useHistory();
 
+  const [gadg, setGadg] = useState({});
+  const [owner, setOwner] = useState({});
+
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [ownerOpen, setOwnerOpen] = useState(false);
 
   const getGadg = async (id) => {
-    const data = await fetch("http://localhost:4000/get-gadg/" + id);
-    const result = await data.json();
+    const gadg = await fetch("http://localhost:4000/get-gadg/" + id);
+    const result = await gadg.json();
     return result;
   };
-  const { isLoading, isError, data, error } = useQuery("product", () =>
-    getGadg(_id)
-  );
 
-  const { mutateAsync: updateGadg } = useMutation(getGadg, {
-    onSuccess: () => console.log("bling!"),
-  });
-
-  console.log("owner", data?.ownerId);
-  console.log("user", userId);
-  // not ready yet
-  const getOwner = async () => {
-    const owner = await fetch(
-      `http://localhost:4000/get-owner/${data?.ownerId}`
-    );
+  const getOwner = async (ownerId) => {
+    const owner = await fetch(`http://localhost:4000/get-owner/${ownerId}`);
     const result = await owner.json();
     return result;
   };
-  const { data: owner } = useQuery("owner", getOwner);
-  console.log(owner?.userName);
-  // Ende
+
+  const loadGadgAndOwner = async (gadgId) => {
+    const gadg = await getGadg(gadgId);
+    const owner = await getOwner(gadg.ownerId);
+    setGadg(gadg);
+    setOwner(owner);
+  };
+
+  useEffect(() => {
+    loadGadgAndOwner(_id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const goBack = () => {
     history.goBack();
   };
 
-  const imageProduct = data?.image ? `/products/${data.image}` : "";
+  const imageProduct = gadg?.image ? `/products/${gadg.image}` : "";
   const imageOwner = owner?.image ? `/users/${owner.image}` : "";
 
   async function deleteItem() {
     try {
       const response = await axios.delete(
-        "http://localhost:4000/get-gadg/" + data._id
+        "http://localhost:4000/get-gadg/" + gadg._id
       );
       console.log(response);
     } catch (error) {
@@ -69,47 +73,51 @@ export default function Product({ onAvailable, userId }) {
     goBack();
   }
 
-  return isLoading ? (
-    <p>is loading... </p>
-  ) : isError ? (
-    <p>Error: {error.message} </p>
-  ) : data ? (
+  return (
     <ContainerFlat>
       <FlexboxRow>
-        <H3 text={data.gadgName} />
+        <H3>{gadg.gadgName}</H3>
+
         <Toggle
-          onClick={updateGadg}
-          available={data.isAvailable}
+          onClick={() => "implement me"}
+          available={gadg.isAvailable}
           onAvailable={onAvailable}
         />
-        <span>
-          <DeleteIcon
-            show={data?.ownerId === userId}
-            onClick={() => setDeleteOpen(!deleteOpen)}
-          >
-            X
-          </DeleteIcon>
-        </span>
+
+        <EditButton>
+          <NavLink to={`../EditProduct/${_id}`}>
+            <OwnerIcon src={edit} show={gadg?.ownerId === userId}></OwnerIcon>
+          </NavLink>
+        </EditButton>
+
+        <OwnerIcon
+          src={trash}
+          show={gadg?.ownerId === userId}
+          onClick={() => setDeleteOpen(!deleteOpen)}
+        ></OwnerIcon>
+
         <StyledModal show={deleteOpen} handleClose={() => setDeleteOpen(false)}>
-          <p>do you really want to delete {data.gadgName}?</p>
+          <p>Do you really want to delete</p>
+          <H5> {gadg.gadgName} </H5>
+          <p>?</p>
           <Button onClick={deleteItem}>delete it!</Button>
         </StyledModal>
       </FlexboxRow>
       <Img src={imageProduct} />
       <Description>
         <h5> Description </h5>
-        <p>{data.description}</p>
+        <p>{gadg.description}</p>
       </Description>
       <Flexbox>
         <FlexboxColumn>
           <IconOwner
             src={imageOwner}
-            show={data?.ownerId === userId}
+            show={gadg?.ownerId === userId}
             onClick={() => setOwnerOpen(!ownerOpen)}
           />
           <StyledModal show={ownerOpen} handleClose={() => setOwnerOpen(false)}>
             <p>
-              {data.gadgName} is owned by
+              {gadg.gadgName} is owned by
               <br /> {owner?.userName}.
             </p>
             <p>
@@ -129,36 +137,29 @@ export default function Product({ onAvailable, userId }) {
             Owner : <br /> {owner?.userName}
           </p>
           <p>
-            Size: <br /> {data.size}
+            Size: <br /> {gadg.size}
           </p>
           <p>
             category:
-            <br /> {data.category}
+            <br /> {gadg.category}
           </p>
         </FlexboxColumn>
         <Description>
           <h5> Facts </h5>
-          <p>{data.facts}</p>
+          <p>{gadg.facts}</p>
           <h5> preferences for usage </h5>
-          <p>{data.personalInfo}</p>
+          <p>{gadg.personalInfo}</p>
         </Description>
       </Flexbox>
       <Button onClick={goBack}>go back</Button>
     </ContainerFlat>
-  ) : null;
+  );
 }
-const DeleteIcon = styled.span`
-  color: var(--light);
-  margin: 0 0.5rem;
-  padding: 0.2rem 0.5rem;
-  text-shadow: white 0 0 10px;
+const OwnerIcon = styled.img`
   display: none;
-  width: 3rem;
-  height: 1rem;
-
-  border-radius: 50%;
-  text-align: center;
-  background: darkred;
+  width: 1.3rem;
+  height: auto;
+  margin: 0.5rem;
 
   &:hover {
     cursor: pointer;
@@ -202,6 +203,11 @@ const FlexboxColumn = styled.div`
   }
 `;
 
+const FlexboxRow = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const Flexbox = styled.section`
   display: flex;
   justify-content: flex-start;
@@ -232,4 +238,21 @@ const Icon = styled.img`
   width: 0.8rem;
   height: auto;
   margin: 0.3rem 0.3rem 0 0.4rem;
+`;
+
+const H3 = styled.h3`
+  margin: 1rem auto;
+  text-align: center;
+  max-width: 60%;
+`;
+
+const H5 = styled.h5`
+  text-align: center;
+`;
+
+const EditButton = styled.button`
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
 `;

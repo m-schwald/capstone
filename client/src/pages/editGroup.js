@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import H3 from "../components/H3";
 import Container from "../components/Container";
 import IconGroup from "../components/IconGroup";
 
@@ -16,4 +15,7 @@ export default function EditGroup() {
 const BigIconGroup = styled(IconGroup)`
   height: auto;
   width: auto;
+`;
+const H3 = styled.h3`
+  margin: 1rem auto;
 `;

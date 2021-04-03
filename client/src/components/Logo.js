@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { bool, func } from "prop-types";
 
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo_small.png";
 
 const Logo = ({ openNav, setOpenNav }) => {
   return (
@@ -10,7 +10,7 @@ const Logo = ({ openNav, setOpenNav }) => {
 };
 
 const Img = styled.img`
-  height: 5vh;
+  height: 8vh;
   width: auto;
 `;
 

@@ -1,32 +1,32 @@
-import { useMutation } from "react-query";
-import axios from "axios";
 import { useHistory } from "react-router";
 
 import FormItem from "../components/FormItem";
 
 export default function FormNewProduct({ setAvailable, userId, groupId }) {
-  const mutation = useMutation((newGadg) =>
-    axios.post("http://localhost:4000/create-gadg", newGadg)
-  );
-
   let history = useHistory();
 
-  function addItem(item) {
-    mutation.mutate({
-      _id: item._id,
-      gadgName: item.gadgName,
-      isAvailable: item.isAvailable,
-      image: item.image,
-      description: item.description,
-      category: item.category,
-      size: item.size,
-      facts: item.facts,
-      personalInfo: item.personalInfo,
-      ownerId: userId,
-      groupId: item.groupId,
-    });
+  const addItem = (item) => {
+    fetch("http://localhost:4000/create-gadg", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        _id: item._id,
+        gadgName: item.gadgName,
+        isAvailable: item.isAvailable,
+        image: item.image,
+        description: item.description,
+        category: item.category,
+        size: item.size,
+        facts: item.facts,
+        personalInfo: item.personalInfo,
+        ownerId: userId,
+        groupId: item.groupId,
+      }),
+    })
+      .then((result) => result.json())
+      .catch((error) => console.error(error.message));
     history.goBack();
-  }
+  };
 
   return (
     <FormItem
