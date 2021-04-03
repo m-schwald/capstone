@@ -45,18 +45,7 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getAllGadges(), []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getAllGadges(), [items.onAvailable]);
-
-  const onAvailable = (availableItem) => {
-    const updatedItems = items.map((item) => {
-      if (item._id === availableItem._id) {
-        item.isAvailable = !item.isAvailable;
-        console.log("item.isAvailable");
-      }
-      return item;
-    });
-    setItems(updatedItems);
-  };
+  useEffect(() => getAllGadges(), [items]);
 
   return (
     <Main>
@@ -66,25 +55,16 @@ function App() {
           <Welcome />
         </Route>
         <Route path="/product/:_id">
-          <Product onAvailable={onAvailable} userId={userId} />
+          <Product userId={userId} />
         </Route>
         <Route path="/editProduct/:_id">
-          <EditProduct items={items} onAvailable={onAvailable} />
+          <EditProduct items={items} />
         </Route>
         <Route path="/formNewProduct">
-          <FormNewProduct
-            onAvailable={onAvailable}
-            userId={userId}
-            groupId={groupId}
-          />
+          <FormNewProduct userId={userId} groupId={groupId} />
         </Route>
         <Route path="/offering">
-          <Offering
-            items={items}
-            onAvailable={onAvailable}
-            userId={userId}
-            groupId={groupId}
-          />
+          <Offering items={items} userId={userId} groupId={groupId} />
         </Route>
         <Route path="/searching">
           <Searching items={items} userId={userId} groupId={groupId} />

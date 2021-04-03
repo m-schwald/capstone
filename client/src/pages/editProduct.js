@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { useHistory, useParams } from "react-router";
 import { useEffect, useState } from "react";
 
-import Toggle from "../components/IconToggle";
+import Toggle from "../components/IconToggleChange";
 import FlexboxRow from "../components/FlexboxRow";
 import Button from "../components/Button";
 
 import add_image from "../assets/images/add_image.svg";
 
-export default function EditProduct({ available, onAvailable }) {
+export default function EditProduct({ available }) {
   const { _id } = useParams();
   let history = useHistory();
   const goBack = () => {
@@ -31,7 +31,7 @@ export default function EditProduct({ available, onAvailable }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [changedItem, setChangedItem] = useState({});
+  const [changedItem, setChangedItem] = useState(gadg);
 
   useEffect(() => {
     setChangedItem(gadg);
@@ -45,7 +45,7 @@ export default function EditProduct({ available, onAvailable }) {
       [field.name]: value,
     });
   };
-  const image = `/public/products/${gadg.image}`;
+  const imageProduct = gadg?.image ? `/products/${gadg.image}` : `${add_image}`;
 
   const handleUpdate = async (event) => {
     event.preventDefault();
@@ -60,34 +60,37 @@ export default function EditProduct({ available, onAvailable }) {
 
   return (
     <ContainerForm onSubmit={handleUpdate}>
-      <H3 text="edit your gadg" />
+      <H3>edit your gadg</H3>
       <Flexbox>
         <InputName
           name="gadgName"
           maxlength="30"
           onChange={handleChange}
-          value={changedItem.gadgName}
+          value={changedItem.gadgName || ""}
         />
         <Toggle
           name="isAvailable"
+          gadg={gadg}
           onChange={handleChange}
-          value={available}
-          available={available}
-          onAvailable={onAvailable}
+          value={available || ""}
+          available={gadg.isAvailable}
+          onClick={() => {
+            gadg.isAvailable = !gadg.isAvailable;
+          }}
         />
       </Flexbox>
       <AddImg
         name="image"
-        src={image}
+        src={imageProduct}
         onChange={handleChange}
-        value={changedItem.image}
+        value={changedItem.image || ""}
       />
       <InputText
         name="description"
         rows="5"
         maxlength="300"
         onChange={handleChange}
-        value={changedItem.description}
+        value={changedItem.description || ""}
       />
       <Flexbox>
         <Label htmlFor="category">
@@ -95,7 +98,7 @@ export default function EditProduct({ available, onAvailable }) {
           <Choice
             name="category"
             onChange={handleChange}
-            value={changedItem.category}
+            value={changedItem.category || ""}
           >
             <option value="snow">snow</option>
             <option value="bike">bike</option>
@@ -103,7 +106,11 @@ export default function EditProduct({ available, onAvailable }) {
             <option value="car">car</option>
           </Choice>
         </Label>
-        <Label htmlFor="size" onChange={handleChange} value={changedItem.size}>
+        <Label
+          htmlFor="size"
+          onChange={handleChange}
+          value={changedItem.size || ""}
+        >
           size
           <Choice name="size">
             <option value="S">S</option>
@@ -118,7 +125,7 @@ export default function EditProduct({ available, onAvailable }) {
         rows="2"
         maxlength="100"
         onChange={handleChange}
-        value={changedItem.facts}
+        value={changedItem.facts || ""}
       />
 
       <InputText
@@ -126,7 +133,7 @@ export default function EditProduct({ available, onAvailable }) {
         rows="2"
         maxlength="100"
         onChange={handleChange}
-        value={changedItem.personalInfo}
+        value={changedItem.personalInfo || ""}
       />
       <FlexboxRow>
         <Button type="button" cancel onClick={goBack}>

@@ -6,7 +6,7 @@ import CardOffering from "../components/CardOffering";
 import ContainerFlat from "../components/ContainerFlat";
 import Link from "../components/Link";
 
-export default function Offering({ available, onAvailable, userId, items }) {
+export default function Offering({ available, userId, items }) {
   const availableItems = items
     ?.filter((item) => item.ownerId === userId)
     .filter((item) => item.isAvailable);
@@ -27,7 +27,6 @@ export default function Offering({ available, onAvailable, userId, items }) {
               key={index}
               item={item}
               available={available}
-              onAvailable={() => onAvailable(item)}
               userId={userId}
             />
           </Link>
@@ -37,12 +36,7 @@ export default function Offering({ available, onAvailable, userId, items }) {
       <Flexbox>
         {remainingItems?.map((item, index) => (
           <Link key={item._id} to={`/product/${item._id}`}>
-            <CardOffering
-              key={index}
-              item={item}
-              available={available}
-              onAvailable={() => onAvailable(item)}
-            />
+            <CardOffering key={index} item={item} available={available} />
           </Link>
         ))}
       </Flexbox>

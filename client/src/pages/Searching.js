@@ -16,9 +16,15 @@ export default function Searching({ items, userId }) {
 
   const categoryOptions = items?.map((item) => item.category);
   categoryOptions?.unshift("all");
+  let uniqueCategories = categoryOptions.filter((c, index) => {
+    return categoryOptions.indexOf(c) === index;
+  });
 
   const sizeOptions = items?.map((item) => item.size);
   sizeOptions?.unshift("all");
+  let uniqueSizes = sizeOptions.filter((c, index) => {
+    return sizeOptions.indexOf(c) === index;
+  });
 
   const byAvailability = (item) => {
     if (!availableOnly) return item;
@@ -76,7 +82,7 @@ export default function Searching({ items, userId }) {
             id="choose_category"
             onChange={(event) => setCategory(event.target.value)}
           >
-            {categoryOptions?.map((option, index) => (
+            {uniqueCategories?.map((option, index) => (
               <option key={index} value={option}>
                 {option}
               </option>
@@ -89,7 +95,7 @@ export default function Searching({ items, userId }) {
             id="choose_size"
             onChange={(event) => setSize(event.target.value)}
           >
-            {sizeOptions?.map((option, index) => (
+            {uniqueSizes?.map((option, index) => (
               <option key={index} value={option}>
                 {option}
               </option>

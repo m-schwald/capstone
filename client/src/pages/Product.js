@@ -19,7 +19,7 @@ import mail from "../assets/images/mail.svg";
 import trash from "../assets/images/trash.svg";
 import edit from "../assets/images/wrench.svg";
 
-export default function Product({ onAvailable, userId }) {
+export default function Product({ userId }) {
   const { path } = useRouteMatch();
   const { _id } = useParams();
   let history = useHistory();
@@ -78,11 +78,7 @@ export default function Product({ onAvailable, userId }) {
       <FlexboxRow>
         <H3>{gadg.gadgName}</H3>
 
-        <Toggle
-          onClick={() => "implement me"}
-          available={gadg.isAvailable}
-          onAvailable={onAvailable}
-        />
+        <Toggle gadg={gadg} available={gadg.isAvailable} />
 
         <EditButton>
           <NavLink to={`../EditProduct/${_id}`}>

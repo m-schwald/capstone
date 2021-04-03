@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-const Toggle = ({ available }) => {
+const Toggle = ({ available, gadg }) => {
   return (
     <Switch>
-      <Sign state={available ? "var(--two)" : "var(--one)"} />
+      <Sign
+        state={available ? "var(--two)" : "var(--one)"}
+        onClick={() => {
+          gadg.isAvailable = !gadg.isAvailable;
+        }}
+      />
     </Switch>
   );
 };
