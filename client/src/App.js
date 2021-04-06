@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 import Nav from "./components/Nav";
 
-import Product from "./pages/product";
-import FormNewProduct from "./pages/formNewProduct";
+import Product from "./pages/Product";
+import FormNewProduct from "./pages/FormNewProduct";
 import Offering from "./pages/offering";
 import Searching from "./pages/searching";
 import Welcome from "./pages/welcome";
