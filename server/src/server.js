@@ -2,6 +2,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import fileUpload from "express-fileupload";
+
+import Image from "../models/image.model.js";
+import Gadg from "../models/gadg.model.js";
 
 import {
   gadgPost,
@@ -24,6 +28,7 @@ const connectionString = "mongodb://localhost:27017/gadg-supply";
 const server = express();
 server.use(bodyParser.json());
 server.use(cors());
+server.use(fileUpload({ createParentPath: true }));
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
@@ -46,5 +51,26 @@ server.put("/get-user/:userId", userChange);
 server.get("/get-owner/:userId", ownerFind);
 server.post("/create-user", userPost);
 server.delete("/get-gadg/:userId", userDelete);
+
+server.post("/upload", async (request, response) => {
+  const gadgId = request.params.gadgId;
+  const image = request.files.image;
+
+  try {
+    image.mv("./client/public/products/" + image.name);
+  } catch (error) {
+    console.log(error);
+  }
+  const imageToSave = await Gadg.find({
+    _id: gadgId,
+  });
+  imageToSave.image = image.name;
+  console.log(imageToSave);
+
+  imageToSave
+    .save()
+    .then((savedImage) => response.json(savedImage))
+    .catch((error) => response.json(error));
+});
 
 server.listen(4000);

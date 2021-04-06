@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const UserCard = (user) => {
   return (
@@ -17,3 +18,7 @@ const Image = styled.img`
 `;
 
 export default UserCard;
+
+UserCard.propTypes = {
+  user: PropTypes.object,
+};

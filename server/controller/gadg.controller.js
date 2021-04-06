@@ -15,7 +15,6 @@ const gadgPost = (request, response) => {
   const personalInfo = request.body.personalInfo;
   const ownerId = request.body.ownerId;
   const groupId = request.body.groupId;
-
   const item = new Gadg({
     gadgName: gadgName,
     image: image,
@@ -42,7 +41,10 @@ const gadgPost = (request, response) => {
 const gadgFind = (request, response) => {
   const gadgId = request.params.gadgId;
   Gadg.findOne({ _id: gadgId })
-    .then((item) => response.json(item))
+
+    .then((item) => {
+      response.json(item);
+    })
     .catch(() => response.json("could not find the gadg you're looking for"));
 };
 
@@ -58,7 +60,7 @@ const gadgDelete = (request, response) => {
 const gadgChange = (request, response) => {
   const gadgId = request.params.gadgId;
   const gadgName = request.body.gadgName;
-  const image = request.body.image;
+  const image = request.body.image.name;
   const isAvailable = request.body.isAvailable;
   const description = request.body.description;
   const category = request.body.category;

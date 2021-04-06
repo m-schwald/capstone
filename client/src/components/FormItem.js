@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useHistory } from "react-router";
+import PropTypes from "prop-types";
 
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
@@ -190,3 +191,10 @@ const Label = styled.label`
 const H3 = styled.h3`
   margin: 1rem auto;
 `;
+
+FormItem.propTypes = {
+  onAvailable: PropTypes.func,
+  submitFunction: PropTypes.func,
+  userId: PropTypes.string,
+  groupId: PropTypes.string,
+};

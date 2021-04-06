@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useRef, useState } from "react";
 import { useOnClickOutside } from "../hooks";
+import PropTypes from "prop-types";
 
 import SideNav from "./SideNav";
 import Profile from "./Profile";
@@ -107,3 +108,9 @@ const LinkContainer = styled.div`
 const NavText = styled.p`
   font-size: 0.8rem;
 `;
+
+Nav.propTypes = {
+  user: PropTypes.array,
+  groupId: PropTypes.string,
+  setUserId: PropTypes.func,
+};

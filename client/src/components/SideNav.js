@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { bool, func } from "prop-types";
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 
 import Button from "./Button";
-import { useEffect, useState } from "react";
 
 export default function SideNav({ openNav, setOpenNav, setUserId }) {
   const [allUsers, setAllUsers] = useState([]);
@@ -115,6 +116,7 @@ const UserCard = styled.div`
 `;
 
 SideNav.propTypes = {
-  openNav: bool.isRequired,
-  setOpenNav: func.isRequired,
+  openNav: PropTypes.bool,
+  setOpenNav: PropTypes.func,
+  setUserId: PropTypes.func,
 };

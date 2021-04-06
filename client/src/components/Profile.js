@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { bool, func } from "prop-types";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
 import Button from "./Button";
@@ -111,6 +111,7 @@ const Link = styled(NavLink)`
 `;
 
 Profile.propTypes = {
-  openProfile: bool.isRequired,
-  setOpenProfile: func.isRequired,
+  openProfile: PropTypes.bool,
+  setOpenProfile: PropTypes.func,
+  user: PropTypes.object,
 };

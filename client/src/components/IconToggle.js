@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Toggle = ({ available }) => {
   return (
@@ -23,3 +24,7 @@ const Sign = styled.div`
 `;
 
 export default Toggle;
+
+Toggle.propTypes = {
+  available: PropTypes.bool,
+};

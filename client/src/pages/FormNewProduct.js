@@ -1,4 +1,5 @@
 import { useHistory } from "react-router";
+import PropTypes from "prop-types";
 
 import FormItem from "../components/FormItem";
 
@@ -37,3 +38,9 @@ export default function FormNewProduct({ setAvailable, userId, groupId }) {
     />
   );
 }
+
+FormNewProduct.propTypes = {
+  setAvailable: PropTypes.func,
+  userId: PropTypes.string,
+  groupId: PropTypes.string,
+};

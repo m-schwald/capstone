@@ -202,3 +202,9 @@ const Label = styled.label`
 const H3 = styled.h3`
   margin: 1rem auto;
 `;
+
+FormEditProduct.propTypes = {
+  onAvailable: PropTypes.func,
+  submitFunction: PropTypes.func,
+  available: PropTypes.bool,
+};

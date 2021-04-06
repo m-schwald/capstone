@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import Image from "../components/Image";
+import PropTypes from "prop-types";
 
+import Image from "../components/Image";
 import Container from "./Container";
 import Toggle from "./IconToggle";
 
-export default function CardOffering({ item, onAvailable, userId }) {
-  const image = item?.image ? `/products/${item.image}` : "";
+export default function CardOffering({ item, onAvailable }) {
+  const image = item.image ? `/products/${item.image}` : "";
 
   return (
     <CardContainer>
@@ -51,3 +52,8 @@ const CardContainer = styled(Container)`
   z-index: -3;
   height: 21vh;
 `;
+
+CardOffering.propTypes = {
+  onAvailable: PropTypes.func,
+  items: PropTypes.array,
+};

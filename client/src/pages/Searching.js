@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 import ContainerFlat from "../components/ContainerFlat";
 import CardOffering from "../components/CardOffering";
@@ -144,3 +145,8 @@ const Label = styled.label`
     width: 80%;
   }
 `;
+
+Searching.propTypes = {
+  items: PropTypes.array,
+  userId: PropTypes.string,
+};

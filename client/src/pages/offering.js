@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
@@ -64,3 +65,9 @@ const H3 = styled.h3`
   margin: 0;
   padding: 0;
 `;
+
+Offering.propTypes = {
+  available: PropTypes.bool,
+  userId: PropTypes.string,
+  items: PropTypes.array,
+};

@@ -45,7 +45,7 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getAllGadges(), []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getAllGadges(), [items]);
+  useEffect(() => getAllGadges(), []);
 
   return (
     <Main>

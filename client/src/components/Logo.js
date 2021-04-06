@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { bool, func } from "prop-types";
+import PropTypes from "prop-types";
 
 import logo from "../assets/images/logo_small.png";
 
@@ -14,9 +14,9 @@ const Img = styled.img`
   width: auto;
 `;
 
-Logo.propTypes = {
-  openNav: bool.isRequired,
-  setOpenNav: func.isRequired,
-};
-
 export default Logo;
+
+Logo.propTypes = {
+  openNav: PropTypes.bool,
+  setOpenNav: PropTypes.func,
+};

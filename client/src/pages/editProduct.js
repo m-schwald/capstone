@@ -1,6 +1,8 @@
+/* eslint-disable react/react-in-jsx-scope */
 import styled from "styled-components";
 import { useHistory, useParams } from "react-router";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 import Toggle from "../components/IconToggleChange";
 import FlexboxRow from "../components/FlexboxRow";
@@ -16,6 +18,9 @@ export default function EditProduct({ available }) {
   };
 
   const [gadg, setGadg] = useState({});
+  const [changedItem, setChangedItem] = useState({});
+
+  let imageInput = null;
 
   const getGadg = async (id) => {
     const gadg = await fetch("http://localhost:4000/get-gadg/" + id);
@@ -26,36 +31,78 @@ export default function EditProduct({ available }) {
     const gadg = await getGadg(gadgId);
     setGadg(gadg);
   };
+
   useEffect(() => {
     loadGadg(_id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const [changedItem, setChangedItem] = useState(gadg);
+  useEffect(() => {
+    loadGadg(_id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setChangedItem]);
 
   useEffect(() => {
     setChangedItem(gadg);
   }, [gadg]);
 
+  console.log({ gadg });
+  console.log({ changedItem });
+
   const handleChange = (event) => {
     const field = event.target;
     const value = field.value;
+    console.log("value");
     setChangedItem({
       ...changedItem,
       [field.name]: value,
     });
   };
-  const imageProduct = gadg?.image ? `/products/${gadg.image}` : `${add_image}`;
 
-  const handleUpdate = async (event) => {
-    event.preventDefault();
-    const response = await fetch("http://localhost:4000/get-gadg/" + _id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(changedItem),
+  async function handleUpdate(event) {
+    if (changedItem !== gadg) {
+      event.preventDefault();
+      console.log(JSON.stringify(changedItem));
+      const response = await fetch("http://localhost:4000/get-gadg/" + _id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(changedItem),
+      });
+      console.log(await response.json());
+      goBack();
+    } else {
+      console.log("uu");
+      history.push(`/product/${_id}`);
+    }
+  }
+
+  const fileUploadHandler = (event) => {
+    const url = "http://localhost:4000/upload";
+    const formData = new FormData();
+
+    formData.append("image", event.target.files[0]);
+
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((result) => result.json())
+      .then((image) => setChangedItem({ ...changedItem, image: image }))
+      .catch((error) => console.error(error.message));
+  };
+  /*   const fileUploadHandler = (event) => {
+    const field = event.target;
+    const image = event.target.files[0];
+    setChangedItem({ ...changedItem, [field.name]: image.name });
+    // console.log({ [field.name]: value.name });
+    image.mv("./client/public/images/" + image.name);
+    console.log(event.target.files[0]);
+  }; */
+
+  const removeImage = () => {
+    setChangedItem({
+      ...changedItem,
+      image: "",
     });
-    console.log(await response.json());
-    goBack();
   };
 
   return (
@@ -79,12 +126,34 @@ export default function EditProduct({ available }) {
           }}
         />
       </Flexbox>
-      <AddImg
+
+      <input
+        type="file"
         name="image"
-        src={imageProduct}
-        onChange={handleChange}
-        value={changedItem.image || ""}
+        placeholder="Add image"
+        onChange={fileUploadHandler}
+        style={{ display: "none" }}
+        ref={(input) => (imageInput = input)}
       />
+      {changedItem.image ? (
+        <img
+          src={`/products/${changedItem.image}`}
+          width="auto"
+          height="100"
+          alt="productImage"
+        />
+      ) : (
+        <img src={add_image} width="auto" height="100" alt="productImage" />
+      )}
+      <ImageWrapper>
+        <ImageButton type="button" onClick={() => imageInput.click()}>
+          choose image
+        </ImageButton>
+        <ImageButton onClick={removeImage} type="button">
+          Remove Image
+        </ImageButton>
+      </ImageWrapper>
+
       <InputText
         name="description"
         rows="5"
@@ -151,6 +220,10 @@ const ContainerForm = styled.form`
   margin: 2rem auto 0 auto;
   display: flex;
   flex-flow: column nowrap;
+
+  img {
+    object-fit: contain;
+  }
 `;
 
 const InputName = styled.input`
@@ -198,3 +271,20 @@ const Label = styled.label`
 const H3 = styled.h3`
   margin: 1rem auto;
 `;
+
+const ImageWrapper = styled.section`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem;
+`;
+
+const ImageButton = styled(Button)`
+  outline: none;
+  cursor: pointer;
+  font-size: 0.7rem;
+`;
+
+EditProduct.propTypes = {
+  available: PropTypes.bool,
+};

@@ -1,9 +1,10 @@
 import styled from "styled-components";
-
+import PropTypes from "prop-types";
+import { useHistory } from "react-router";
 import { useState, useEffect } from "react";
+
 import Button from "../components/Button";
 import FlexboxRow from "../components/FlexboxRow";
-import { useHistory } from "react-router";
 
 export default function EditProfile({ user, userId }) {
   const imageUser = user?.image ? `/users/${user.image}` : "";
@@ -36,6 +37,7 @@ export default function EditProfile({ user, userId }) {
       body: JSON.stringify(changedUser),
     });
     console.log(await response.json());
+    goBack();
   };
 
   return (
@@ -163,3 +165,8 @@ const BiggerInput = styled.textarea`
 const H3 = styled.h3`
   margin: 1rem auto;
 `;
+
+EditProfile.propTypes = {
+  user: PropTypes.array,
+  userID: PropTypes.string,
+};

@@ -7,6 +7,7 @@ import {
   useParams,
   useHistory,
 } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
@@ -57,7 +58,6 @@ export default function Product({ userId }) {
   const goBack = () => {
     history.goBack();
   };
-
   const imageProduct = gadg?.image ? `/products/${gadg.image}` : "";
   const imageOwner = owner?.image ? `/users/${owner.image}` : "";
 
@@ -122,10 +122,14 @@ export default function Product({ userId }) {
             </p>
             <Flexbox>
               <Button>
-                <Icon src={phone} />
+                <a href="tel:">
+                  <Icon src={phone} />
+                </a>
               </Button>
               <Button>
-                <Icon src={mail} />
+                <a href="mailto:">
+                  <Icon src={mail} />
+                </a>
               </Button>
             </Flexbox>
           </StyledModal>
@@ -252,3 +256,7 @@ const EditButton = styled.button`
   background: none;
   border: none;
 `;
+
+Product.propTypes = {
+  userId: PropTypes.string,
+};
