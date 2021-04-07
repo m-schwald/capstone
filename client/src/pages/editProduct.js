@@ -2,7 +2,6 @@
 import styled from "styled-components";
 import { useHistory, useParams } from "react-router";
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 
 import Toggle from "../components/IconToggleChange";
 import FlexboxRow from "../components/FlexboxRow";
@@ -10,7 +9,7 @@ import Button from "../components/Button";
 
 import add_image from "../assets/images/add_image.svg";
 
-export default function EditProduct({ available }) {
+export default function EditProduct() {
   const { _id } = useParams();
   let history = useHistory();
   const goBack = () => {
@@ -45,8 +44,8 @@ export default function EditProduct({ available }) {
     setChangedItem(gadg);
   }, [gadg]);
 
-  console.log({ gadg });
-  console.log({ changedItem });
+  // console.log({ gadg });
+  // console.log({ changedItem });
 
   const handleChange = (event) => {
     const field = event.target;
@@ -104,6 +103,13 @@ export default function EditProduct({ available }) {
     });
   };
 
+  const onAvailable = (state) => {
+    setChangedItem({
+      ...changedItem,
+      isAvailable: state,
+    });
+  };
+
   return (
     <ContainerForm onSubmit={handleUpdate}>
       <H3>edit your gadg</H3>
@@ -117,12 +123,8 @@ export default function EditProduct({ available }) {
         <Toggle
           name="isAvailable"
           gadg={gadg}
-          onChange={handleChange}
-          value={available || ""}
-          available={gadg.isAvailable}
-          onClick={() => {
-            gadg.isAvailable = !gadg.isAvailable;
-          }}
+          available={changedItem?.isAvailable}
+          onAvailable={onAvailable}
         />
       </Flexbox>
 
@@ -276,7 +278,3 @@ const ImageButton = styled(Button)`
   cursor: pointer;
   font-size: 0.7rem;
 `;
-
-EditProduct.propTypes = {
-  available: PropTypes.bool,
-};

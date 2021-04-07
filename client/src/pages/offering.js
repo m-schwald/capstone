@@ -6,8 +6,17 @@ import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
 import ContainerFlat from "../components/ContainerFlat";
 import Link from "../components/Link";
+import { useEffect, useState } from "react";
 
-export default function Offering({ available, userId, items }) {
+export default function Offering({ available, userId, gadges }) {
+  const [items, setItems] = useState(gadges);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/get-gadg")
+      .then((response) => response.json())
+      .then((gadges) => setItems(gadges));
+  }, []);
+
   const availableItems = items
     ?.filter((item) => item.ownerId === userId)
     .filter((item) => item.isAvailable);
@@ -69,5 +78,5 @@ const H3 = styled.h3`
 Offering.propTypes = {
   available: PropTypes.bool,
   userId: PropTypes.string,
-  items: PropTypes.any,
+  gadges: PropTypes.any,
 };

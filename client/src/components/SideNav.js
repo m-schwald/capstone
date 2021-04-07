@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import Button from "./Button";
 
-export default function SideNav({ openNav, setOpenNav, setUserId }) {
+export default function SideNav({ openNav, setOpenNav, setUserId, isStatic }) {
   const [allUsers, setAllUsers] = useState([]);
 
   const getUser = async () => {
@@ -22,7 +22,7 @@ export default function SideNav({ openNav, setOpenNav, setUserId }) {
   useEffect(() => getAllUsers(), []);
 
   return (
-    <NavContainer openNav={openNav}>
+    <NavContainer isStatic={isStatic} openNav={openNav}>
       <ButtonNav>
         <Link exact to="/" onClick={() => setOpenNav(!openNav)}>
           home
@@ -56,13 +56,13 @@ export default function SideNav({ openNav, setOpenNav, setUserId }) {
 
 const NavContainer = styled.div`
   padding: 10rem 0 0 0;
-  position: absolute;
+  position: ${(props) => (props.isStatic ? "static" : "absolute")};
   background: var(--onetransparent);
   top: 0;
   bottom: 0;
   left: 0;
-  width: 50vw;
-  height: 100vh;
+  width: ${(props) => (props.isStatic ? "50%" : "50vw")};
+  height: ${(props) => (props.isStatic ? "100%" : "100vh")};
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
@@ -73,7 +73,7 @@ const NavContainer = styled.div`
   transition: ease-in-out 0.5s all;
 
   section {
-    position: fixed;
+    position: ${(props) => (props.isStatic ? "static" : "fixed")};
     bottom: 0;
     display: flex;
     flex-flow: row wrap;
@@ -81,7 +81,7 @@ const NavContainer = styled.div`
     width: 100%;
 
     p {
-      position: absolute;
+      position: ${(props) => (props.isStatic ? "static" : "absolute")};
       top: -1.6rem;
       right: 0;
       padding: 0 1rem 0 0.5rem;
@@ -103,8 +103,8 @@ const ButtonNav = styled(Button)`
   margin: 1rem;
 `;
 const UserCard = styled.div`
-  width: 5vh;
-  height: 5vh;
+  width: 8vw;
+  height: auto;
   margin: 0.5rem;
   img {
     width: 100%;
@@ -118,4 +118,5 @@ SideNav.propTypes = {
   openNav: PropTypes.bool,
   setOpenNav: PropTypes.func,
   setUserId: PropTypes.func,
+  isStatic: PropTypes.bool,
 };

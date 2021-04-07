@@ -65,7 +65,6 @@ export default function EditProfile({ user, userId }) {
         <input
           name="email"
           value={changedUser?.email}
-          placeholder={user?.email}
           onChange={handleChange}
         />
       </label>
@@ -76,7 +75,6 @@ export default function EditProfile({ user, userId }) {
           rows="3"
           maxlength="100"
           value={changedUser?.adress}
-          placeholder={user?.adress}
           onChange={handleChange}
         />
       </label>
@@ -87,7 +85,6 @@ export default function EditProfile({ user, userId }) {
           rows="3"
           maxlength="100"
           value={changedUser?.interests}
-          placeholder={user?.interests}
           onChange={handleChange}
         />
       </label>
@@ -98,7 +95,6 @@ export default function EditProfile({ user, userId }) {
           rows="5"
           maxlength="300"
           value={changedUser?.motto}
-          placeholder={user?.motto}
           onChange={handleChange}
         />
       </label>
@@ -107,7 +103,6 @@ export default function EditProfile({ user, userId }) {
         <input
           name="groups"
           value={changedUser?.groups}
-          placeholder={user?.groups}
           onChange={handleChange}
         />
       </label>

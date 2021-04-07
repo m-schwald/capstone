@@ -44,8 +44,6 @@ function App() {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getAllGadges(), []);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => getAllGadges(), []);
 
   return (
     <Main>
@@ -64,10 +62,10 @@ function App() {
           <FormNewProduct userId={userId} groupId={groupId} />
         </Route>
         <Route path="/offering">
-          <Offering items={items} userId={userId} groupId={groupId} />
+          <Offering gadges={items} userId={userId} groupId={groupId} />
         </Route>
         <Route path="/searching">
-          <Searching items={items} userId={userId} groupId={groupId} />
+          <Searching gadges={items} userId={userId} groupId={groupId} />
         </Route>
         <Route path="/editGroup">
           <EditGroup userId={userId} groupId={groupId} />

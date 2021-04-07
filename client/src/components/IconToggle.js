@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const Toggle = ({ available }) => {
   return (
     <Switch>
-      <Sign state={available ? "var(--two)" : "var(--one)"} />
+      <Sign state={available} />
     </Switch>
   );
 };
@@ -17,7 +17,8 @@ const Switch = styled.label`
 const Sign = styled.div`
   height: 0.8rem;
   width: 0.8rem;
-  background: ${(props) => props.state};
+  background: ${(props) =>
+    props.state === true ? "var(--two)" : "var(--one)"};
   border-radius: 50%;
   box-shadow: var(--dark) 2px 1px 3px;
   margin: 0.3rem 0.5rem 0.3rem auto;

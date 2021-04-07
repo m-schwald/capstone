@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import ContainerFlat from "../components/ContainerFlat";
@@ -9,11 +9,19 @@ import Link from "../components/Link";
 
 import search from "../assets/images/search.svg";
 
-export default function Searching({ items, userId }) {
+export default function Searching({ gadges, userId }) {
   const [availableOnly, setAvailableOnly] = useState(false);
   const [category, setCategory] = useState("all");
   const [size, setSize] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [items, setItems] = useState(gadges);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/get-gadg")
+      .then((response) => response.json())
+      .then((gadges) => setItems(gadges));
+  }, []);
 
   const categoryOptions = items?.map((item) => item.category);
   categoryOptions?.unshift("all");
@@ -149,5 +157,5 @@ const Label = styled.label`
 
 Searching.propTypes = {
   userId: PropTypes.string,
-  items: PropTypes.any,
+  gadges: PropTypes.any,
 };

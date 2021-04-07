@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { bool, func, string } from "prop-types";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Button from "./Button";
-import team from "../assets/images/group.png";
+import team from "../assets/images/group2.png";
 
-export default function Group({ openGroup, setOpenGroup, groupId }) {
+export default function Group({ openGroup, setOpenGroup, isStatic, groupId }) {
   const [allUsers, setAllUsers] = useState([]);
 
   const getUser = async () => {
@@ -23,7 +23,7 @@ export default function Group({ openGroup, setOpenGroup, groupId }) {
   useEffect(() => getAllUsers(), []);
 
   return (
-    <NavContainer openGroup={openGroup}>
+    <NavContainer isStatic={isStatic} openGroup={openGroup}>
       <h4> {groupId} </h4>
       <GroupPic src={team} />
       <p>
@@ -64,8 +64,8 @@ const Flexbox = styled.div`
 `;
 
 const NavContainer = styled.div`
-  padding: 3rem 2rem 1rem 2rem;
-  position: absolute;
+  padding: 1rem 2rem 1rem 2rem;
+  position: ${(props) => (props.isStatic ? "static" : "absolute")};
   background: var(--onetransparent);
   top: 0;
   left: 0;
@@ -81,6 +81,8 @@ const NavContainer = styled.div`
 
   transition: ease-in-out 0.5s all;
   overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 
   section {
     display: flex;
@@ -102,11 +104,12 @@ const Link = styled(NavLink)`
 `;
 
 const GroupPic = styled.img`
-  height: auto;
-  width: 50%;
+  height: 10rem;
+  width: 10rem;
   border-radius: 50%;
-  border: solid black 1px;
-  margin: 1rem auto;
+  border: double black 2px;
+  margin: 0 auto;
+  object-fit: cover;
 `;
 const UserCard = styled.div`
   width: 5vh;
@@ -121,7 +124,8 @@ const UserCard = styled.div`
 `;
 
 Group.propTypes = {
-  openGroup: bool.isRequired,
-  setOpenGroup: func.isRequired,
-  groupId: string,
+  openGroup: PropTypes.bool,
+  setOpenGroup: PropTypes.func,
+  groupId: PropTypes.string,
+  isStatic: PropTypes.bool,
 };

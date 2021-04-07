@@ -9,7 +9,7 @@ export default function CardOffering({ item, onAvailable, isStatic }) {
   const image = isStatic
     ? "https://images.unsplash.com/photo-1489323588428-2cb185f5cd5c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDR8fGJhY2twYWNrfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
     : item.image
-    ? `/products/${item.image}`
+    ? `http://localhost:4000/assets/${item.image}`
     : "";
 
   return (

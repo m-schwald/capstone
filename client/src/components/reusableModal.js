@@ -6,7 +6,7 @@ import Button from "./Button";
 
 const ModalDiv = styled.div`
   display: ${(p) => p.block && p.block};
-  position: fixed;
+  position: ${(props) => (props.isStatic ? "static" : "fixed")};
   top: 0;
   left: 0;
   width: 100%;
@@ -17,7 +17,7 @@ const ContentDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: fixed;
+  position: ${(props) => (props.isStatic ? "static" : "fixed")};
   top: 50%;
   left: 50%;
   width: 50%;
@@ -28,14 +28,15 @@ const ContentDiv = styled.div`
   border-radius: 1rem;
   border: inset var(--two) 3px;
 
-  p {
+  p,
+  h5 {
     text-align: center;
   }
 `;
 
-export const StyledModal = ({ handleClose, show, children }) => {
+export const StyledModal = ({ handleClose, show, children, isStatic }) => {
   return (
-    <ModalDiv block={show ? "block" : "none"}>
+    <ModalDiv isStatic={isStatic} block={show ? "block" : "none"}>
       <ContentDiv>
         {children}
         <Button close onClick={handleClose}>
@@ -50,4 +51,5 @@ StyledModal.propTypes = {
   handleClose: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.any,
+  isStatic: PropTypes.bool,
 };

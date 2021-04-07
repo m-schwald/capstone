@@ -7,10 +7,10 @@ import SideNav from "./SideNav";
 import Profile from "./Profile";
 import Group from "./Group";
 import Logo from "./Logo";
-import IconUser from "./IconUser";
-import IconGroup from "./IconGroup";
 
-export default function Nav({ user, groupId, setUserId }) {
+import team from "../assets/images/group.png";
+
+export default function Nav({ user, groupId, setUserId, isStatic }) {
   const [openNav, setOpenNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [openGroup, setOpenGroup] = useState(false);
@@ -27,7 +27,7 @@ export default function Nav({ user, groupId, setUserId }) {
   const imageUser = user?.image ? `/users/${user.image}` : "";
 
   return (
-    <Navi>
+    <Navi isStatic={isStatic}>
       <LogoContainer ref={nodeNav}>
         <Logo
           onClick={() => setOpenNav(!openNav)}
@@ -47,7 +47,7 @@ export default function Nav({ user, groupId, setUserId }) {
           onClick={() => setOpenGroup(!openGroup)}
           openGroup={openGroup}
         >
-          <IconGroup />
+          <Icon src={team} />
           <NavText>{groupId}</NavText>
         </GroupBox>
         <Group
@@ -62,7 +62,7 @@ export default function Nav({ user, groupId, setUserId }) {
           onClick={() => setOpenProfile(!openProfile)}
           openProfile={openProfile}
         >
-          <IconUser imageUser={imageUser} />
+          <Icon src={imageUser} />
           <NavText>{user.userName}</NavText>
         </GroupBox>
         <Profile
@@ -76,16 +76,17 @@ export default function Nav({ user, groupId, setUserId }) {
 }
 
 const Navi = styled.div`
-  position: absolute;
-  width: 100vw;
+  position: ${(props) => (props.isStatic ? "static" : "absolute")};
+  width: ${(props) => (props.isStatic ? "100%" : "100vw")};
   top: 0;
   left: 0;
   right: 0;
-  height: 7vh;
+  height: ${(props) => (props.isStatic ? "4rem" : "7vh")};
   display: flex;
   justify-content: flex-end;
   align-items: center;
   z-index: 100;
+  background: ${(props) => (props.isStatic ? "var(--one)" : "none")};
 `;
 
 const GroupBox = styled.div`
@@ -109,8 +110,16 @@ const NavText = styled.p`
   font-size: 0.8rem;
 `;
 
+const Icon = styled.img`
+  height: 5vh;
+  width: 5vh;
+  border-radius: 50%;
+  border: solid black 1px;
+`;
+
 Nav.propTypes = {
   user: PropTypes.object,
   groupId: PropTypes.string,
   setUserId: PropTypes.func,
+  isStatic: PropTypes.bool,
 };

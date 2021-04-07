@@ -9,11 +9,20 @@ import home from "../assets/images/home.svg";
 import phone from "../assets/images/phone.svg";
 import mail from "../assets/images/mail.svg";
 
-export default function Profile({ openProfile, setOpenProfile, user }) {
-  const imageUser = user?.image ? `/users/${user.image}` : "";
+export default function Profile({
+  openProfile,
+  setOpenProfile,
+  user,
+  isStatic,
+}) {
+  const imageUser = isStatic
+    ? user.image
+    : user?.image
+    ? `/users/${user.image}`
+    : "";
 
   return (
-    <NavContainer openProfile={openProfile}>
+    <NavContainer isStatic={isStatic} openProfile={openProfile}>
       <IconUser src={imageUser} />
       <h4> {user.userName} </h4>
       <h5>Motto:</h5>
@@ -49,18 +58,18 @@ export default function Profile({ openProfile, setOpenProfile, user }) {
 
 const NavContainer = styled.div`
   padding: 0;
-  position: fixed;
+  position: ${(props) => (props.isStatic ? "static" : "fixed")};
   background: var(--onetransparent);
   top: 0;
   bottom: 0;
   right: 0;
-  width: 70vw;
-  height: 100vh;
+  width: ${(props) => (props.isStatic ? "70%" : "70vw")};
+  height: ${(props) => (props.isStatic ? "100%" : "100vh")};
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: left;
-  z-index: 1000;
+  z-index: ${(props) => (props.isStatic ? "1" : "1000")};
   transform: ${({ openProfile }) =>
     openProfile ? "translateX(00%)" : "translateX(100%)"};
   transition: ease-in-out 0.5s all;
@@ -114,4 +123,5 @@ Profile.propTypes = {
   openProfile: PropTypes.bool,
   setOpenProfile: PropTypes.func,
   user: PropTypes.object,
+  isStatic: PropTypes.bool,
 };
