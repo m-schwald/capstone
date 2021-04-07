@@ -4,8 +4,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import fileUpload from "express-fileupload";
 
-import Gadg from "../models/gadg.model.js";
-
 import {
   gadgPost,
   gadgFind,
@@ -40,18 +38,18 @@ server.get("/", (request, response) => {
   response.json({ status: "gadg-server is running" });
 });
 
-server.get("/get-gadg", gadgGet);
+server.get("/gadg", gadgGet);
 server.post("/create-gadg", gadgPost);
-server.get("/get-gadg/:gadgId", gadgFind);
-server.delete("/get-gadg/:gadgId", gadgDelete);
-server.put("/get-gadg/:gadgId", gadgChange);
+server.get("/gadg/:gadgId", gadgFind);
+server.delete("/gadg/:gadgId", gadgDelete);
+server.put("/gadg/:gadgId", gadgChange);
 
-server.get("/get-user", userGet);
-server.get("/get-user/:userId", userFind);
-server.put("/get-user/:userId", userChange);
-server.get("/get-owner/:userId", ownerFind);
+server.get("/user", userGet);
+server.get("/user/:userId", userFind);
+server.put("/user/:userId", userChange);
+server.get("/owner/:userId", ownerFind);
 server.post("/create-user", userPost);
-server.delete("/get-gadg/:userId", userDelete);
+server.delete("/gadg/:userId", userDelete);
 
 server.post("/upload", async (request, response) => {
   const image = request.files.image;

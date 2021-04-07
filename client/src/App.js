@@ -19,7 +19,7 @@ function App() {
   const [items, setItems] = useState({});
 
   const getUser = async () => {
-    const data = await fetch("http://localhost:4000/get-user/" + userId);
+    const data = await fetch("http://localhost:4000/user/" + userId);
     const result = await data.json();
     return result;
   };
@@ -33,7 +33,7 @@ function App() {
   const groupId = "Motorradfreunde Oberrimsingen";
 
   const getGadg = async () => {
-    const data = await fetch("http://localhost:4000/get-gadg");
+    const data = await fetch("http://localhost:4000/gadg");
     const result = await data.json();
     return result;
   };
@@ -44,6 +44,10 @@ function App() {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => getAllGadges(), []);
+
+  const onReload = () => {
+    loginUser();
+  };
 
   return (
     <Main>
@@ -71,7 +75,12 @@ function App() {
           <EditGroup userId={userId} groupId={groupId} />
         </Route>
         <Route path="/editProfile">
-          <EditProfile userId={userId} groupId={groupId} user={user} />
+          <EditProfile
+            userId={userId}
+            groupId={groupId}
+            user={user}
+            onReload={onReload}
+          />
         </Route>
       </Switch>
     </Main>

@@ -10,7 +10,7 @@ import Logo from "./Logo";
 
 import team from "../assets/images/group.png";
 
-export default function Nav({ user, groupId, setUserId, isStatic }) {
+export default function Nav({ groupId, setUserId, isStatic, user }) {
   const [openNav, setOpenNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [openGroup, setOpenGroup] = useState(false);
@@ -118,8 +118,8 @@ const Icon = styled.img`
 `;
 
 Nav.propTypes = {
-  user: PropTypes.object,
   groupId: PropTypes.string,
   setUserId: PropTypes.func,
   isStatic: PropTypes.bool,
+  user: PropTypes.object,
 };

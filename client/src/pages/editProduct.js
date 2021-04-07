@@ -22,7 +22,7 @@ export default function EditProduct() {
   let imageInput = null;
 
   const getGadg = async (id) => {
-    const gadg = await fetch("http://localhost:4000/get-gadg/" + id);
+    const gadg = await fetch("http://localhost:4000/gadg/" + id);
     const result = await gadg.json();
     return result;
   };
@@ -60,7 +60,7 @@ export default function EditProduct() {
     if (changedItem !== gadg) {
       event.preventDefault();
       console.log(JSON.stringify(changedItem));
-      const response = await fetch("http://localhost:4000/get-gadg/" + _id, {
+      const response = await fetch("http://localhost:4000/gadg/" + _id, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(changedItem),
@@ -87,14 +87,6 @@ export default function EditProduct() {
       .then((image) => setChangedItem({ ...changedItem, image: image.name }))
       .catch((error) => console.error(error.message));
   };
-  /*   const fileUploadHandler = (event) => {
-    const field = event.target;
-    const image = event.target.files[0];
-    setChangedItem({ ...changedItem, [field.name]: image.name });
-    // console.log({ [field.name]: value.name });
-    image.mv("./client/public/images/" + image.name);
-    console.log(event.target.files[0]);
-  }; */
 
   const removeImage = () => {
     setChangedItem({

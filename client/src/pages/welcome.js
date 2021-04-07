@@ -15,12 +15,12 @@ export default function Welcome() {
       <LogoWelcome animate={animate} src={logoStart} />
 
       <Button onClick={() => setAnimate(!animate)}>
-        <Link delay={1000} replace={false} exact to="./searching">
+        <Link delay={800} replace={false} exact to="./searching">
           i need a gadg
         </Link>
       </Button>
       <Button onClick={() => setAnimate(!animate)}>
-        <Link delay={1000} replace={false} exact to="./offering">
+        <Link delay={800} replace={false} exact to="./offering">
           i got a gadg
         </Link>
       </Button>
@@ -39,7 +39,7 @@ const LogoWelcome = styled.img`
   height: ${(props) => (props.animate ? "1000vh" : "70vh")};
   margin: ${(props) => (props.animate ? "-400vh 0" : "0")};
   opacity: ${(props) => (props.animate ? "0" : "1")};
-  transition: 1s all ease-out;
+  transition: 1.3s all ease-out;
 `;
 
 const Link = styled(DelayLink)`

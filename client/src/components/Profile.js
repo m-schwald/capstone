@@ -12,8 +12,8 @@ import mail from "../assets/images/mail.svg";
 export default function Profile({
   openProfile,
   setOpenProfile,
-  user,
   isStatic,
+  user,
 }) {
   const imageUser = isStatic
     ? user.image
@@ -29,10 +29,14 @@ export default function Profile({
       <p> {user.motto}</p>
       <h5>Contact:</h5>
       <p>
-        <Icon src={phone} /> {user.phone}
+        <a href="tel:">
+          <Icon src={phone} /> {user.phone}
+        </a>
       </p>
       <p>
-        <Icon src={mail} /> {user.email}
+        <a href="mailto:">
+          <Icon src={mail} /> {user.email}
+        </a>
       </p>
       <p>
         <Icon src={home} />
@@ -90,7 +94,7 @@ const NavContainer = styled.div`
     text-align: left;
     font-size: 0.9rem;
     margin: 0;
-    padding: 0.2rem 0 0.2rem 1rem;
+    padding: 0.2rem 1rem 0.2rem 1rem;
   }
 
   Button {
@@ -122,6 +126,6 @@ const Link = styled(NavLink)`
 Profile.propTypes = {
   openProfile: PropTypes.bool,
   setOpenProfile: PropTypes.func,
-  user: PropTypes.object,
   isStatic: PropTypes.bool,
+  user: PropTypes.any,
 };

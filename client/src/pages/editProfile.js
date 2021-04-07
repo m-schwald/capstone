@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import Button from "../components/Button";
 import FlexboxRow from "../components/FlexboxRow";
 
-export default function EditProfile({ user, userId }) {
+export default function EditProfile({ user, userId, onReload }) {
   const imageUser = user?.image ? `/users/${user.image}` : "";
 
   const [changedUser, setChangedUser] = useState({});
@@ -31,12 +31,13 @@ export default function EditProfile({ user, userId }) {
 
   const handleUpdate = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:4000/get-user/" + userId, {
+    const response = await fetch("http://localhost:4000/user/" + userId, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(changedUser),
     });
     console.log(await response.json());
+    onReload();
     goBack();
   };
 
@@ -164,4 +165,5 @@ const H3 = styled.h3`
 EditProfile.propTypes = {
   user: PropTypes.object,
   userId: PropTypes.string,
+  onReload: PropTypes.func,
 };
