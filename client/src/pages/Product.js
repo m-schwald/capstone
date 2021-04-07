@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import axios from "axios";
-import {
-  NavLink,
-  useRouteMatch,
-  useParams,
-  useHistory,
-} from "react-router-dom";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Toggle from "../components/IconToggle";
@@ -21,7 +16,6 @@ import trash from "../assets/images/trash.svg";
 import edit from "../assets/images/wrench.svg";
 
 export default function Product({ userId }) {
-  const { path } = useRouteMatch();
   const { _id } = useParams();
   let history = useHistory();
 
@@ -58,7 +52,9 @@ export default function Product({ userId }) {
   const goBack = () => {
     history.goBack();
   };
-  const imageProduct = gadg?.image ? `/products/${gadg.image}` : "";
+  const imageProduct = gadg?.image
+    ? `http://localhost:4000/assets/${gadg.image}`
+    : "";
   const imageOwner = owner?.image ? `/users/${owner.image}` : "";
 
   async function deleteItem() {
@@ -195,7 +191,7 @@ const FlexboxColumn = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  & p {
+  p {
     padding: 0.5rem;
     margin: 0;
     font-size: 0.8rem;

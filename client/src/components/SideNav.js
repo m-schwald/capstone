@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { bool, func } from "prop-types";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";

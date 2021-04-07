@@ -5,35 +5,41 @@ import Image from "../components/Image";
 import Container from "./Container";
 import Toggle from "./IconToggle";
 
-export default function CardOffering({ item, onAvailable }) {
-  const image = item.image ? `/products/${item.image}` : "";
+export default function CardOffering({ item, onAvailable, isStatic }) {
+  const image = isStatic
+    ? "https://images.unsplash.com/photo-1489323588428-2cb185f5cd5c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDR8fGJhY2twYWNrfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+    : item.image
+    ? `/products/${item.image}`
+    : "";
 
   return (
-    <CardContainer>
+    <CardContainer isStatic={isStatic}>
       <div>
         <Toggle available={item?.isAvailable} onAvailable={onAvailable} />
-        <Img src={image} />
+        <Img isStatic={isStatic} src={image} />
       </div>
-      <H4>{item.gadgName}</H4>
+      <H4 isStatic={isStatic}>{item.gadgName}</H4>
     </CardContainer>
   );
 }
 
 const Img = styled(Image)`
-  position: absolute;
+  position: ${(props) => (props.isStatic ? "static" : "absolute")};
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  height: auto;
-  margin: 0 auto;
+  height: 6rem;
+  object-fit: cover;
+  margin: ${(props) =>
+    props.isStatic ? "-2rem auto .5rem auto" : "0 auto .5rem auto"};
   z-index: -1;
   border-radius: 0;
   border: var(--one) 2px inset;
 `;
 
 const H4 = styled.h4`
-  position: absolute;
+  position: ${(props) => (props.isStatic ? "static" : "absolute")};
   top: 70%;
   color: var(--two);
   margin: 0 0.5rem;
@@ -45,15 +51,16 @@ const H4 = styled.h4`
 `;
 
 const CardContainer = styled(Container)`
-  position: relative;
-  width: 25vw;
+  position: ${(props) => (props.isStatic ? "static" : "relative")};
+  width: ${(props) => (props.isStatic ? "6rem" : "25vw")};
   margin: 0.5rem;
   background: linear-gradient(var(--dark) 10%, var(--three));
   z-index: -3;
-  height: 21vh;
+  height: ${(props) => (props.isStatic ? "9rem" : "21vh")};
 `;
 
 CardOffering.propTypes = {
   onAvailable: PropTypes.func,
-  items: PropTypes.array,
+  item: PropTypes.any,
+  isStatic: PropTypes.bool,
 };

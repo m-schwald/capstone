@@ -110,7 +110,7 @@ const NavText = styled.p`
 `;
 
 Nav.propTypes = {
-  user: PropTypes.array,
+  user: PropTypes.object,
   groupId: PropTypes.string,
   setUserId: PropTypes.func,
 };

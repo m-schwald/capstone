@@ -167,6 +167,6 @@ const H3 = styled.h3`
 `;
 
 EditProfile.propTypes = {
-  user: PropTypes.array,
-  userID: PropTypes.string,
+  user: PropTypes.object,
+  userId: PropTypes.string,
 };

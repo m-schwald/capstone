@@ -7,6 +7,10 @@ const Container = styled.section`
   display: flex;
   flex-flow: column nowrap;
   border-radius: 0 0 20% 5%;
+
+  p {
+    padding: 1rem 0 1rem 3rem;
+  }
 `;
 
 export default Container;

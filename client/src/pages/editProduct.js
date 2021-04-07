@@ -51,7 +51,6 @@ export default function EditProduct({ available }) {
   const handleChange = (event) => {
     const field = event.target;
     const value = field.value;
-    console.log("value");
     setChangedItem({
       ...changedItem,
       [field.name]: value,
@@ -70,7 +69,7 @@ export default function EditProduct({ available }) {
       console.log(await response.json());
       goBack();
     } else {
-      console.log("uu");
+      console.log({ changedItem });
       history.push(`/product/${_id}`);
     }
   }
@@ -86,7 +85,7 @@ export default function EditProduct({ available }) {
       body: formData,
     })
       .then((result) => result.json())
-      .then((image) => setChangedItem({ ...changedItem, image: image }))
+      .then((image) => setChangedItem({ ...changedItem, image: image.name }))
       .catch((error) => console.error(error.message));
   };
   /*   const fileUploadHandler = (event) => {
@@ -137,7 +136,7 @@ export default function EditProduct({ available }) {
       />
       {changedItem.image ? (
         <img
-          src={`/products/${changedItem.image}`}
+          src={`http://localhost:4000/assets/${changedItem.image}`}
           width="auto"
           height="100"
           alt="productImage"
@@ -234,13 +233,6 @@ const InputName = styled.input`
     outline: var(--one) 1px solid;
     background: var(--light);
   }
-`;
-
-const AddImg = styled.img`
-  width: 60%;
-  margin: 0 auto;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 `;
 
 const InputText = styled.textarea`

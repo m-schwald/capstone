@@ -4,18 +4,25 @@ import { NavLink } from "react-router-dom";
 import ContainerFlat from "../components/ContainerFlat";
 import Button from "../components/Button";
 
-import logo from "../assets/images/logo.png";
+import logoStart from "../assets/images/bgbigger(5).svg";
 
 export default function Welcome() {
+  let animate = false;
+
+  const animateLogo = () => {
+    animate = !animate;
+  };
+
   return (
     <WelcomePage>
-      <LogoWelcome src={logo} />
-      <Button>
+      <LogoWelcome src={logoStart} />
+
+      <Button onClick={() => animateLogo}>
         <Link className="link" exact to="./searching">
           i need a gadg
         </Link>
       </Button>
-      <Button>
+      <Button onClick={() => animateLogo}>
         <Link exact to="./offering">
           i got a gadg
         </Link>
@@ -32,13 +39,8 @@ const WelcomePage = styled(ContainerFlat)`
 `;
 
 const LogoWelcome = styled.img`
-  height: 35vh;
-  margin: 5rem 2rem 2rem;
-  transition: 0.5s ease-in-out all;
-
-  &:hover {
-    transform: scale(1.05);
-  }
+  height: ${(props) => (props.animate ? "300vh" : "70vh")};
+  transition: 1s all ease;
 `;
 
 const Link = styled(NavLink)`

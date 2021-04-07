@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { bool, func, string } from "prop-types";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 
 import Button from "./Button";
 import team from "../assets/images/group.png";

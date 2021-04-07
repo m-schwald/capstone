@@ -52,6 +52,7 @@ export default function Searching({ items, userId }) {
       ) {
         return value;
       }
+      return value;
     })
     .filter((item) => item.ownerId !== userId)
     .filter(byCategory)
@@ -147,6 +148,6 @@ const Label = styled.label`
 `;
 
 Searching.propTypes = {
-  items: PropTypes.array,
   userId: PropTypes.string,
+  items: PropTypes.any,
 };

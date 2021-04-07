@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import fileUpload from "express-fileupload";
 
-import Image from "../models/image.model.js";
 import Gadg from "../models/gadg.model.js";
 
 import {
@@ -30,6 +29,8 @@ server.use(bodyParser.json());
 server.use(cors());
 server.use(fileUpload({ createParentPath: true }));
 
+server.use(express.static("./server/public/"));
+
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -53,24 +54,14 @@ server.post("/create-user", userPost);
 server.delete("/get-gadg/:userId", userDelete);
 
 server.post("/upload", async (request, response) => {
-  const gadgId = request.params.gadgId;
   const image = request.files.image;
 
   try {
-    image.mv("./client/public/products/" + image.name);
+    image.mv("./server/public/assets/" + image.name);
+    response.json(image);
   } catch (error) {
-    console.log(error);
+    response.json("image could not be uploaded");
   }
-  const imageToSave = await Gadg.find({
-    _id: gadgId,
-  });
-  imageToSave.image = image.name;
-  console.log(imageToSave);
-
-  imageToSave
-    .save()
-    .then((savedImage) => response.json(savedImage))
-    .catch((error) => response.json(error));
 });
 
 server.listen(4000);

@@ -60,7 +60,7 @@ const gadgDelete = (request, response) => {
 const gadgChange = (request, response) => {
   const gadgId = request.params.gadgId;
   const gadgName = request.body.gadgName;
-  const image = request.body.image.name;
+  const image = request.body.image;
   const isAvailable = request.body.isAvailable;
   const description = request.body.description;
   const category = request.body.category;

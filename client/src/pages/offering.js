@@ -69,5 +69,5 @@ const H3 = styled.h3`
 Offering.propTypes = {
   available: PropTypes.bool,
   userId: PropTypes.string,
-  items: PropTypes.array,
+  items: PropTypes.any,
 };
