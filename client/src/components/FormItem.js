@@ -46,7 +46,7 @@ export default function FormItem({ userId, groupId }) {
   async function handleUpdate(event) {
     event.preventDefault();
     console.log(JSON.stringify(newItem));
-    const response = await fetch("http://localhost:4000/create-gadg", {
+    const response = await fetch("/create-gadg", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newItem),
@@ -56,7 +56,7 @@ export default function FormItem({ userId, groupId }) {
   }
 
   const fileUploadHandler = (event) => {
-    const url = "http://localhost:4000/upload";
+    const url = "/upload";
     const formData = new FormData();
 
     formData.append("image", event.target.files[0]);
@@ -112,7 +112,7 @@ export default function FormItem({ userId, groupId }) {
       />
       {newItem.image ? (
         <UploadedImage
-          src={`http://localhost:4000/assets/${newItem.image}`}
+          src={`/assets/${newItem.image}`}
           width="auto"
           height="100"
           alt="productImage"

@@ -19,7 +19,7 @@ function App() {
   const [items, setItems] = useState({});
 
   const getUser = async () => {
-    const data = await fetch("http://localhost:4000/user/" + userId);
+    const data = await fetch("/user/" + userId);
     const result = await data.json();
     return result;
   };
@@ -33,7 +33,7 @@ function App() {
   const groupId = "Motorradfreunde Oberrimsingen";
 
   const getGadg = async () => {
-    const data = await fetch("http://localhost:4000/gadg");
+    const data = await fetch("/gadg");
     const result = await data.json();
     return result;
   };

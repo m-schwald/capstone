@@ -7,7 +7,7 @@ export default function FormNewProduct({ setAvailable, userId, groupId }) {
   let history = useHistory();
 
   const addItem = (item) => {
-    fetch("http://localhost:4000/create-gadg", {
+    fetch("/create-gadg", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

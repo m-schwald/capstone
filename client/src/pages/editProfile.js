@@ -31,7 +31,7 @@ export default function EditProfile({ user, userId, onReload }) {
 
   const handleUpdate = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:4000/user/" + userId, {
+    const response = await fetch("/user/" + userId, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(changedUser),

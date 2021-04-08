@@ -26,13 +26,13 @@ export default function Product({ userId }) {
   const [ownerOpen, setOwnerOpen] = useState(false);
 
   const getGadg = async (id) => {
-    const gadg = await fetch("http://localhost:4000/gadg/" + id);
+    const gadg = await fetch("/gadg/" + id);
     const result = await gadg.json();
     return result;
   };
 
   const getOwner = async (ownerId) => {
-    const owner = await fetch(`http://localhost:4000/owner/${ownerId}`);
+    const owner = await fetch(`/owner/${ownerId}`);
     const result = await owner.json();
     return result;
   };
@@ -52,16 +52,12 @@ export default function Product({ userId }) {
   const goBack = () => {
     history.goBack();
   };
-  const imageProduct = gadg?.image
-    ? `http://localhost:4000/assets/${gadg.image}`
-    : "";
+  const imageProduct = gadg?.image ? `/assets/${gadg.image}` : "";
   const imageOwner = owner?.image ? `/users/${owner.image}` : "";
 
   async function deleteItem() {
     try {
-      const response = await axios.delete(
-        "http://localhost:4000/gadg/" + gadg._id
-      );
+      const response = await axios.delete("/gadg/" + gadg._id);
       console.log(response);
     } catch (error) {
       console.error(error);

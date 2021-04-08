@@ -22,7 +22,7 @@ export default function EditProduct() {
   let imageInput = null;
 
   const getGadg = async (id) => {
-    const gadg = await fetch("http://localhost:4000/gadg/" + id);
+    const gadg = await fetch("/gadg/" + id);
     const result = await gadg.json();
     return result;
   };
@@ -60,7 +60,7 @@ export default function EditProduct() {
     if (changedItem !== gadg) {
       event.preventDefault();
       console.log(JSON.stringify(changedItem));
-      const response = await fetch("http://localhost:4000/gadg/" + _id, {
+      const response = await fetch("/gadg/" + _id, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(changedItem),
@@ -74,7 +74,7 @@ export default function EditProduct() {
   }
 
   const fileUploadHandler = (event) => {
-    const url = "http://localhost:4000/upload";
+    const url = "/upload";
     const formData = new FormData();
 
     formData.append("image", event.target.files[0]);
@@ -130,7 +130,7 @@ export default function EditProduct() {
       />
       {changedItem.image ? (
         <img
-          src={`http://localhost:4000/assets/${changedItem.image}`}
+          src={`/assets/${changedItem.image}`}
           width="auto"
           height="100"
           alt="productImage"
