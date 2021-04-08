@@ -1,13 +1,31 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
-import toggle_on from "../assets/images/toggle-on.svg";
-//import toggle_off from "../assets/images/toggle-off.svg";
+const Toggle = ({ available }) => {
+  return (
+    <Switch>
+      <Sign state={available} />
+    </Switch>
+  );
+};
 
-export default function Toggle() {
-  return <Img src={toggle_on} />;
-}
-
-const Img = styled.img`
-  width: 5vw;
-  height: auto;
+const Switch = styled.label`
+  width: auto;
+  height: 1rem;
 `;
+
+const Sign = styled.div`
+  height: 0.8rem;
+  width: 0.8rem;
+  background: ${(props) =>
+    props.state === true ? "var(--two)" : "var(--one)"};
+  border-radius: 50%;
+  box-shadow: var(--dark) 2px 1px 3px;
+  margin: 0.3rem 0.5rem 0.3rem auto;
+`;
+
+export default Toggle;
+
+Toggle.propTypes = {
+  available: PropTypes.bool,
+};

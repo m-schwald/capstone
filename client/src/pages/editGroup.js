@@ -1,18 +1,23 @@
 import styled from "styled-components";
 
-import H3 from "../components/H3";
-import Container from "../components/Container";
-import IconGroup from "../components/IconGroup";
-
 export default function EditGroup() {
   return (
     <Container>
-      <H3 text="edit group" />
-      <BigIconGroup />
+      <h3>edit group</h3>
+      <p>in progress...</p>
     </Container>
   );
 }
 
-const BigIconGroup = styled(IconGroup)`
-  height: 20vh;
+const Container = styled.div`
+  padding: 3rem 1rem;
+
+  h3 {
+    margin: 1rem;
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+  }
 `;

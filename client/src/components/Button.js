@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Button = styled.button`
   margin: 0.5rem auto;
@@ -8,20 +8,26 @@ const Button = styled.button`
   color: var(--dark);
   border: none;
   transition: ease-in-out all 0.4s;
-  min-width: 40%;
+  min-width: 25%;
+  font-family: "Edo";
 
   &:hover {
-    background: var(--one);
+    background: var(--dark);
     color: var(--light);
   }
 
   &:active {
-    background: var(--one);
     color: var(--light);
   }
+
   &:focus {
     outline: none;
   }
+  ${(props) =>
+    props.cancel &&
+    css`
+      background: var(--one);
+    `};
 `;
 
 export default Button;

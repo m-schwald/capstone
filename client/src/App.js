@@ -2,80 +2,88 @@ import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 
-import loadFromLocal from "./lib/loadFromLocal";
-import saveToLocal from "./lib/saveToLocal";
-
 import Nav from "./components/Nav";
 
 import Product from "./pages/product";
-import FormNewProduct from "./pages/formNewProduct";
+import FormNewProduct from "./pages/newProduct";
 import Offering from "./pages/offering";
-import Dashboard from "./pages/dashboard";
 import Searching from "./pages/searching";
 import Welcome from "./pages/welcome";
 import EditGroup from "./pages/editGroup";
 import EditProfile from "./pages/editProfile";
+import EditProduct from "./pages/editProduct";
 
 function App() {
-  const ITEM_KEY = "itemList";
-  /* const USER_KEY = "userList";
-  const GROUP_KEY = "groupList"; */
+  const [userId, setUserId] = useState("60618e1876b0a8d849265636");
+  const [user, setUser] = useState({});
+  const [items, setItems] = useState({});
 
-  const [items, setItems] = useState(loadFromLocal(ITEM_KEY) ?? []);
-  /*   const [users, setUsers] = useState(loadFromLocal(USER_KEY) ?? []);
-  const [groups, setGroups] = useState(loadFromLocal(GROUP_KEY) ?? []); */
+  const getUser = async () => {
+    const data = await fetch("http://localhost:4000/user/" + userId);
+    const result = await data.json();
+    return result;
+  };
+  const loginUser = async () => {
+    const userToLogin = await getUser();
+    setUser(userToLogin);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => loginUser(), [userId]);
 
-  useEffect(() => {
-    saveToLocal(ITEM_KEY, items);
-  }, [items]);
+  const groupId = "Motorradfreunde Oberrimsingen";
 
-  /*  useEffect(() => {
-    saveToLocal(USER_KEY, users);
-  }, [users]);
+  const getGadg = async () => {
+    const data = await fetch("http://localhost:4000/gadg");
+    const result = await data.json();
+    return result;
+  };
 
-  useEffect(() => {
-    saveToLocal(GROUP_KEY, groups);
-  }, [groups]); */
+  const getAllGadges = async () => {
+    const gadges = await getGadg();
+    setItems(gadges);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => getAllGadges(), []);
 
-  useEffect(() => {
-    fetch("http://localhost:4000/get-gadg")
-      .then((result) => result.json())
-      .then((item) => setItems(item))
-      .catch((error) => console.error(error.message));
-  }, []);
+  const onReload = () => {
+    loginUser();
+  };
 
   return (
-    <>
-      <Main>
-        <Nav />
-        <Switch>
-          <Route exact path="/">
-            <Welcome />
-          </Route>
-          <Route path="/product">
-            <Product />
-          </Route>
-          <Route path="/formNewProduct">
-            <FormNewProduct />
-          </Route>
-          <Route path="/offering">
-            <Offering items={items} />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/searching">
-            <Searching items={items} />
-          </Route>
-          <Route path="/editGroup">
-            <EditGroup />
-          </Route>
-          <Route path="/editProfile">
-            <EditProfile />
-          </Route>
-        </Switch>
-      </Main>
-    </>
+    <Main>
+      <Nav user={user} groupId={groupId} setUserId={setUserId} />
+      <Switch>
+        <Route exact path="/">
+          <Welcome />
+        </Route>
+        <Route path="/product/:_id">
+          <Product userId={userId} />
+        </Route>
+        <Route path="/editProduct/:_id">
+          <EditProduct items={items} />
+        </Route>
+        <Route path="/newProduct">
+          <FormNewProduct userId={userId} groupId={groupId} />
+        </Route>
+        <Route path="/offering">
+          <Offering gadges={items} userId={userId} groupId={groupId} />
+        </Route>
+        <Route path="/searching">
+          <Searching gadges={items} userId={userId} groupId={groupId} />
+        </Route>
+        <Route path="/editGroup">
+          <EditGroup userId={userId} groupId={groupId} />
+        </Route>
+        <Route path="/editProfile">
+          <EditProfile
+            userId={userId}
+            groupId={groupId}
+            user={user}
+            onReload={onReload}
+          />
+        </Route>
+      </Switch>
+    </Main>
   );
 }
 

@@ -1,28 +1,27 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import DelayLink from "react-delay-link";
 
 import ContainerFlat from "../components/ContainerFlat";
 import Button from "../components/Button";
 
-import logo from "../assets/images/logo.png";
+import logoStart from "../assets/images/bgbigger(5).svg";
+import { useState } from "react";
 
 export default function Welcome() {
+  const [animate, setAnimate] = useState(false);
+
   return (
     <WelcomePage>
-      <LogoWelcome src={logo} />
-      <Button>
-        <Link className="link" exact to="./searching">
+      <LogoWelcome animate={animate} src={logoStart} />
+
+      <Button onClick={() => setAnimate(!animate)}>
+        <Link delay={800} replace={false} exact to="./searching">
           i need a gadg
         </Link>
       </Button>
-      <Button>
-        <Link exact to="./offering">
+      <Button onClick={() => setAnimate(!animate)}>
+        <Link delay={800} replace={false} exact to="./offering">
           i got a gadg
-        </Link>
-      </Button>
-      <Button>
-        <Link exact to="./dashboard">
-          let's just start
         </Link>
       </Button>
     </WelcomePage>
@@ -31,21 +30,19 @@ export default function Welcome() {
 
 const WelcomePage = styled(ContainerFlat)`
   display: flex;
+
   justify-content: center;
   align-items: center;
 `;
 
 const LogoWelcome = styled.img`
-  height: 35vh;
-  margin: 5rem 2rem 2rem;
-  transition: 0.5s ease-in-out all;
-
-  &:hover {
-    transform: scale(1.05);
-  }
+  height: ${(props) => (props.animate ? "1000vh" : "70vh")};
+  margin: ${(props) => (props.animate ? "-400vh 0" : "0")};
+  opacity: ${(props) => (props.animate ? "0" : "1")};
+  transition: 1.3s all ease-out;
 `;
 
-const Link = styled(NavLink)`
+const Link = styled(DelayLink)`
   text-decoration: none;
   color: var(--dark);
 `;

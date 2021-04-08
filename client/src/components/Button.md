@@ -1,5 +1,11 @@
-## Button
+This is a button:
 
 ```js
-<Button text="wonderful button>
+<Button>a button</Button>
+```
+
+there is also a special cancel-Button to clear forms and go back:
+
+```js
+<Button cancel> cancel </Button>
 ```

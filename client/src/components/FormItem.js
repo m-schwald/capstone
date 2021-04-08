@@ -1,47 +1,158 @@
 import styled from "styled-components";
+import { useState } from "react";
+import { useHistory } from "react-router";
+import PropTypes from "prop-types";
 
-import Toggle from "../components/IconToggle";
+import Toggle from "../components/IconToggleChange";
 import Button from "../components/Button";
-import H3 from "../components/H3";
+import FlexboxRow from "./FlexboxRow";
 
 import add_image from "../assets/images/add_image.svg";
 
-export default function FormItem() {
-  /*   function onCreateItem(event) {
+export default function FormItem({ userId, groupId }) {
+  let history = useHistory();
+  const goBack = () => {
+    history.goBack();
+  };
+
+  let imageInput = null;
+  let available = true;
+  const user = userId;
+  const group = groupId;
+
+  const initialItem = {
+    gadgName: "",
+    isAvailable: available,
+    image: "",
+    description: "",
+    category: "",
+    size: "",
+    facts: "",
+    personalInfo: "",
+    ownerId: user,
+    groupId: group,
+  };
+  const [newItem, setNewItem] = useState(initialItem);
+
+  const handleChange = (event) => {
+    const field = event.target;
+    const value = field.value;
+    setNewItem({
+      ...newItem,
+      [field.name]: value,
+    });
+  };
+
+  async function handleUpdate(event) {
     event.preventDefault();
-    const form = event.target;
-    const inputGadgName = form.gadgName;
-    onCreateItem(inputGadgName.value);
-    form.reset();
-    inputGadgName.focus();
-  } */
+    console.log(JSON.stringify(newItem));
+    const response = await fetch("http://localhost:4000/create-gadg", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newItem),
+    });
+    console.log(await response.json());
+    history.push(`/offering`);
+  }
+
+  const fileUploadHandler = (event) => {
+    const url = "http://localhost:4000/upload";
+    const formData = new FormData();
+
+    formData.append("image", event.target.files[0]);
+
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((result) => result.json())
+      .then((image) => setNewItem({ ...newItem, image: image.name }))
+      .catch((error) => console.error(error.message));
+  };
+
+  const removeImage = () => {
+    setNewItem({
+      ...newItem,
+      image: "",
+    });
+  };
+
+  const onAvailable = (state) => {
+    setNewItem({
+      ...newItem,
+      isAvailable: state,
+    });
+  };
 
   return (
-    <ContainerForm>
+    <ContainerForm onSubmit={handleUpdate}>
       <H3 text="add a new gadg" />
       <Flexbox>
-        <InputName name="gadgName" placeholder="gadg-name" maxlength="30" />
-        <Toggle />
+        <InputName
+          name="gadgName"
+          placeholder="gadg-name"
+          maxlength="30"
+          onChange={handleChange}
+          value={newItem.gadgName}
+        />
+        <Toggle
+          name="isAvailable"
+          gadg={newItem}
+          available={newItem?.isAvailable}
+          onAvailable={onAvailable}
+        />
       </Flexbox>
-      <AddImg src={add_image} />
+      <input
+        type="file"
+        name="image"
+        placeholder="Add image"
+        onChange={fileUploadHandler}
+        style={{ display: "none" }}
+        ref={(input) => (imageInput = input)}
+      />
+      {newItem.image ? (
+        <UploadedImage
+          src={`http://localhost:4000/assets/${newItem.image}`}
+          width="auto"
+          height="100"
+          alt="productImage"
+        />
+      ) : (
+        <img src={add_image} width="auto" height="100" alt="productImage" />
+      )}
+      <ImageWrapper>
+        <ImageButton type="button" onClick={() => imageInput.click()}>
+          choose image
+        </ImageButton>
+        <ImageButton onClick={removeImage} type="button">
+          Remove Image
+        </ImageButton>
+      </ImageWrapper>
       <InputText
+        name="description"
         placeholder="please describe your gadg"
         rows="5"
         maxlength="300"
+        onChange={handleChange}
+        value={newItem.description}
       />
       <Flexbox>
-        <Label htmlFor="choose_category">
-          gadg-category
-          <Choice id="choose_category">
+        <Label htmlFor="category">
+          category
+          <Choice
+            name="category"
+            onChange={handleChange}
+            value={newItem.category}
+          >
             <option value="snow">snow</option>
             <option value="bike">bike</option>
             <option value="tool">tool</option>
             <option value="car">car</option>
           </Choice>
         </Label>
-        <Label htmlFor="choose_size">
-          gadg-size
-          <Choice id="choose_size">
+        <Label htmlFor="size" onChange={handleChange} value={newItem.size}>
+          size
+          <Choice name="size">
             <option value="S">S</option>
             <option value="M">M</option>
             <option value="L">L</option>
@@ -49,14 +160,29 @@ export default function FormItem() {
           </Choice>
         </Label>
       </Flexbox>
-      <InputText placeholder="facts about your gadg" rows="2" maxlength="100" />
+      <InputText
+        name="facts"
+        placeholder="facts about your gadg"
+        rows="2"
+        maxlength="100"
+        onChange={handleChange}
+        value={newItem.facts}
+      />
 
       <InputText
+        name="personalInfo"
         placeholder="personal preferences for usage"
         rows="2"
         maxlength="100"
+        onChange={handleChange}
+        value={newItem.personalInfo}
       />
-      <ButtonCentered>offer gadg</ButtonCentered>
+      <FlexboxRow>
+        <Button cancel onClick={goBack}>
+          cancel
+        </Button>
+        <Button type="submit">offer gadg</Button>
+      </FlexboxRow>
     </ContainerForm>
   );
 }
@@ -79,15 +205,8 @@ const InputName = styled.input`
   }
 `;
 
-const AddImg = styled.img`
-  width: 60%;
-  margin: 0 auto;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-`;
-
 const InputText = styled.textarea`
-  width: 80%;
+  width: 100%;
   margin: 0.5rem auto;
   padding: 0.5rem;
 
@@ -103,14 +222,35 @@ const Choice = styled.select`
 
 const Flexbox = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 const Label = styled.label`
   font-size: 0.8rem;
 `;
 
-const ButtonCentered = styled(Button)`
-  width: 30%;
-  margin: 0 auto;
+const H3 = styled.h3`
+  margin: 1rem auto;
 `;
+
+const ImageWrapper = styled.section`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem;
+`;
+
+const ImageButton = styled(Button)`
+  outline: none;
+  cursor: pointer;
+  font-size: 0.7rem;
+`;
+const UploadedImage = styled.img`
+  object-fit: contain;
+`;
+
+FormItem.propTypes = {
+  userId: PropTypes.string,
+  groupId: PropTypes.string,
+};

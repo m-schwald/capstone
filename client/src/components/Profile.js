@@ -1,50 +1,122 @@
 import styled from "styled-components";
-import { bool, func } from "prop-types";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
-import IconUser from "./IconUser";
 import Button from "./Button";
+import FlexboxRow from "./FlexboxRow";
 
-export default function Profile({ openProfile, setOpenProfile }) {
+import home from "../assets/images/home.svg";
+import phone from "../assets/images/phone.svg";
+import mail from "../assets/images/mail.svg";
+
+export default function Profile({
+  openProfile,
+  setOpenProfile,
+  isStatic,
+  user,
+}) {
+  const imageUser = isStatic
+    ? user.image
+    : user?.image
+    ? `/users/${user.image}`
+    : "";
+
   return (
-    <NavContainer openProfile={openProfile}>
-      <IconUser />
-      <h4> username </h4>
-      <p> 0173 - 981 298 88</p>
-      <p> bling@schnupps.de</p>
-      <br />
-      <p> Berlin</p>
-
-      <Button>
-        <Link to="/editProfile" onClick={() => setOpenProfile(!openProfile)}>
-          edit profile
-        </Link>
-      </Button>
-      <Button onClick={() => setOpenProfile(!openProfile)}>
-        close profile
-      </Button>
+    <NavContainer isStatic={isStatic} openProfile={openProfile}>
+      <IconUser src={imageUser} />
+      <h4> {user.userName} </h4>
+      <h5>Motto:</h5>
+      <p> {user.motto}</p>
+      <h5>Contact:</h5>
+      <p>
+        <a href="tel:">
+          <Icon src={phone} /> {user.phone}
+        </a>
+      </p>
+      <p>
+        <a href="mailto:">
+          <Icon src={mail} /> {user.email}
+        </a>
+      </p>
+      <p>
+        <Icon src={home} />
+        {user.adress}
+      </p>
+      <h5>Interests:</h5>
+      <p> {user.interests}</p>
+      <h5>Groups:</h5>
+      <p> {user.groups}</p>
+      <FlexboxRow>
+        <Button>
+          <Link to="/editProfile" onClick={() => setOpenProfile(!openProfile)}>
+            edit profile
+          </Link>
+        </Button>
+        <Button onClick={() => setOpenProfile(!openProfile)}>
+          close profile
+        </Button>
+      </FlexboxRow>
     </NavContainer>
   );
 }
 
 const NavContainer = styled.div`
-  padding: 3rem 0 0 0;
-  position: fixed;
+  padding: 0;
+  position: ${(props) => (props.isStatic ? "static" : "fixed")};
   background: var(--onetransparent);
   top: 0;
   bottom: 0;
   right: 0;
-  width: 50vw;
-  height: 100vh;
+  width: ${(props) => (props.isStatic ? "70%" : "70vw")};
+  height: ${(props) => (props.isStatic ? "100%" : "100vh")};
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  align-items: center;
-  z-index: -1;
+  align-items: left;
+  z-index: ${(props) => (props.isStatic ? "1" : "1000")};
   transform: ${({ openProfile }) =>
     openProfile ? "translateX(00%)" : "translateX(100%)"};
   transition: ease-in-out 0.5s all;
+  h4 {
+    padding: 0 1rem;
+    margin: 1rem 0 0.5rem 0;
+  }
+  h5 {
+    text-align: left;
+    margin: 0.5rem 0 0 0;
+    padding: 0.2rem 2rem;
+    background: var(--dark);
+    color: var(--light);
+  }
+
+  p {
+    display: inline-block;
+    text-align: left;
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0.2rem 1rem 0.2rem 1rem;
+  }
+
+  Button {
+    width: 40%;
+    font-size: 0.8rem;
+  }
 `;
+
+const IconUser = styled.img`
+  height: auto;
+  width: 100%;
+  align-self: center;
+  margin: 0;
+`;
+
+const Icon = styled.img`
+  display: inline-block;
+  width: 0.8rem;
+  height: auto;
+  margin: 0 0.5rem 0 0;
+`;
+
 const Link = styled(NavLink)`
   color: var(--dark);
   text-align: center;
@@ -52,6 +124,8 @@ const Link = styled(NavLink)`
 `;
 
 Profile.propTypes = {
-  openProfile: bool.isRequired,
-  setOpenProfile: func.isRequired,
+  openProfile: PropTypes.bool,
+  setOpenProfile: PropTypes.func,
+  isStatic: PropTypes.bool,
+  user: PropTypes.any,
 };
