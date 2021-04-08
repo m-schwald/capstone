@@ -48,5 +48,6 @@
     "eslint": "^7.23.0",
     "eslint-plugin-react": "^7.23.1",
     "react-styleguidist": "^11.1.5"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }

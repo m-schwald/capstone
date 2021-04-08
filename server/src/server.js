@@ -30,7 +30,6 @@ const server = express();
 server.use(bodyParser.json());
 server.use(cors());
 server.use(fileUpload({ createParentPath: true }));
-server.use(express.static("./server/public/"));
 
 const DB_CONNECTION = process.env.DB_CONNECTION;
 //|| "mongodb://localhost:27017/gadg-supply";
@@ -70,6 +69,7 @@ server.post("/upload", async (request, response) => {
   }
 });
 
+server.use(express.static("./server/public/"));
 server.use(express.static(path.join(__dirname, "../../client/build")));
 
 server.get("/*", function (req, res) {
