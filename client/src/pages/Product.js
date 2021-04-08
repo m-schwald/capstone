@@ -8,7 +8,7 @@ import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
 import Image from "../components/Image";
 import ContainerFlat from "../components/ContainerFlat";
-import { StyledModal } from "../components/reusableModal";
+import { StyledModal } from "../components/ReusableModal";
 
 import phone from "../assets/images/phone.svg";
 import mail from "../assets/images/mail.svg";

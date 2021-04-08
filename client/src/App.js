@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Nav from "./components/Nav";
 
 import Product from "./pages/product";
-import FormNewProduct from "./pages/FormNewProduct";
+import FormNewProduct from "./pages/newProduct";
 import Offering from "./pages/offering";
 import Searching from "./pages/searching";
 import Welcome from "./pages/welcome";
@@ -62,7 +62,7 @@ function App() {
         <Route path="/editProduct/:_id">
           <EditProduct items={items} />
         </Route>
-        <Route path="/formNewProduct">
+        <Route path="/newProduct">
           <FormNewProduct userId={userId} groupId={groupId} />
         </Route>
         <Route path="/offering">

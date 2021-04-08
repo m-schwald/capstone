@@ -3,6 +3,9 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import fileUpload from "express-fileupload";
+import dotenv from "dotenv";
+import path from "path";
+import { dirname } from "./pathHelpers.js";
 
 import {
   gadgPost,
@@ -20,18 +23,23 @@ import {
   userChange,
 } from "../controller/user.controller.js";
 
-const connectionString = "mongodb://localhost:27017/gadg-supply";
+const __dirname = dirname(import.meta.url);
+dotenv.config();
 
 const server = express();
 server.use(bodyParser.json());
 server.use(cors());
 server.use(fileUpload({ createParentPath: true }));
-
 server.use(express.static("./server/public/"));
 
-mongoose.connect(connectionString, {
+const DB_CONNECTION = process.env.DB_CONNECTION;
+//|| "mongodb://localhost:27017/gadg-supply";
+//const connectionString = DB_CONNECTION;
+
+mongoose.connect(DB_CONNECTION, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 server.get("/", (request, response) => {
@@ -62,4 +70,11 @@ server.post("/upload", async (request, response) => {
   }
 });
 
-server.listen(4000);
+server.use(express.static(path.join(__dirname, "../../client/build")));
+
+server.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
+});
+
+const port = process.env.PORT || 4000;
+server.listen(port, () => console.log(`Server listens on port ${port}.`));

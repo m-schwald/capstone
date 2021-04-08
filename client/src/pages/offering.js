@@ -27,7 +27,7 @@ export default function Offering({ available, userId, gadges }) {
   return (
     <ContainerFlat>
       <ButtonCentered>
-        <StyledLink to="./formNewProduct"> add a new gadg</StyledLink>
+        <StyledLink to="./newProduct"> add a new gadg</StyledLink>
       </ButtonCentered>
       <H3> available </H3>
       <Flexbox>
