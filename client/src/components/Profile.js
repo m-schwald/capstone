@@ -64,7 +64,7 @@ const NavContainer = styled.div`
   bottom: 0;
   right: 0;
   width: ${(props) => (props.isStatic ? "70%" : "70vw")};
-  min-height: ${(props) => (props.isStatic ? "100%" : "100vh")};
+  min-height: 100%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 
 import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
 import ContainerFlat from "../components/ContainerFlat";
 import Link from "../components/Link";
-import { useEffect, useState } from "react";
 
 export default function Offering({ available, userId, gadges }) {
   const [items, setItems] = useState(gadges);

@@ -8,7 +8,7 @@ import Profile from "./Profile";
 import Group from "./Group";
 import Logo from "./Logo";
 
-import team from "../assets/images/group.png";
+import team from "../assets/images/group2.png";
 
 export default function Nav({ groupId, setUserId, isStatic, user }) {
   const [openNav, setOpenNav] = useState(false);
