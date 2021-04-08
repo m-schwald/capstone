@@ -41,9 +41,9 @@ mongoose.connect(DB_CONNECTION, {
   useFindAndModify: false,
 });
 
-server.get("/", (request, response) => {
+/* server.get("/", (request, response) => {
   response.json({ status: "gadg-server is running" });
-});
+}); */
 
 server.get("/gadg", gadgGet);
 server.post("/create-gadg", gadgPost);
