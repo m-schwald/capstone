@@ -20,7 +20,7 @@ export default createGlobalStyle`
 @font-face {
         font-family: "Edo"; 
         src: url(${EdoWoff}) format("woff"), url(${EdoWoff2}) format("woff2");
-        font-weight: 300; 
+        font-weight: 100; 
         font-style: normal;
     }
 

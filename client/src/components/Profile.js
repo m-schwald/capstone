@@ -28,16 +28,12 @@ export default function Profile({
       <h5>Motto:</h5>
       <p> {user.motto}</p>
       <h5>Contact:</h5>
-      <p>
-        <a href="tel:">
-          <Icon src={phone} /> {user.phone}
-        </a>
-      </p>
-      <p>
-        <a href="mailto:">
-          <Icon src={mail} /> {user.email}
-        </a>
-      </p>
+      <Contact href="tel:">
+        <Icon src={phone} /> {user.phone}
+      </Contact>
+      <Contact href="mailto:">
+        <Icon src={mail} /> {user.email}
+      </Contact>
       <p>
         <Icon src={home} />
         {user.adress}
@@ -68,7 +64,7 @@ const NavContainer = styled.div`
   bottom: 0;
   right: 0;
   width: ${(props) => (props.isStatic ? "70%" : "70vw")};
-  height: ${(props) => (props.isStatic ? "100%" : "100vh")};
+  min-height: ${(props) => (props.isStatic ? "100%" : "100vh")};
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
@@ -79,7 +75,7 @@ const NavContainer = styled.div`
   transition: ease-in-out 0.5s all;
   h4 {
     padding: 0 1rem;
-    margin: 1rem 0 0.5rem 0;
+    margin: 0.5rem 0 0 0;
   }
   h5 {
     text-align: left;
@@ -87,19 +83,20 @@ const NavContainer = styled.div`
     padding: 0.2rem 2rem;
     background: var(--dark);
     color: var(--light);
+    font-size: 0.7rem;
+    letter-spacing: 1px;
   }
-
   p {
     display: inline-block;
     text-align: left;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin: 0;
-    padding: 0.2rem 1rem 0.2rem 1rem;
+    padding: 0 1rem;
   }
-
   Button {
     width: 40%;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.2rem;
   }
 `;
 
@@ -121,6 +118,19 @@ const Link = styled(NavLink)`
   color: var(--dark);
   text-align: center;
   text-decoration: none;
+  padding: 0.2rem 0.5rem;
+  margin: 0;
+  font-size: 0.7rem;
+`;
+
+const Contact = styled.a`
+  display: inline-block;
+  text-align: left;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  text-decoration: none;
+  color: var(--dark);
 `;
 
 Profile.propTypes = {

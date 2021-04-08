@@ -10,7 +10,7 @@ export default function Group({ openGroup, setOpenGroup, isStatic, groupId }) {
   const [allUsers, setAllUsers] = useState([]);
 
   const getUser = async () => {
-    const data = await fetch("http://localhost:4000/user");
+    const data = await fetch("/user");
     const result = await data.json();
     return result;
   };

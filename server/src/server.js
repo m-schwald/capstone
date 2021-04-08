@@ -33,9 +33,9 @@ server.use(fileUpload({ createParentPath: true }));
 
 const DB_CONNECTION = process.env.DB_CONNECTION;
 //|| "mongodb://localhost:27017/gadg-supply";
-//const connectionString = DB_CONNECTION;
+const connectionString = DB_CONNECTION;
 
-mongoose.connect(DB_CONNECTION, {
+mongoose.connect(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

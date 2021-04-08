@@ -12,7 +12,7 @@ export default function Offering({ available, userId, gadges }) {
   const [items, setItems] = useState(gadges);
 
   useEffect(() => {
-    fetch("http://localhost:4000/gadg")
+    fetch("/gadg")
       .then((response) => response.json())
       .then((gadges) => setItems(gadges));
   }, []);
