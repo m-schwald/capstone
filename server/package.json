@@ -1,13 +1,17 @@
 {
-  "name": "server",
+  "name": "gadg-supply-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "gadg-supply api",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-schwald/capstone"
+  },
+  "author": "Maize",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -17,8 +21,9 @@
     "express-fileupload": "^1.2.1",
     "mongoose": "^5.12.0"
   },
-  "type": "module",
   "devDependencies": {
-    "eslint": "^7.23.0"
-  }
+    "eslint": "^7.23.0",
+    "nodemon": "^2.0.7"
+  },
+  "type": "module"
 }
