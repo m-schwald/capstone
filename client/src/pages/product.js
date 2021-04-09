@@ -259,6 +259,7 @@ const Flexbox = styled.section`
   display: flex;
   justify-content: flex-start;
   padding: 1rem 0;
+
   Button {
     ${media.tablet`
      font-size: 1.2rem; 

@@ -49,22 +49,21 @@ export default function Searching({ gadges, userId }) {
   };
 
   const data = items
-    ?.filter((value) => {
-      if (searchTerm === "") {
-        return value;
-      } else if (
-        value.gadgName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        value.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        value.facts.toLowerCase().includes(searchTerm.toLowerCase())
-      ) {
-        return value;
-      }
-      return value;
-    })
-    .filter((item) => item.ownerId !== userId)
+    ?.filter((item) => item.ownerId !== userId)
     .filter(byCategory)
     .filter(bySize)
-    .filter(byAvailability);
+    .filter(byAvailability)
+    .filter((gadg) => {
+      if (searchTerm === "") {
+        return gadg;
+      } else if (
+        gadg.gadgName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        gadg.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        gadg.facts.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return gadg;
+      }
+    });
 
   return (
     <ContainerFlat>
@@ -74,6 +73,7 @@ export default function Searching({ gadges, userId }) {
           type="text"
           onChange={(event) => {
             setSearchTerm(event.target.value);
+            console.log(event.target.value);
           }}
         />
 
@@ -129,7 +129,7 @@ const InputName = styled.input`
   font-size: 1rem;
 
   ${media.tablet`
-     padding: 1rem; 
+     padding: .5rem; 
   `}
 
   &:focus {
@@ -155,6 +155,7 @@ const FlexboxRow = styled.div`
      display:flex; 
      justify-content: space-evenly; 
      margin-top: .3rem; 
+     align-items: center;
   `}
   Button {
     ${media.tablet`
