@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import media from "../mediaSizes";
 
 import Button from "../components/Button";
 import CardOffering from "../components/CardOffering";
@@ -56,6 +57,15 @@ export default function Offering({ available, userId, gadges }) {
 
 const ButtonCentered = styled(Button)`
   margin: 1rem auto;
+  ${media.tablet`
+  margin: 2rem auto; 
+     min-width: 30%; 
+     font-size: 1.1rem;
+  `}
+  ${media.desktop`
+     min-width: 30%; 
+     font-size: 1.3rem;
+  `}
 `;
 
 const Flexbox = styled.div`

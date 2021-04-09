@@ -8,8 +8,6 @@ import CardOffering from "../components/CardOffering";
 import Button from "../components/Button";
 import Link from "../components/Link";
 
-import search from "../assets/images/search.svg";
-
 export default function Searching({ gadges, userId }) {
   const [availableOnly, setAvailableOnly] = useState(false);
   const [category, setCategory] = useState("all");
@@ -71,17 +69,15 @@ export default function Searching({ gadges, userId }) {
   return (
     <ContainerFlat>
       <FlexboxRow>
-        <Flexbox>
-          <InputName
-            placeholder="looking for...?"
-            type="text"
-            onChange={(event) => {
-              setSearchTerm(event.target.value);
-            }}
-          />
-          <Search src={search} />
-        </Flexbox>
-        <Flexbox>
+        <InputName
+          placeholder="looking for...?"
+          type="text"
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
+
+        <FlexboxRow>
           <Button
             disabled={!items}
             onClick={() => setAvailableOnly(!availableOnly)}
@@ -114,7 +110,7 @@ export default function Searching({ gadges, userId }) {
               ))}
             </select>
           </Label>
-        </Flexbox>
+        </FlexboxRow>
       </FlexboxRow>
       <Flexbox>
         {data.map((item) => (
@@ -129,13 +125,11 @@ export default function Searching({ gadges, userId }) {
 
 const InputName = styled.input`
   margin: 0;
-  padding: 0.3rem;
+  padding: 0.2rem 0.5rem;
   font-size: 1rem;
+
   ${media.tablet`
-     width: 30%; 
-  `}
-  ${media.desktop`
-     width: 20%; 
+     padding: 1rem; 
   `}
 
   &:focus {
@@ -144,30 +138,52 @@ const InputName = styled.input`
   }
 `;
 
-const Search = styled.img`
-  width: 4vw;
-  margin: 0 3vw 0;
-`;
-
 const Flexbox = styled.div`
   padding: 0.5rem 0;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
 `;
+
 const FlexboxRow = styled.div`
+  padding: 0.5rem 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
   ${media.tablet`
      display:flex; 
-     justify-content: space-around; 
-     
+     justify-content: space-evenly; 
+     margin-top: .3rem; 
   `}
+  Button {
+    ${media.tablet`
+     font-size: 1rem; 
+  `}
+  }
 `;
 
 const Label = styled.label`
   font-size: 0.8rem;
+  margin: 0 0.5rem;
+  ${media.tablet`
+     font-size: 1rem; 
+  `}
 
   select {
-    width: 80%;
+    display: block;
+    width: 100%;
+    height: 1.4rem;
+
+    ${media.tablet`
+    font-size: 1rem; 
+     width: 100%; 
+     height: 2rem; 
+  `}
+    ${media.desktop`
+     width: 100%; 
+     height: 2rem; 
+  `}
   }
 `;
 

@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import axios from "axios";
 import { NavLink, useParams, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+import media from "../mediaSizes";
 
 import Toggle from "../components/IconToggle";
 import Button from "../components/Button";
@@ -91,59 +92,76 @@ export default function Product({ userId }) {
           <Button onClick={deleteItem}>delete it!</Button>
         </StyledModal>
       </FlexboxRow>
-      <Img src={imageProduct} />
-      <Description>
-        <h5> Description </h5>
-        <p>{gadg.description}</p>
-      </Description>
+      <FlexboxRow2>
+        <Img src={imageProduct} />
+        <section>
+          <Description>
+            <h5> Description </h5>
+            <p>{gadg.description}</p>
+          </Description>
+          <Flexbox>
+            <FlexboxColumn>
+              <IconOwner
+                src={imageOwner}
+                show={gadg?.ownerId === userId}
+                onClick={() => setOwnerOpen(!ownerOpen)}
+              />
+              <StyledModal
+                show={ownerOpen}
+                handleClose={() => setOwnerOpen(false)}
+              >
+                {gadg.ownerId !== userId ? (
+                  <>
+                    <H5>{gadg.gadgName} </H5>
+                    <p>is owned by</p>
+                    <H5>{owner?.userName} </H5>
+                    <p>
+                      You can get it at <br />
+                      {owner?.adress}
+                    </p>
+                    <Flexbox>
+                      <Button>
+                        <a href="tel:">
+                          <Icon src={phone} />
+                        </a>
+                      </Button>
+                      <Button>
+                        <a href="mailto:">
+                          <Icon src={mail} />
+                        </a>
+                      </Button>
+                    </Flexbox>
+                  </>
+                ) : (
+                  <H5> you own this gadg</H5>
+                )}
+              </StyledModal>
+              <p>
+                Owner : <br /> {owner?.userName}
+              </p>
+              <p>
+                Size: <br /> {gadg.size}
+              </p>
+              <p>
+                category:
+                <br /> {gadg.category}
+              </p>
+            </FlexboxColumn>
+            <Description>
+              <h5> Facts </h5>
+              <p>{gadg.facts}</p>
+              <h5> preferences for usage </h5>
+              <p>{gadg.personalInfo}</p>
+            </Description>
+          </Flexbox>
+        </section>
+      </FlexboxRow2>
       <Flexbox>
-        <FlexboxColumn>
-          <IconOwner
-            src={imageOwner}
-            show={gadg?.ownerId === userId}
-            onClick={() => setOwnerOpen(!ownerOpen)}
-          />
-          <StyledModal show={ownerOpen} handleClose={() => setOwnerOpen(false)}>
-            <p>
-              {gadg.gadgName} is owned by
-              <br /> {owner?.userName}.
-            </p>
-            <p>
-              You can get it at <br />
-              {owner?.adress}
-            </p>
-            <Flexbox>
-              <Button>
-                <a href="tel:">
-                  <Icon src={phone} />
-                </a>
-              </Button>
-              <Button>
-                <a href="mailto:">
-                  <Icon src={mail} />
-                </a>
-              </Button>
-            </Flexbox>
-          </StyledModal>
-          <p>
-            Owner : <br /> {owner?.userName}
-          </p>
-          <p>
-            Size: <br /> {gadg.size}
-          </p>
-          <p>
-            category:
-            <br /> {gadg.category}
-          </p>
-        </FlexboxColumn>
-        <Description>
-          <h5> Facts </h5>
-          <p>{gadg.facts}</p>
-          <h5> preferences for usage </h5>
-          <p>{gadg.personalInfo}</p>
-        </Description>
+        <Button cancel onClick={goBack}>
+          go back
+        </Button>
+        <Button onClick={() => setOwnerOpen(!ownerOpen)}>get this gadg</Button>
       </Flexbox>
-      <Button onClick={goBack}>go back</Button>
     </ContainerFlat>
   );
 }
@@ -171,6 +189,13 @@ const Img = styled(Image)`
   margin: 0 auto;
   padding: 0;
   border-radius: 5%;
+
+  ${media.tablet`
+  margin: 1rem; 
+     width: 40vw; 
+     height: 40vw; 
+     object-fit: cover; 
+  `}
 `;
 
 const IconOwner = styled.img`
@@ -187,11 +212,19 @@ const FlexboxColumn = styled.div`
   justify-content: flex-start;
   align-items: center;
 
+  ${media.tablet`
+    padding: 0; 
+  `}
+
   p {
     padding: 0.5rem;
     margin: 0;
     font-size: 0.8rem;
     text-align: center;
+
+    ${media.tablet`
+    font-size: .9rem; 
+  `}
   }
 `;
 
@@ -199,11 +232,38 @@ const FlexboxRow = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${media.tablet`
+  align-items: flex-start; 
+     width: 90%;
+     margin: 0 auto; 
+     margin-top: 2rem;  
+  `}
+`;
+
+const FlexboxRow2 = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  ${media.tablet`
+  flex-direction: row-reverse; 
+  align-items: flex-start; 
+     width: 90%;
+     margin: 0 auto; 
+     
+  `}
 `;
 const Flexbox = styled.section`
   display: flex;
   justify-content: flex-start;
   padding: 1rem 0;
+  Button {
+    ${media.tablet`
+     font-size: 1.2rem; 
+  `}
+  }
 `;
 
 const Description = styled.div`
@@ -215,6 +275,10 @@ const Description = styled.div`
     border-left: solid var(--orange) 1px;
     text-align: justify;
     margin: 0.5rem 0;
+
+    ${media.tablet`
+    font-size: .9rem; 
+  `}
   }
   h5 {
     text-transform: lowercase;
@@ -223,6 +287,11 @@ const Description = styled.div`
     padding: 0.1rem 1rem 0.1rem 0;
     background: var(--dark);
     color: var(--light);
+
+    ${media.tablet`
+     font-size: 1rem; 
+     padding: 0.3rem 1rem 0.3rem 0;
+  `}
   }
 `;
 
@@ -230,12 +299,20 @@ const Icon = styled.img`
   width: 0.8rem;
   height: auto;
   margin: 0.3rem 0.3rem 0 0.4rem;
+
+  ${media.tablet`
+     width: 1.2rem;
+  `}
 `;
 
 const H3 = styled.h3`
   margin: 1rem auto;
   text-align: center;
   max-width: 60%;
+
+  ${media.tablet`
+     font-size: 1.5rem;  
+  `}
 `;
 
 const H5 = styled.h5`

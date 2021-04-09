@@ -73,7 +73,7 @@ const Flexbox = styled.div`
     margin: 1rem auto;
     ${media.tablet`
      min-width: 30%; 
-     font-size: 1.8rem;
+     font-size: 1rem;
   `}
     ${media.desktop`
      min-width: 20%; 
@@ -126,7 +126,7 @@ const NavContainer = styled.div`
     padding: 0.3rem;
 
     ${media.tablet`
-    font-size: 1.8rem; 
+    font-size: 1rem; 
     max-width: 50ch; 
     padding: 1rem 3rem; 
   `}

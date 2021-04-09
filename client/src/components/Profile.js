@@ -78,7 +78,7 @@ const NavContainer = styled.div`
   transition: ease-in-out 0.5s all;
 
   ${media.tablet`
-    width: ${(props) => (props.isStatic ? "70%" : "40vw")};
+    width: ${(props) => (props.isStatic ? "70%" : "30vw")};
   `}
   ${media.desktop`
     width: ${(props) => (props.isStatic ? "70%" : "30vw")};
@@ -92,8 +92,8 @@ const NavContainer = styled.div`
     margin: 0.5rem 0 0 0;
 
     ${media.tablet`
-    font-size: 2rem;
-    padding: 1rem; 
+    font-size: 1.3rem;
+    padding: .2rem 1rem; 
   `}
     ${media.desktop`
     font-size: 1.4rem; 
@@ -110,7 +110,7 @@ const NavContainer = styled.div`
     letter-spacing: 1px;
 
     ${media.tablet`
-    font-size: 1.3rem;
+    font-size: .8rem;
   `}
     ${media.desktop`
     font-size: 1rem;
@@ -125,7 +125,7 @@ const NavContainer = styled.div`
     padding: 0 1rem;
 
     ${media.tablet`
-    font-size: 1.8rem;
+    font-size: 1rem;
     padding: .5rem 2rem .5rem 3rem; 
   `}
     ${media.desktop`
@@ -139,8 +139,8 @@ const NavContainer = styled.div`
     padding: 0.4rem 0.2rem;
 
     ${media.tablet`
-    font-size: 1.5rem;
-    padding: .5rem 2rem; 
+    font-size: .7rem;
+    padding: .5rem 1rem; 
   `}
     ${media.desktop`
     font-size: 1rem;
@@ -169,8 +169,8 @@ const Icon = styled.img`
   margin: 0 0.5rem 0 0;
 
   ${media.tablet`
-    width: 2rem;
-    margin: 0 2rem 0 0 ; 
+    width: 1rem;
+    margin: 0 .5rem 0 0 ; 
   `}
   ${media.desktop`
     width: 1.2rem;
@@ -195,8 +195,8 @@ const Contact = styled.a`
   color: var(--dark);
 
   ${media.tablet`
-    font-size: 1.8rem;
-    padding: .5rem 2rem; 
+    font-size: 1rem;
+    padding: 0.1rem 1rem; 
   `}
   ${media.desktop`
     font-size: 1.2rem;

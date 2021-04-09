@@ -112,7 +112,7 @@ const LinkContainer = styled.div`
 const NavText = styled.p`
   font-size: 0.8rem;
   ${media.tablet`
-     font-size: 1.7rem;
+     font-size: 1.1rem;
   `}
   ${media.desktop`
   font-size: 1.3rem;

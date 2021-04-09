@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
+import media from "../mediaSizes";
 
 import Toggle from "../components/IconToggleChange";
 import Button from "../components/Button";
@@ -190,13 +191,20 @@ export default function FormItem({ userId, groupId }) {
 const ContainerForm = styled.form`
   width: 90%;
   padding: 1.5rem;
-  margin: 2rem auto 0 auto;
+  margin: 0 auto;
   display: flex;
   flex-flow: column nowrap;
+  ${media.tablet`
+     width: 60%; 
+  `}
+  ${media.desktop`
+     width: 40%; 
+  `}
 `;
 
 const InputName = styled.input`
   margin: 0.5rem;
+  padding: 0.5rem;
   font-size: 1.2rem;
 
   &:focus {

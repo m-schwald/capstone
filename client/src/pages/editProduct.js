@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import { useHistory, useParams } from "react-router";
 import { useEffect, useState } from "react";
+import media from "../mediaSizes";
 
 import Toggle from "../components/IconToggleChange";
 import FlexboxRow from "../components/FlexboxRow";
@@ -213,6 +214,12 @@ const ContainerForm = styled.form`
   margin: 2rem auto 0 auto;
   display: flex;
   flex-flow: column nowrap;
+  ${media.tablet`
+     width: 60%; 
+  `}
+  ${media.desktop`
+     width: 40%; 
+  `}
 
   img {
     object-fit: contain;
@@ -242,6 +249,11 @@ const InputText = styled.textarea`
 
 const Choice = styled.select`
   width: 80%;
+  ${media.tablet`
+     width: 100%;
+     height: 2rem;  
+     font-size: 1rem; 
+  `}
 `;
 
 const Flexbox = styled.div`
@@ -252,6 +264,9 @@ const Flexbox = styled.div`
 
 const Label = styled.label`
   font-size: 0.8rem;
+  ${media.tablet` 
+     font-size: 1rem; 
+  `}
 `;
 
 const H3 = styled.h3`
@@ -269,4 +284,7 @@ const ImageButton = styled(Button)`
   outline: none;
   cursor: pointer;
   font-size: 0.7rem;
+  ${media.tablet`
+     font-size: 1rem; 
+  `}
 `;

@@ -98,8 +98,8 @@ const NavContainer = styled.div`
       color: var(--light);
 
       ${media.tablet`
-      font-size: 1.4em; 
-      top: -3rem; 
+      font-size: 1em; 
+      top: -2rem; 
   `}
       ${media.desktop`
       font-size: 1rem;
@@ -122,7 +122,7 @@ const ButtonNav = styled(Button)`
   min-width: 70%;
   margin: 1rem;
   ${media.tablet`
-  font-size: 1.5em; 
+  font-size: 1.2em; 
   `}
   ${media.desktop`
   font-size: 1.5em; 

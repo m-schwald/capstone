@@ -39,7 +39,7 @@ const WelcomePage = styled(ContainerFlat)`
   Button {
     ${media.tablet`
      min-width: 30%; 
-     font-size: 1.8rem;
+     font-size: 1.2rem;
   `}
     ${media.desktop`
      min-width: 20%; 
