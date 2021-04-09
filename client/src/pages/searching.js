@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import media from "../mediaSizes";
 
 import ContainerFlat from "../components/ContainerFlat";
 import CardOffering from "../components/CardOffering";
@@ -69,50 +70,52 @@ export default function Searching({ gadges, userId }) {
 
   return (
     <ContainerFlat>
-      <Flexbox>
-        <InputName
-          placeholder="looking for...?"
-          type="text"
-          onChange={(event) => {
-            setSearchTerm(event.target.value);
-          }}
-        />
-        <Search src={search} />
-      </Flexbox>
-      <Flexbox>
-        <Button
-          disabled={!items}
-          onClick={() => setAvailableOnly(!availableOnly)}
-        >
-          {availableOnly ? "show all" : "available only"}
-        </Button>
-        <Label htmlFor="choose_category">
-          category
-          <select
-            id="choose_category"
-            onChange={(event) => setCategory(event.target.value)}
+      <FlexboxRow>
+        <Flexbox>
+          <InputName
+            placeholder="looking for...?"
+            type="text"
+            onChange={(event) => {
+              setSearchTerm(event.target.value);
+            }}
+          />
+          <Search src={search} />
+        </Flexbox>
+        <Flexbox>
+          <Button
+            disabled={!items}
+            onClick={() => setAvailableOnly(!availableOnly)}
           >
-            {uniqueCategories?.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </Label>
-        <Label htmlFor="choose_size">
-          size
-          <select
-            id="choose_size"
-            onChange={(event) => setSize(event.target.value)}
-          >
-            {uniqueSizes?.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </Label>
-      </Flexbox>
+            {availableOnly ? "show all" : "available only"}
+          </Button>
+          <Label htmlFor="choose_category">
+            category
+            <select
+              id="choose_category"
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              {uniqueCategories?.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </Label>
+          <Label htmlFor="choose_size">
+            size
+            <select
+              id="choose_size"
+              onChange={(event) => setSize(event.target.value)}
+            >
+              {uniqueSizes?.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </Label>
+        </Flexbox>
+      </FlexboxRow>
       <Flexbox>
         {data.map((item) => (
           <Link key={item._id} to={`/product/${item._id}`}>
@@ -128,6 +131,12 @@ const InputName = styled.input`
   margin: 0;
   padding: 0.3rem;
   font-size: 1rem;
+  ${media.tablet`
+     width: 30%; 
+  `}
+  ${media.desktop`
+     width: 20%; 
+  `}
 
   &:focus {
     outline: var(--orange) 1px solid;
@@ -145,6 +154,13 @@ const Flexbox = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+`;
+const FlexboxRow = styled.div`
+  ${media.tablet`
+     display:flex; 
+     justify-content: space-around; 
+     
+  `}
 `;
 
 const Label = styled.label`

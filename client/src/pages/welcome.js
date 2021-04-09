@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import DelayLink from "react-delay-link";
 import { useState } from "react";
+import media from "../mediaSizes";
 
 import ContainerFlat from "../components/ContainerFlat";
 import Button from "../components/Button";
 
 import logoStart from "../assets/images/bgbigger(5).svg";
-import bg from "../assets/background/1.jpg";
+import bg from "../assets/background/3.jpg";
 
 export default function Welcome() {
   const [animate, setAnimate] = useState(false);
@@ -32,9 +33,19 @@ export default function Welcome() {
 
 const WelcomePage = styled(ContainerFlat)`
   display: flex;
-
   justify-content: center;
   align-items: center;
+
+  Button {
+    ${media.tablet`
+     min-width: 30%; 
+     font-size: 1.8rem;
+  `}
+    ${media.desktop`
+     min-width: 20%; 
+     font-size: 1.3rem;
+  `}
+  }
 `;
 
 const LogoWelcome = styled.img`
@@ -51,6 +62,12 @@ const Background = styled.img`
   top: 0;
   bottom: 0;
   z-index: -1000;
+
+  ${media.tablet`
+  height: 100%;
+  width: 100vw;  
+  object-position: 0 70%; 
+  `}
 `;
 
 const Link = styled(DelayLink)`

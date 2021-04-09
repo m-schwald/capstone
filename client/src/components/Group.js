@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
+import media from "../mediaSizes";
 
 import Button from "./Button";
 import team from "../assets/images/group2.png";
@@ -25,28 +25,26 @@ export default function Group({ openGroup, setOpenGroup, isStatic, groupId }) {
   return (
     <NavContainer isStatic={isStatic} openGroup={openGroup}>
       <h4> {groupId} </h4>
-      <GroupPic src={team} />
-      <p>
-        Apples ducks straw, quail a ostriches donkey, hay hook cucumbers. Lamb
-        pig rooster sheep. . Onion organic orange
-      </p>
-      <section>
-        {allUsers?.map((user, index) => {
-          const imageUser = user?.image ? `/users/${user?.image}` : "";
-          return (
-            <UserCard key={index}>
-              <img src={imageUser} alt={user.userName} />
-            </UserCard>
-          );
-        })}
-      </section>
       <Flexbox>
-        <Button>
-          <Link to="/editGroup" onClick={() => setOpenGroup(!openGroup)}>
-            edit Group
-          </Link>
-        </Button>
-        <Button onClick={() => setOpenGroup(!openGroup)}>close Group</Button>
+        <GroupPic src={team} />
+        <div>
+          <p>
+            Apples ducks straw, quail a ostriches donkey, hay hook cucumbers.
+            Lamb pig rooster sheep. . Onion organic orange
+          </p>
+          <section>
+            {allUsers?.map((user, index) => {
+              const imageUser = user?.image ? `/users/${user?.image}` : "";
+              return (
+                <UserCard key={index}>
+                  <img src={imageUser} alt={user.userName} />
+                </UserCard>
+              );
+            })}
+          </section>
+
+          <Button onClick={() => setOpenGroup(!openGroup)}>close Group</Button>
+        </div>
       </Flexbox>
     </NavContainer>
   );
@@ -58,8 +56,29 @@ const Flexbox = styled.div`
   gap: 1vw;
   padding: 0.5rem;
 
+  ${media.tablet`
+  flex-flow: row nowrap;
+  `}
+  ${media.desktop`
+     flex-flow: row nowrap;
+  `}
+
+  div {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   Button {
-    margin: 1rem 0.5rem;
+    margin: 1rem auto;
+    ${media.tablet`
+     min-width: 30%; 
+     font-size: 1.8rem;
+  `}
+    ${media.desktop`
+     min-width: 20%; 
+     font-size: 1.1rem;
+  `};
   }
 `;
 
@@ -84,6 +103,16 @@ const NavContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 
+  h4 {
+    ${media.tablet`
+  font-size: 2rem; 
+  `}
+    ${media.desktop`
+    font-size: 2rem; 
+    margin: 1rem; 
+    padding: 0; 
+  `}
+  }
   section {
     display: flex;
     flex-flow: row nowrap;
@@ -95,12 +124,17 @@ const NavContainer = styled.div`
     text-align: center;
     margin: 0.3rem;
     padding: 0.3rem;
+
+    ${media.tablet`
+    font-size: 1.8rem; 
+    max-width: 50ch; 
+    padding: 1rem 3rem; 
+  `}
+    ${media.desktop`
+    font-size: 1rem; 
+    max-width: 50ch; 
+  `}
   }
-`;
-const Link = styled(NavLink)`
-  color: var(--dark);
-  text-align: center;
-  text-decoration: none;
 `;
 
 const GroupPic = styled.img`
@@ -110,6 +144,17 @@ const GroupPic = styled.img`
   border: double black 2px;
   margin: 0 auto;
   object-fit: cover;
+
+  ${media.tablet`
+    height: 15rem; 
+    width: 15rem; 
+    align-self: left; 
+  `}
+  ${media.desktop`
+    height: 15rem; 
+    width: 15rem; 
+    align-self: left; 
+  `}
 `;
 const UserCard = styled.div`
   width: 5vh;
@@ -121,6 +166,16 @@ const UserCard = styled.div`
     border-radius: 50%;
     border: black 1px solid;
   }
+  ${media.tablet`
+    width: 6vh; 
+    height: 6vh;
+    margin: 1rem;  
+  `}
+  ${media.desktop`
+  width: 8vh; 
+    height: 8vh;
+    margin: 1rem; 
+  `}
 `;
 
 Group.propTypes = {

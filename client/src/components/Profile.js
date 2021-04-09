@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import media from "../mediaSizes";
 
 import Button from "./Button";
 import FlexboxRow from "./FlexboxRow";
@@ -23,7 +24,9 @@ export default function Profile({
 
   return (
     <NavContainer isStatic={isStatic} openProfile={openProfile}>
-      <IconUser src={imageUser} />
+      <article>
+        <IconUser src={imageUser} />
+      </article>
       <h4> {user.userName} </h4>
       <h5>Motto:</h5>
       <p> {user.motto}</p>
@@ -34,10 +37,10 @@ export default function Profile({
       <Contact href="mailto:">
         <Icon src={mail} /> {user.email}
       </Contact>
-      <p>
+      <Contact>
         <Icon src={home} />
         {user.adress}
-      </p>
+      </Contact>
       <h5>Interests:</h5>
       <p> {user.interests}</p>
       <h5>Groups:</h5>
@@ -73,9 +76,29 @@ const NavContainer = styled.div`
   transform: ${({ openProfile }) =>
     openProfile ? "translateX(00%)" : "translateX(100%)"};
   transition: ease-in-out 0.5s all;
+
+  ${media.tablet`
+    width: ${(props) => (props.isStatic ? "70%" : "40vw")};
+  `}
+  ${media.desktop`
+    width: ${(props) => (props.isStatic ? "70%" : "30vw")};
+  `}
+
+  article {
+    background: var(--dark);
+  }
   h4 {
     padding: 0 1rem;
     margin: 0.5rem 0 0 0;
+
+    ${media.tablet`
+    font-size: 2rem;
+    padding: 1rem; 
+  `}
+    ${media.desktop`
+    font-size: 1.4rem; 
+    padding: 0 2rem; 
+  `}
   }
   h5 {
     text-align: left;
@@ -85,26 +108,58 @@ const NavContainer = styled.div`
     color: var(--light);
     font-size: 0.7rem;
     letter-spacing: 1px;
+
+    ${media.tablet`
+    font-size: 1.3rem;
+  `}
+    ${media.desktop`
+    font-size: 1rem;
+  `}
   }
   p {
     display: inline-block;
+    color: var(--dark);
     text-align: left;
     font-size: 0.8rem;
     margin: 0;
     padding: 0 1rem;
+
+    ${media.tablet`
+    font-size: 1.8rem;
+    padding: .5rem 2rem .5rem 3rem; 
+  `}
+    ${media.desktop`
+    font-size: 1.2rem;
+    padding: .5rem 2rem; 
+  `}
   }
   Button {
     width: 40%;
     font-size: 0.7rem;
     padding: 0.4rem 0.2rem;
+
+    ${media.tablet`
+    font-size: 1.5rem;
+    padding: .5rem 2rem; 
+  `}
+    ${media.desktop`
+    font-size: 1rem;
+    padding: .3rem 2rem; 
+  `}
   }
 `;
 
 const IconUser = styled.img`
   height: auto;
   width: 100%;
-  align-self: center;
-  margin: 0;
+  margin: 0 auto;
+
+  ${media.desktop`
+    width: 50%;
+    padding:  .2rem; 
+    margin: 0 2rem; 
+    border: inset 4px var(--light);
+  `}
 `;
 
 const Icon = styled.img`
@@ -112,15 +167,22 @@ const Icon = styled.img`
   width: 0.8rem;
   height: auto;
   margin: 0 0.5rem 0 0;
+
+  ${media.tablet`
+    width: 2rem;
+    margin: 0 2rem 0 0 ; 
+  `}
+  ${media.desktop`
+    width: 1.2rem;
+    margin: 0 1rem 0 0 ; 
+  `}
 `;
 
 const Link = styled(NavLink)`
   color: var(--dark);
   text-align: center;
   text-decoration: none;
-  padding: 0.2rem 0.5rem;
   margin: 0;
-  font-size: 0.7rem;
 `;
 
 const Contact = styled.a`
@@ -131,6 +193,15 @@ const Contact = styled.a`
   padding: 0.2rem 1rem 0.2rem 1rem;
   text-decoration: none;
   color: var(--dark);
+
+  ${media.tablet`
+    font-size: 1.8rem;
+    padding: .5rem 2rem; 
+  `}
+  ${media.desktop`
+    font-size: 1.2rem;
+    padding: .3rem 2rem; 
+  `}
 `;
 
 Profile.propTypes = {

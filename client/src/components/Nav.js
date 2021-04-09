@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useRef, useState } from "react";
 import { useOnClickOutside } from "../hooks";
 import PropTypes from "prop-types";
+import media from "../mediaSizes";
 
 import SideNav from "./SideNav";
 import Profile from "./Profile";
@@ -77,7 +78,6 @@ export default function Nav({ groupId, setUserId, isStatic, user }) {
 
 const Navi = styled.div`
   position: ${(props) => (props.isStatic ? "static" : "absolute")};
-  width: ${(props) => (props.isStatic ? "100%" : "100vw")};
   top: 0;
   left: 0;
   right: 0;
@@ -104,10 +104,19 @@ const LogoContainer = styled.div`
 const LinkContainer = styled.div`
   margin: 0 3vw 0 auto;
   width: 25%;
+  ${media.tablet`
+  margin: 0 0 0 auto;
+  `}
 `;
 
 const NavText = styled.p`
   font-size: 0.8rem;
+  ${media.tablet`
+     font-size: 1.7rem;
+  `}
+  ${media.desktop`
+  font-size: 1.3rem;
+  `}
 `;
 
 const Icon = styled.img`
