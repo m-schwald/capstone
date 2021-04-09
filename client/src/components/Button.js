@@ -10,10 +10,11 @@ const Button = styled.button`
   transition: ease-in-out all 0.4s;
   min-width: 25%;
   font-family: "Edo";
+  cursor: pointer;
 
   &:hover {
-    background: var(--dark);
-    color: var(--light);
+    background: var(--one);
+    box-shadow: 1px 1px 4px 1px var(--four);
   }
 
   &:active {
@@ -22,6 +23,7 @@ const Button = styled.button`
 
   &:focus {
     outline: none;
+    color: var(--light);
   }
   ${(props) =>
     props.cancel &&

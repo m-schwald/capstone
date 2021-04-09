@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import media from "../mediaSizes";
 
 import ContainerFlat from "../components/ContainerFlat";
 import CardOffering from "../components/CardOffering";
 import Button from "../components/Button";
 import Link from "../components/Link";
-
-import search from "../assets/images/search.svg";
 
 export default function Searching({ gadges, userId }) {
   const [availableOnly, setAvailableOnly] = useState(false);
@@ -50,69 +49,69 @@ export default function Searching({ gadges, userId }) {
   };
 
   const data = items
-    ?.filter((value) => {
-      if (searchTerm === "") {
-        return value;
-      } else if (
-        value.gadgName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        value.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        value.facts.toLowerCase().includes(searchTerm.toLowerCase())
-      ) {
-        return value;
-      }
-      return value;
-    })
-    .filter((item) => item.ownerId !== userId)
+    ?.filter((item) => item.ownerId !== userId)
     .filter(byCategory)
     .filter(bySize)
-    .filter(byAvailability);
+    .filter(byAvailability)
+    .filter((gadg) => {
+      if (searchTerm === "") {
+        return gadg;
+      } else if (
+        gadg.gadgName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        gadg.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        gadg.facts.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return gadg;
+      }
+    });
 
   return (
     <ContainerFlat>
-      <Flexbox>
+      <FlexboxRow>
         <InputName
           placeholder="looking for...?"
           type="text"
           onChange={(event) => {
             setSearchTerm(event.target.value);
+            console.log(event.target.value);
           }}
         />
-        <Search src={search} />
-      </Flexbox>
-      <Flexbox>
-        <Button
-          disabled={!items}
-          onClick={() => setAvailableOnly(!availableOnly)}
-        >
-          {availableOnly ? "show all" : "available only"}
-        </Button>
-        <Label htmlFor="choose_category">
-          category
-          <select
-            id="choose_category"
-            onChange={(event) => setCategory(event.target.value)}
+
+        <FlexboxRow>
+          <Button
+            disabled={!items}
+            onClick={() => setAvailableOnly(!availableOnly)}
           >
-            {uniqueCategories?.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </Label>
-        <Label htmlFor="choose_size">
-          size
-          <select
-            id="choose_size"
-            onChange={(event) => setSize(event.target.value)}
-          >
-            {uniqueSizes?.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </Label>
-      </Flexbox>
+            {availableOnly ? "show all" : "available only"}
+          </Button>
+          <Label htmlFor="choose_category">
+            category
+            <select
+              id="choose_category"
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              {uniqueCategories?.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </Label>
+          <Label htmlFor="choose_size">
+            size
+            <select
+              id="choose_size"
+              onChange={(event) => setSize(event.target.value)}
+            >
+              {uniqueSizes?.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </Label>
+        </FlexboxRow>
+      </FlexboxRow>
       <Flexbox>
         {data.map((item) => (
           <Link key={item._id} to={`/product/${item._id}`}>
@@ -126,18 +125,17 @@ export default function Searching({ gadges, userId }) {
 
 const InputName = styled.input`
   margin: 0;
-  padding: 0.3rem;
+  padding: 0.2rem 0.5rem;
   font-size: 1rem;
+
+  ${media.tablet`
+     padding: .5rem; 
+  `}
 
   &:focus {
     outline: var(--orange) 1px solid;
     background: var(--orange2);
   }
-`;
-
-const Search = styled.img`
-  width: 4vw;
-  margin: 0 3vw 0;
 `;
 
 const Flexbox = styled.div`
@@ -147,11 +145,46 @@ const Flexbox = styled.div`
   justify-content: center;
 `;
 
+const FlexboxRow = styled.div`
+  padding: 0.5rem 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  ${media.tablet`
+     display:flex; 
+     justify-content: space-evenly; 
+     margin-top: .3rem; 
+     align-items: center;
+  `}
+  Button {
+    ${media.tablet`
+     font-size: 1rem; 
+  `}
+  }
+`;
+
 const Label = styled.label`
   font-size: 0.8rem;
+  margin: 0 0.5rem;
+  ${media.tablet`
+     font-size: 1rem; 
+  `}
 
   select {
-    width: 80%;
+    display: block;
+    width: 100%;
+    height: 1.4rem;
+
+    ${media.tablet`
+    font-size: 1rem; 
+     width: 100%; 
+     height: 2rem; 
+  `}
+    ${media.desktop`
+     width: 100%; 
+     height: 2rem; 
+  `}
   }
 `;
 

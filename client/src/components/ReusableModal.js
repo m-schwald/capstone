@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import media from "../mediaSizes";
 
 import Button from "./Button";
 
@@ -31,6 +32,17 @@ const ContentDiv = styled.div`
   p,
   h5 {
     text-align: center;
+
+    ${media.tablet`
+     font-size: 1.2rem; 
+     margin: .5rem; 
+  `}
+  }
+  Button {
+    ${media.tablet`
+     font-size: 1.2rem; 
+     margin: .5rem auto; 
+  `}
   }
 `;
 

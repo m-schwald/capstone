@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import media from "../mediaSizes";
 
 import Image from "../components/Image";
 import Container from "./Container";
@@ -36,6 +37,14 @@ const Img = styled(Image)`
   z-index: -1;
   border-radius: 0;
   border: var(--one) 2px inset;
+  background: var(--light);
+
+  ${media.tablet`
+    height: 10rem; 
+  `}
+  ${media.desktop`
+    height: 13rem; 
+  `};
 `;
 
 const H4 = styled.h4`
@@ -48,15 +57,33 @@ const H4 = styled.h4`
   line-height: 1rem;
   height: 2rem;
   overflow: hidden;
+
+  ${media.tablet`
+    font-size: 1rem; 
+    margin: .5rem 1rem; 
+  `}
+  ${media.desktop`
+    font-size: 1rem; 
+    margin: 1rem 1rem; 
+  `}
 `;
 
 const CardContainer = styled(Container)`
   position: ${(props) => (props.isStatic ? "static" : "relative")};
-  width: ${(props) => (props.isStatic ? "6rem" : "25vw")};
+  width: 6rem;
   margin: 0.5rem;
   background: linear-gradient(var(--dark) 10%, var(--three));
   z-index: -3;
-  height: ${(props) => (props.isStatic ? "9rem" : "21vh")};
+  height: ${(props) => (props.isStatic ? "9rem" : "10rem")};
+
+  ${media.tablet`
+    height: 15rem; 
+    width: 10rem;
+  `}
+  ${media.desktop`
+  height: 18rem; 
+  width: 13rem; 
+  `}
 `;
 
 CardOffering.propTypes = {

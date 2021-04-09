@@ -9,7 +9,6 @@ import FormNewProduct from "./pages/newProduct";
 import Offering from "./pages/offering";
 import Searching from "./pages/searching";
 import Welcome from "./pages/welcome";
-import EditGroup from "./pages/editGroup";
 import EditProfile from "./pages/editProfile";
 import EditProduct from "./pages/editProduct";
 
@@ -70,9 +69,6 @@ function App() {
         </Route>
         <Route path="/searching">
           <Searching gadges={items} userId={userId} groupId={groupId} />
-        </Route>
-        <Route path="/editGroup">
-          <EditGroup userId={userId} groupId={groupId} />
         </Route>
         <Route path="/editProfile">
           <EditProfile

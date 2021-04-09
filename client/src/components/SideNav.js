@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import media from "../mediaSizes";
 
 import Button from "./Button";
 
@@ -72,6 +73,13 @@ const NavContainer = styled.div`
     openNav ? "translateX(0)" : "translateX(-100%)"};
   transition: ease-in-out 0.5s all;
 
+  ${media.tablet`
+  width: ${(props) => (props.isStatic ? "50%" : "35vw")};
+  `}
+  ${media.desktop`
+  width: ${(props) => (props.isStatic ? "50%" : "25vw")};
+  `}
+
   section {
     position: ${(props) => (props.isStatic ? "static" : "fixed")};
     bottom: 0;
@@ -85,9 +93,18 @@ const NavContainer = styled.div`
       top: -1.6rem;
       right: 0;
       padding: 0 1rem 0 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.8em;
       background: var(--dark);
       color: var(--light);
+
+      ${media.tablet`
+      font-size: 1em; 
+      top: -2rem; 
+  `}
+      ${media.desktop`
+      font-size: 1rem;
+      top: -2rem; 
+  `}
     }
   }
 `;
@@ -96,11 +113,20 @@ const Link = styled(NavLink)`
   color: var(--dark);
   text-align: center;
   text-decoration: none;
+
+  :hover {
+  }
 `;
 
 const ButtonNav = styled(Button)`
   min-width: 70%;
   margin: 1rem;
+  ${media.tablet`
+  font-size: 1.2em; 
+  `}
+  ${media.desktop`
+  font-size: 1.5em; 
+  `}
 `;
 const UserCard = styled.div`
   width: 8vw;
@@ -112,6 +138,13 @@ const UserCard = styled.div`
     border-radius: 50%;
     border: black 1px solid;
   }
+
+  ${media.tablet`
+     min-width: 3rem;  
+  `}
+  ${media.desktop`
+     max-width: 4rem; 
+  `}
 `;
 
 SideNav.propTypes = {

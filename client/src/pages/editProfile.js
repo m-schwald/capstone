@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router";
+import media from "../mediaSizes";
 import { useState, useEffect } from "react";
 
 import Button from "../components/Button";
@@ -43,76 +44,77 @@ export default function EditProfile({ user, userId, onReload }) {
 
   return (
     <Container onSubmit={handleUpdate}>
-      <H3 text="edit profile" />
       <ImageUser src={imageUser} />
-      <label>
-        name:
-        <input
-          name="userName"
-          value={changedUser?.userName}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        phone:
-        <input
-          name="phone"
-          value={changedUser?.phone}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        email:
-        <input
-          name="email"
-          value={changedUser?.email}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        adress:
-        <BiggerInput
-          name="adress"
-          rows="3"
-          maxlength="100"
-          value={changedUser?.adress}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        interests:
-        <BiggerInput
-          name="interests"
-          rows="3"
-          maxlength="100"
-          value={changedUser?.interests}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        motto:
-        <BiggerInput
-          name="motto"
-          rows="5"
-          maxlength="300"
-          value={changedUser?.motto}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        groups:
-        <input
-          name="groups"
-          value={changedUser?.groups}
-          onChange={handleChange}
-        />
-      </label>
-      <FlexboxRow>
-        <Button type="button" cancel onClick={goBack}>
-          cancel
-        </Button>
-        <Button type="submit">submit changes</Button>
-      </FlexboxRow>
+      <div>
+        <label>
+          name:
+          <input
+            name="userName"
+            value={changedUser?.userName}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          phone:
+          <input
+            name="phone"
+            value={changedUser?.phone}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          email:
+          <input
+            name="email"
+            value={changedUser?.email}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          adress:
+          <BiggerInput
+            name="adress"
+            rows="3"
+            maxlength="100"
+            value={changedUser?.adress}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          interests:
+          <BiggerInput
+            name="interests"
+            rows="3"
+            maxlength="100"
+            value={changedUser?.interests}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          motto:
+          <BiggerInput
+            name="motto"
+            rows="5"
+            maxlength="300"
+            value={changedUser?.motto}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          groups:
+          <input
+            name="groups"
+            value={changedUser?.groups}
+            onChange={handleChange}
+          />
+        </label>
+        <FlexboxRow>
+          <Button type="button" cancel onClick={goBack}>
+            cancel
+          </Button>
+          <Button type="submit">submit changes</Button>
+        </FlexboxRow>
+      </div>
     </Container>
   );
 }
@@ -127,6 +129,18 @@ const Container = styled.form`
   margin: 2rem auto 0 auto;
   flex-flow: column nowrap;
 
+  ${media.tablet`
+     width: 90%; 
+     flex-flow: row nowrap; 
+  `}
+
+  div {
+    width: 100%;
+    ${media.tablet`
+     margin-top: 3rem; 
+  `}
+  }
+
   label {
     display: flex;
     font-family: "Edo";
@@ -139,9 +153,23 @@ const Container = styled.form`
   input {
     margin: 0 0 0 0.5rem;
     width: 65%;
+    font-size: 0.8rem;
+    ${media.tablet`
+    font-size: 1rem; 
+    padding: .5rem; 
+  `}
+    ${media.desktop`
+  font-size: 1.2rem; 
+  `}
   }
   Button {
-    margin: 0 1rem;
+    margin: 1rem auto;
+    ${media.tablet`
+    font-size: 1rem; 
+  `}
+    ${media.desktop`
+  font-size: 1.2rem; 
+  `}
   }
 `;
 
@@ -150,16 +178,28 @@ const ImageUser = styled.img`
   width: 20vh;
   margin: 0 auto 0.5rem auto;
   border-radius: 50%;
+  ${media.tablet`
+    margin: 0 0 0 auto; 
+    border-radius: 0; 
+    width: 25vh; 
+    height: 25vh; 
+  `}
 `;
 
 const BiggerInput = styled.textarea`
-  margin: 0 0 0 0.5rem;
+  margin: 0 0 0.5rem 0.5rem;
+  padding: 0.3rem;
+  font-size: 0.8rem;
   width: 65%;
   height: auto;
-`;
-
-const H3 = styled.h3`
-  margin: 1rem auto;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  ${media.tablet`
+    font-size: 1rem; 
+    
+  `}
+  ${media.desktop`
+  font-size: 1.2rem; 
+  `}
 `;
 
 EditProfile.propTypes = {
