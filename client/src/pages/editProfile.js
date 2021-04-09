@@ -17,18 +17,15 @@ export default function EditProfile({ user, userId, onReload }) {
   }, [user]);
 
   const handleChange = (event) => {
-    const field = event.target;
-    const value = field.value;
+    event.preventDefault();
     setChangedUser({
       ...changedUser,
-      [field.name]: value,
+      [event.target.name]: event.target.value,
     });
   };
 
   let history = useHistory();
-  const goBack = () => {
-    history.goBack();
-  };
+  const goBack = () => history.goBack();
 
   const handleUpdate = async (event) => {
     event.preventDefault();

@@ -15,6 +15,8 @@ import phone from "../assets/images/phone.svg";
 import mail from "../assets/images/mail.svg";
 import trash from "../assets/images/trash.svg";
 import edit from "../assets/images/wrench.svg";
+import bg1 from "../assets/background/fog.jpg";
+import bg2 from "../assets/background/zahn2.png";
 
 export default function Product({ userId }) {
   const { _id } = useParams();
@@ -25,6 +27,14 @@ export default function Product({ userId }) {
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [ownerOpen, setOwnerOpen] = useState(false);
+
+  const [offsetY, setOffsetY] = useState(0);
+  const handleScroll = () => setOffsetY(window.pageYOffset);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const getGadg = async (id) => {
     const gadg = await fetch("/gadg/" + id);
@@ -67,104 +77,147 @@ export default function Product({ userId }) {
   }
 
   return (
-    <ContainerFlat>
-      <FlexboxRow>
-        <H3>{gadg.gadgName}</H3>
+    <>
+      <Parallax className="Parallax">
+        <ParallaxBg
+          src={bg1}
+          style={{ transform: `translateY(-${offsetY * 0.1}px)` }}
+        />
+        <ParallaxBg
+          src={bg2}
+          style={{ transform: `translateY(${offsetY * 0.7}px)` }}
+        />
+      </Parallax>
+      <ContainerFlat>
+        <FlexboxRow>
+          <H3>{gadg.gadgName}</H3>
 
-        <Toggle gadg={gadg} available={gadg.isAvailable} />
+          <Toggle gadg={gadg} available={gadg.isAvailable} />
 
-        <EditButton>
-          <NavLink to={`../EditProduct/${_id}`}>
-            <OwnerIcon src={edit} show={gadg?.ownerId === userId}></OwnerIcon>
-          </NavLink>
-        </EditButton>
+          <EditButton>
+            <NavLink to={`../EditProduct/${_id}`}>
+              <OwnerIcon src={edit} show={gadg?.ownerId === userId}></OwnerIcon>
+            </NavLink>
+          </EditButton>
 
-        <OwnerIcon
-          src={trash}
-          show={gadg?.ownerId === userId}
-          onClick={() => setDeleteOpen(!deleteOpen)}
-        ></OwnerIcon>
+          <OwnerIcon
+            src={trash}
+            show={gadg?.ownerId === userId}
+            onClick={() => setDeleteOpen(!deleteOpen)}
+          ></OwnerIcon>
 
-        <StyledModal show={deleteOpen} handleClose={() => setDeleteOpen(false)}>
-          <p>Do you really want to delete</p>
-          <H5> {gadg.gadgName} </H5>
-          <p>?</p>
-          <Button onClick={deleteItem}>delete it!</Button>
-        </StyledModal>
-      </FlexboxRow>
-      <FlexboxRow2>
-        <Img src={imageProduct} />
-        <section>
-          <Description>
-            <h5> Description </h5>
-            <p>{gadg.description}</p>
-          </Description>
-          <Flexbox>
-            <FlexboxColumn>
-              <IconOwner
-                src={imageOwner}
-                show={gadg?.ownerId === userId}
-                onClick={() => setOwnerOpen(!ownerOpen)}
-              />
-              <StyledModal
-                show={ownerOpen}
-                handleClose={() => setOwnerOpen(false)}
-              >
-                {gadg.ownerId !== userId ? (
-                  <>
-                    <H5>{gadg.gadgName} </H5>
-                    <p>is owned by</p>
-                    <H5>{owner?.userName} </H5>
-                    <p>
-                      You can get it at <br />
-                      {owner?.adress}
-                    </p>
-                    <Flexbox>
-                      <Button>
-                        <a href="tel:">
-                          <Icon src={phone} />
-                        </a>
-                      </Button>
-                      <Button>
-                        <a href="mailto:">
-                          <Icon src={mail} />
-                        </a>
-                      </Button>
-                    </Flexbox>
-                  </>
-                ) : (
-                  <H5> you own this gadg</H5>
-                )}
-              </StyledModal>
-              <p>
-                Owner : <br /> {owner?.userName}
-              </p>
-              <p>
-                Size: <br /> {gadg.size}
-              </p>
-              <p>
-                category:
-                <br /> {gadg.category}
-              </p>
-            </FlexboxColumn>
+          <StyledModal
+            show={deleteOpen}
+            handleClose={() => setDeleteOpen(false)}
+          >
+            <p>Do you really want to delete</p>
+            <H5> {gadg.gadgName} </H5>
+            <p>?</p>
+            <Button onClick={deleteItem}>delete it!</Button>
+          </StyledModal>
+        </FlexboxRow>
+        <FlexboxRow2>
+          <Img src={imageProduct} />
+          <section>
             <Description>
-              <h5> Facts </h5>
-              <p>{gadg.facts}</p>
-              <h5> preferences for usage </h5>
-              <p>{gadg.personalInfo}</p>
+              <h5> Description </h5>
+              <p>{gadg.description}</p>
             </Description>
-          </Flexbox>
-        </section>
-      </FlexboxRow2>
-      <Flexbox>
-        <Button cancel onClick={goBack}>
-          go back
-        </Button>
-        <Button onClick={() => setOwnerOpen(!ownerOpen)}>get this gadg</Button>
-      </Flexbox>
-    </ContainerFlat>
+            <Flexbox>
+              <FlexboxColumn>
+                <IconOwner
+                  src={imageOwner}
+                  show={gadg?.ownerId === userId}
+                  onClick={() => setOwnerOpen(!ownerOpen)}
+                />
+                <StyledModal
+                  show={ownerOpen}
+                  handleClose={() => setOwnerOpen(false)}
+                >
+                  {gadg.ownerId !== userId ? (
+                    <>
+                      <H5>{gadg.gadgName} </H5>
+                      <p>is owned by</p>
+                      <H5>{owner?.userName} </H5>
+                      <p>
+                        You can get it at <br />
+                        {owner?.adress}
+                      </p>
+                      <Flexbox>
+                        <Button>
+                          <a href="tel:">
+                            <Icon src={phone} />
+                          </a>
+                        </Button>
+                        <Button>
+                          <a href="mailto:">
+                            <Icon src={mail} />
+                          </a>
+                        </Button>
+                      </Flexbox>
+                    </>
+                  ) : (
+                    <H5> you own this gadg</H5>
+                  )}
+                </StyledModal>
+                <p>
+                  Owner : <br /> {owner?.userName}
+                </p>
+                <p>
+                  Size: <br /> {gadg.size}
+                </p>
+                <p>
+                  category:
+                  <br /> {gadg.category}
+                </p>
+              </FlexboxColumn>
+              <Description>
+                <h5> Facts </h5>
+                <p>{gadg.facts}</p>
+                <h5> preferences for usage </h5>
+                <p>{gadg.personalInfo}</p>
+              </Description>
+            </Flexbox>
+          </section>
+        </FlexboxRow2>
+        <Flexbox>
+          <Button cancel onClick={goBack}>
+            go back
+          </Button>
+          <Button onClick={() => setOwnerOpen(!ownerOpen)}>
+            get this gadg
+          </Button>
+        </Flexbox>
+      </ContainerFlat>
+    </>
   );
 }
+
+const Parallax = styled.section`
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -12;
+  background: white;
+`;
+const ParallaxBg = styled.img`
+  background-repeat: no-repeat;
+  position: absolute;
+  width: auto;
+  height: 130%;
+
+  object-fit: cover;
+  object-position: 0 30%;
+  opacity: 0.5;
+
+  &:last-child {
+    opacity: 1;
+    object-position: -0.5rem -26rem;
+  }
+`;
+
 const OwnerIcon = styled.img`
   display: none;
   width: 1.3rem;
