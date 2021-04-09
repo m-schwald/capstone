@@ -154,10 +154,12 @@ export default function FormItem({ userId, groupId }) {
         <Label htmlFor="size" onChange={handleChange} value={newItem.size}>
           size
           <Choice name="size">
+            <option value="XS">XS</option>
             <option value="S">S</option>
             <option value="M">M</option>
             <option value="L">L</option>
             <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
           </Choice>
         </Label>
       </Flexbox>
