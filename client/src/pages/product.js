@@ -131,6 +131,7 @@ export default function Product({ userId }) {
                   onClick={() => setOwnerOpen(!ownerOpen)}
                 />
                 <StyledModal
+                  id="testModal"
                   show={ownerOpen}
                   handleClose={() => setOwnerOpen(false)}
                 >
@@ -184,7 +185,7 @@ export default function Product({ userId }) {
           <Button cancel onClick={goBack}>
             go back
           </Button>
-          <Button onClick={() => setOwnerOpen(!ownerOpen)}>
+          <Button id="testButton" onClick={() => setOwnerOpen(!ownerOpen)}>
             get this gadg
           </Button>
         </Flexbox>

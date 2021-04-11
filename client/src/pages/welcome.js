@@ -13,11 +13,11 @@ export default function Welcome() {
   const [animate, setAnimate] = useState(false);
 
   return (
-    <WelcomePage>
+    <WelcomePage id="welcome">
       <Background src={bg} />
-      <LogoWelcome animate={animate} src={logoStart} />
+      <LogoWelcome animate={animate} src={logoStart} id="logo" />
 
-      <Button onClick={() => setAnimate(!animate)}>
+      <Button id="testLinkSearching" onClick={() => setAnimate(!animate)}>
         <Link delay={800} replace={false} exact to="./searching">
           i need a gadg
         </Link>

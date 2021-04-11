@@ -40,7 +40,7 @@ export default function SideNav({ openNav, setOpenNav, setUserId, isStatic }) {
         </Link>
       </ButtonNav>
 
-      <section>
+      <section className="testUser">
         <p> click your pic to log in</p>
         {allUsers?.map((user, index) => {
           const imageUser = user?.image ? `/users/${user?.image}` : "";

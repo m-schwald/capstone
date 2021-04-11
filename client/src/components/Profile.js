@@ -27,7 +27,7 @@ export default function Profile({
       <article>
         <IconUser src={imageUser} />
       </article>
-      <h4> {user.userName} </h4>
+      <h4 className="testUserName"> {user.userName} </h4>
       <h5>Motto:</h5>
       <p> {user.motto}</p>
       <h5>Contact:</h5>

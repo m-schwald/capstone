@@ -29,7 +29,7 @@ export default function Nav({ groupId, setUserId, isStatic, user }) {
 
   return (
     <Navi isStatic={isStatic}>
-      <LogoContainer ref={nodeNav}>
+      <LogoContainer className="testIcon" ref={nodeNav}>
         <Logo
           onClick={() => setOpenNav(!openNav)}
           openNav={openNav}
@@ -58,7 +58,7 @@ export default function Nav({ groupId, setUserId, isStatic, user }) {
         />
       </LinkContainer>
 
-      <LinkContainer ref={nodeProfile}>
+      <LinkContainer ref={nodeProfile} className="testProfile">
         <GroupBox
           onClick={() => setOpenProfile(!openProfile)}
           openProfile={openProfile}
